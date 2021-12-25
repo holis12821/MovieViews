@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MovieViews</string>
+
+    <string name="width">Width</string>
+    <string name="result">Result</string>
+    <string name="calculate_volume">Calculate Volume</string>
+    <string name="calculate_surface_area">Calculate Surface Area</string>
+    <string name="calculate_circumference">Calculate Circumference</string>
+
+    <string name="height">Height</string>
+    <string name="lenght">Length</string>
+    <string name="save">Save</string>
 </resources>
