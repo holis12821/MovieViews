@@ -13,6 +13,33 @@ buildscript {
     }
 }
 
+ext {
+    //Version Dependency Apps
+    appCompatVersion = '1.3.1'
+    activityktxVersion = '1.3.0-rc02'
+    coreVersion = '1.6.0'
+    constraintLayoutVersion = '2.1.2'
+    coroutinesVersion = '1.5.2'
+    coroutinesCoreVersion = '1.5.2'
+    espressoVersion = '3.4.0'
+    fragmentktxVersion = '1.3.5'
+    gsonConverterVersion = '2.9.0'
+    glideVersion = '4.12.0'
+    glideCompiler = '4.12.0'
+    junitVersion = '4.13.1'
+    junitExtversion = '1.1.3'
+    koinCoreVersion = '3.1.2'
+    koinAndroidVersion = '3.1.2'
+    koinTestVersion = '3.1.2'
+    lottieVersion = '3.4.0'
+    materialVersion = '1.4.0'
+    multidexVersion = '1.0.3'
+    okhttpVersion = '4.9.1'
+    okhttpLoggingInterceptorVersion = '4.9.1'
+    retrofitVersion = '2.9.0'
+    timberVersion = '4.7.1'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
