@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Space mobile less than 20dp-->
+    <dimen name="space_small">2dp</dimen>
+    <dimen name="space_small_medium">4dp</dimen>
+    <dimen name="space_medium_small">6dp</dimen>
+    <dimen name="space_medium">8dp</dimen>
+    <dimen name="space_medium_large">10dp</dimen>
+    <dimen name="space_large">12dp</dimen>
+    <dimen name="space_large_medium">14dp</dimen>
+    <dimen name="space_super_small">16dp</dimen>
+    <dimen name="space_super_medium">18dp</dimen>
+    
+    <!--Space mobile greater than 20dp-->
+    <dimen name="space_big_small">20dp</dimen>
+    <dimen name="space_big_medium">24dp</dimen>
+    <dimen name="space_big_large">30</dimen>
+    <dimen name="space_big">40dp</dimen>
+
+
+    <!--Space mobile greater than 100dp-->
+    <dimen name="space_heavy">240dp</dimen>
+
+
+    <!--Space typography text-->
+    <dimen name="space_text_small">2sp</dimen>
+    <dimen name="space_text_small_medium">4sp</dimen>
+    <dimen name="space_text_medium_small">6sp</dimen>
+    <dimen name="space_text_medium">8sp</dimen>
+    <dimen name="space_text_medium_large">10sp</dimen>
+    <dimen name="space_text_large">12sp</dimen>
+    <dimen name="space_text_large_medium">14sp</dimen>
+    <dimen name="space_text_super_small">16sp</dimen>
+    <dimen name="space_text_super_medium">18sp</dimen>
+    <dimen name="space_text_super_large">24sp</dimen>
+
+    <!--Space radius-->
+
+</resources>

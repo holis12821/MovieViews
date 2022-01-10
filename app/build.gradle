@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -40,6 +42,7 @@ dependencies {
 
     //core
     implementation "androidx.core:core-ktx:$coreVersion"
+    implementation "androidx.legacy:legacy-support-v4:$lagacySuportyversion"
     implementation "com.android.support:multidex:$multidexVersion"
 
     //Ui

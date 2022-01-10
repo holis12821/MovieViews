@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -32,6 +33,7 @@ ext {
     koinAndroidVersion = '3.1.2'
     koinTestVersion = '3.1.2'
     lottieVersion = '3.4.0'
+    lagacySuportyversion ='1.0.0'
     materialVersion = '1.4.0'
     multidexVersion = '1.0.3'
     navigationFragmentKtxVersion = '2.3.5'

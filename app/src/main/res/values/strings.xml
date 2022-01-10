@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">MovieViews</string>
+    <string name="app_name">The Movie DB</string>
+    <string name="home">Home</string>
+    <string name="movie">Movie</string>
+    <string name="tvShow">Tv Show</string>
+    <string name="detailMovie">Detail Movie</string>
+    <string name="detailTvShow">Detail Tv Show</string>
+    <string name="welcome">Welcome</string>
+    <string name="description_title">Millions of movies, TV shows and people to discover.</string>
+    <string name="popular">Whats a Popular</string>
+    <string name="see_all">See All</string>
+    <string name="free_watch">Free To Watch</string>
+    <string name="contentDescriptionImage">Image</string>
 </resources>

@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.16944444444444445" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_button_disable.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/default_dot.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bookmark_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bookmark_white.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bookmarked_white.xml" value="0.1" />
@@ -14,20 +16,35 @@
         <entry key="app/src/main/res/drawable/ic_error.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_loading.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_movie.xml" value="0.10185185185185185" />
         <entry key="app/src/main/res/drawable/ic_refresh_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_share_blue.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_tmdb_logo.xml" value="0.27314814814814814" />
+        <entry key="app/src/main/res/drawable/ic_tv_show.xml" value="0.10185185185185185" />
+        <entry key="app/src/main/res/drawable/selected_dot.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/tab_selector.xml" value="0.335" />
+        <entry key="app/src/main/res/font/font.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_course_reader.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_detail_course.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_detail_course.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/custom_separator.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/fragment_academy.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_detail_movie.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_module_content.xml" value="0.12183383991894631" />
         <entry key="app/src/main/res/layout/fragment_module_list.xml" value="0.12183383991894631" />
+        <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_tv_show.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_view_top_movie_adapter.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.165" />
       </map>
     </option>
   </component>
