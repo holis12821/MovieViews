@@ -16,26 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
  * extension function to specified view
  * */
 
-fun TextView.drawTextGradient(
-    context: Context,
-    vararg colorRes: Int
-) {
-    val floatArray = ArrayList<Float>(colorRes.size)
-    for (i in colorRes.indices) {
-        floatArray.add(i, i.toFloat().div(colorRes.size - 1))
-    }
-    val textShader: Shader = LinearGradient(
-        0f,
-        0f,
-        0f,
-        this.height.toFloat(),
-        colorRes.map { ContextCompat.getColor(context, it) }.toIntArray(),
-        floatArray.toFloatArray(),
-        Shader.TileMode.CLAMP
-    )
-    this.paint.shader = textShader
-}
-
 fun View.gone() {
     visibility = View.GONE
 }

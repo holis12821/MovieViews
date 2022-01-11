@@ -35,11 +35,11 @@
                         android:layout_height="@dimen/space_heavy"
                         android:contentDescription="@string/contentDescriptionImage"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/banner"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        tools:srcCompat="@drawable/banner"
                         />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -75,96 +75,171 @@
                     app:layout_scrollFlags="scroll">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_logo"
                         android:layout_width="@dimen/space_big"
                         android:layout_height="@dimen/space_big"
                         android:contentDescription="@string/contentDescriptionImage"
-                        app:srcCompat="@drawable/ic_tmdb_logo" />
+                        tools:srcCompat="@drawable/ic_tmdb_logo" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_movie_db"
                         style="@style/TextViewBold"
                         android:layout_marginStart="@dimen/space_big_medium"
-                        android:text="@string/app_name"
-                        android:textSize="@dimen/space_text_super_medium"/>
+                        android:textSize="@dimen/space_text_super_medium"
+                        tools:text="@string/app_name"/>
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_content"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_popular"
-                style="@style/TextViewBold_Dark"
-                android:text="@string/popular"
-                android:textSize="@dimen/space_text_super_small"
-                android:layout_marginTop="@dimen/space_big_medium"
-                android:layout_marginStart="@dimen/space_super_small"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_see_all_popular"
-                style="@style/TextViewBold_Dark"
-                android:text="@string/see_all"
-                android:textSize="@dimen/space_text_super_small"
-                android:layout_marginTop="@dimen/space_big_medium"
-                android:layout_marginEnd="@dimen/space_super_small"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/tv_popular"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_popular_movie"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_super_small"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/tv_popular"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_free_watch"
-                style="@style/TextViewBold_Dark"
-                android:layout_marginStart="@dimen/space_super_small"
-                android:layout_marginTop="@dimen/space_medium"
-                android:text="@string/free_watch"
-                android:textSize="@dimen/space_text_super_small"
-                app:layout_constraintTop_toBottomOf="@+id/rv_popular_movie"
-                app:layout_constraintStart_toStartOf="parent" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_popular"
+                    style="@style/TextViewBold_Dark"
+                    android:text="@string/popular"
+                    android:textSize="@dimen/space_text_super_small"
+                    android:layout_marginTop="@dimen/space_big_medium"
+                    android:layout_marginStart="@dimen/space_super_small"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_see_all_free_watch"
-                style="@style/TextViewBold_Dark"
-                android:layout_marginTop="@dimen/space_medium"
-                android:layout_marginEnd="@dimen/space_super_small"
-                android:text="@string/see_all"
-                app:layout_constraintLeft_toRightOf="@+id/tv_free_watch"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_popular_movie"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_see_all_popular"
+                    style="@style/TextViewBold_Dark"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/space_text_super_small"
+                    android:layout_marginTop="@dimen/space_big_medium"
+                    android:layout_marginEnd="@dimen/space_super_small"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_popular"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_free_watch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_super_small"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/tv_free_watch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_popular_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium_large"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_popular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="4"/>
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_free_watch"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginStart="@dimen/space_super_small"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:text="@string/free_watch"
+                    android:textSize="@dimen/space_text_super_small"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_popular_movie"
+                    app:layout_constraintStart_toStartOf="parent" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_see_all_free_watch"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:layout_marginEnd="@dimen/space_super_small"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/space_text_super_small"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_free_watch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_popular_movie"/>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_free_watch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium_large"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_free_watch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_trending_movie"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:layout_marginStart="@dimen/space_super_small"
+                    android:text="@string/trending_movie"
+                    android:textSize="@dimen/space_text_super_small"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_free_watch"
+                    app:layout_constraintStart_toStartOf="parent" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_see_all_trending"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:layout_marginEnd="@dimen/space_super_small"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/space_text_super_small"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_trending_movie"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_free_watch"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_trending_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium_large"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_trending_movie"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_upcoming_movie"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginStart="@dimen/space_super_small"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:text="@string/up_coming_movies"
+                    android:textSize="@dimen/space_text_super_small"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_trending_movie"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_see_all_upcoming_movie"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginTop="@dimen/space_medium"
+                    android:layout_marginEnd="@dimen/space_super_small"
+                    android:text="@string/see_all"
+                    android:textSize="@dimen/space_text_super_small"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_upcoming_movie"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_trending_movie" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_upcoming_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium_large"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_upcoming_movie"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

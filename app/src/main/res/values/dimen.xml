@@ -19,7 +19,10 @@
 
 
     <!--Space mobile greater than 100dp-->
+    <dimen name="space_heavy_small">135dp</dimen>
+    <dimen name="space_heavy_medium">175dp</dimen>
     <dimen name="space_heavy">240dp</dimen>
+    <dimen name="space_heavy_large">400dp</dimen>
 
 
     <!--Space typography text-->
@@ -34,6 +37,19 @@
     <dimen name="space_text_super_medium">18sp</dimen>
     <dimen name="space_text_super_large">24sp</dimen>
 
-    <!--Space radius-->
+    <!--Radius-->
+    <dimen name="radius_small">2dp</dimen>
+    <dimen name="radius_small_medium">4dp</dimen>
+    <dimen name="radius_medium_small">6dp</dimen>
+    <dimen name="radius_medium">8dp</dimen>
+    <dimen name="radius_medium_large">10dp</dimen>
+
+    <!--Elevation-->
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_small_medium">4dp</dimen>
+    <dimen name="elevation_medium_small">6dp</dimen>
+    <dimen name="elevation_medium">8dp</dimen>
+    <dimen name="elevation_medium_large">10dp</dimen>
+
 
 </resources>

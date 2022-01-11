@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.example.movieviews.data.models.MovieEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_medium_small"
+        tools:layout_width="160dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wrapper_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/radius_medium"
+            app:cardElevation="@dimen/elevation_small"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/sample_poster"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            style="@style/TextViewBold_Dark"
+            android:layout_marginTop="@dimen/space_medium_large"
+            android:textSize="@dimen/space_text_super_small"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:lines="2"
+            app:layout_constraintTop_toBottomOf="@+id/wrapper_image"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="No Time to Die"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -23,7 +23,6 @@
     <style name="TextViewBold" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/titillium_web_bold</item>
     </style>
@@ -31,7 +30,6 @@
     <style name="TextViewBold_Dark" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/primary_dark</item>
         <item name="android:fontFamily">@font/titillium_web_bold</item>
     </style>
@@ -39,8 +37,14 @@
     <style name="TextViewRegular" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">@font/titillium_web_regular</item>
+    </style>
+
+    <style name="TextViewMatchParent" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="fontFamily">@font/titillium_web_semi_bold</item>
+        <item name="android:textColor">@color/primary_dark</item>
     </style>
 
     <!--Style BottomNavigationView-->

@@ -10,5 +10,8 @@
     <string name="popular">Whats a Popular</string>
     <string name="see_all">See All</string>
     <string name="free_watch">Free To Watch</string>
+    <string name="trending_movie">Trending</string>
+    <string name="up_coming_movies">Upcoming Movies</string>
+    <string name="message_error">Error Fetch data</string>
     <string name="contentDescriptionImage">Image</string>
 </resources>

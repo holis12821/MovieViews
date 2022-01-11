@@ -14,5 +14,8 @@ data class MovieEntity(
     val overview: String,
     val genres: List<String>,
     val duration: String,
-    val freeWatch: Boolean
+    val isFreeWatch: Boolean,
+    val isTrending: Boolean,
+    val isUpComing: Boolean = false,
+    val isPopular: Boolean = false
 ): Parcelable
