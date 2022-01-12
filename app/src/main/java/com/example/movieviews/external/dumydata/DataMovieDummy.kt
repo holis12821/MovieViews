@@ -1,6 +1,7 @@
-package com.example.movieviews.utils
+package com.example.movieviews.external.dumydata
 
 import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.models.TvShowEntity
 
 /**
  * Singleton object to get and produce data dummy movie*/
@@ -639,6 +640,271 @@ object DataMovieDummy {
                 isTrending = false,
                 isUpComing = true,
                 isPopular = false
+            )
+        )
+    }
+
+
+    fun getTvShow(): List<TvShowEntity> {
+        return mutableListOf(
+            TvShowEntity(
+                id = 182021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mpgDeLhl8HbhI03XLB7iKO6M6JE.jpg",
+                title = "The Wheel of Time",
+                tagLine = "",
+                releaseDate = "Nov 18, 2021",
+                rating = 8.0,
+                overview = """Follow Moiraine, a member of the shadowy and influential all-female organization called the “Aes Sedai” 
+                    |as she embarks on a dangerous, world-spanning journey with five young men and women. 
+                    |Moiraine believes one of them might be the reincarnation of an incredibly powerful individual, 
+                    |whom prophecies say will either save humanity or destroy it."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Sci-Fi & Fantasy",
+                    "Drama"
+                ),
+                episode = 8
+            ),
+
+            TvShowEntity(
+                id = 42021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pqzjCxPVc9TkVgGRWeAoMmyqkZV.jpg",
+                title = "Hawkeye",
+                tagLine = "This holiday season, the best gifts come with a bow.",
+                releaseDate = "Nov 24, 2021",
+                rating = 8.4,
+                overview = """Former Avenger Clint Barton has a seemingly simple mission: get back to his family for Christmas. 
+                    |Possible? Maybe with the help of Kate Bishop, a 22-year-old archer with dreams of becoming a superhero. 
+                    |The two are forced to work together when a presence from Barton’s past threatens to derail far more than the festive spirit."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Action & Adventure",
+                    "Drama"
+                ),
+                episode = 6
+            ),
+
+            TvShowEntity(
+                id = 152021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/avUmZDbbCcvnIFw0yrTM3A4CLlW.jpg",
+                title = "Sword Snow Stride",
+                tagLine = "",
+                releaseDate = "Dec 15, 2021",
+                rating = 6.2,
+                overview = """Xu Xiao has risen to become King of Northern Liang at a time of great upheaval in China.
+                    |Steppe kingdoms have risen with deadly intent, and rebellious uprisings threaten to destabilise the realm in the south. 
+                    |Xu Xiao has managed to defeat them all. His unconventional, 
+                    |free-spirited son and heir Xu Feng Nian has spent years on the road, honing his horse skills and fighting prowess. 
+                    |Along the way, he meets the double sword-wielding martial arts expert Nan Gong Pu She, who becomes his confidante. 
+                    |Also joining the royal household is a woman named Jiang Ni. At age 12, she joined the court of the Northern Liang. 
+                    |She is the princess of a rival kingdom, and could be harbouring deep sentiments of revenge. When Xu Feng Nian has to take to the throne,
+                    | some at court worry he will not be able to follow in the footsteps of his father. But things come to a head when the party has to travel 
+                    | to another province to fight a decisive campaign, the result of which could determine the future of the realm."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Drama"
+                ),
+                episode = 38
+            ),
+
+            TvShowEntity(
+                id = 122021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/iF8ai2QLNiHV4anwY1TuSGZXqfN.jpg",
+                title = "Chucky",
+                tagLine = "A classic coming of rage story.",
+                releaseDate = "Oct 12, 2021",
+                rating = 7.9,
+                overview = """After a vintage Chucky doll turns up at a suburban yard sale, an idyllic American town is thrown into chaos as a series of horrifying murders begin to expose the town’s hypocrisies and secrets. 
+                    |Meanwhile, the arrival of enemies — and allies — from Chucky’s past threatens to expose the truth behind the killings, as well as the demon doll’s untold origins."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Crime"
+                ),
+                episode = 8
+            ),
+
+            TvShowEntity(
+                id = 102021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/w21lgYIi9GeUH5dO8l3B9ARZbCB.jpg",
+                title = "The Walking Dead",
+                tagLine = "Fight the dead. Fear the living.",
+                releaseDate = "Oct 31, 2010",
+                rating = 8.1,
+                overview = """Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. 
+                    |He sets out to find his family and encounters many other survivors along the way."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Action & Adventure",
+                    "Drama",
+                    "Sci-Fi & Fantasy"
+                ),
+                episode = 10
+            ),
+
+            TvShowEntity(
+                id = 182021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
+                title = "The Witcher",
+                tagLine = "Destiny is a beast.",
+                releaseDate = "Dec 20, 2019",
+                rating = 8.2,
+                overview = """Geralt of Rivia, a mutated monster-hunter for hire, 
+                    |journeys toward his destiny in a turbulent world where people often prove more wicked than beasts."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Sci-Fi & Fantasy",
+                    "Drama",
+                    "Action & Adventure"
+                ),
+                episode = 8
+            ),
+
+            TvShowEntity(
+                id = 182021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+                title = "Squid Game",
+                tagLine = "45.6 billion won is child's play.",
+                releaseDate = "Nov 18, 2021",
+                rating = 7.8,
+                overview = """Hundreds of cash-strapped players accept a strange invitation to compete in children's games—with high stakes. But,
+                    | a tempting prize awaits the victor."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Action & Adventure",
+                    "Mystery",
+                    "Drama"
+                ),
+                episode = 9
+            ),
+
+            TvShowEntity(
+                id = 92021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
+                title = "Loki",
+                tagLine = "Loki's time has come.",
+                releaseDate = "Jun 09, 2021",
+                rating = 8.2,
+                overview = """After stealing the Tesseract during the events of “Avengers: Endgame,” 
+                    |an alternate version of Loki is brought to the mysterious Time Variance Authority,
+                    | a bureaucratic organization that exists outside of time and space and monitors the timeline. 
+                    | They give Loki a choice: face being erased from existence due to being a “time 
+                    | variant” or help fix the timeline and stop a greater threat."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Drama",
+                    "Sci-Fi & Fantasy"
+                ),
+                episode = 6
+            ),
+
+            TvShowEntity(
+                id = 192021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                title = "The Falcon and the Winter Soldier",
+                tagLine = "Honor the shield.",
+                releaseDate = "March 19, 2021",
+                rating = 7.8,
+                overview = """Following the events of “Avengers: Endgame”, 
+                    |the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a 
+                    |global adventure that tests their abilities, and their patience."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Drama",
+                    "Action & Adventure",
+                    "Sci-Fi & Fantasy"
+                ),
+                episode = 6
+            ),
+
+            TvShowEntity(
+                id = 152021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
+                title = "WandaVision",
+                tagLine = "Experience a new vision of reality.",
+                releaseDate = "January 15, 2021",
+                rating = 8.4,
+                overview = """Wanda Maximoff and Vision—two super-powered beings living idealized suburban
+                    | lives—begin to suspect that everything is not as it seems."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Sci-Fi & Fantasy",
+                    "Mystery",
+                    "Drama"
+                ),
+                episode = 9
+            ),
+
+            TvShowEntity(
+                id = 32021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/z0iCS5Znx7TeRwlYSd4c01Z0lFx.jpg",
+                title = "The D'Amelio Show ",
+                tagLine = "Followers come and go but family is forever.",
+                releaseDate = "Sep 03, 2021",
+                rating = 9.4,
+                overview = """From relative obscurity and a seemingly normal life, to overnight success and thrust into the Hollywood limelight overnight, 
+                    |the D’Amelios are faced with new challenges and opportunities they could not have imagined."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Reality"
+                ),
+                episode = 8
+            ),
+
+            TvShowEntity(
+                id = 252016,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
+                title = "Lucifer",
+                tagLine = "All bad things must come to an end.",
+                releaseDate = "Jan 25, 2016",
+                rating = 8.5,
+                overview = """Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, 
+                    |where he has teamed up with LAPD detective Chloe Decker to take down criminals. 
+                    |But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Crime",
+                    "Sci-Fi & Fantasy"
+                ),
+                episode = 10
+            ),
+
+            TvShowEntity(
+                id = 172021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+                title = "Game of Thrones",
+                tagLine = "Winter Is Coming",
+                releaseDate = "Apr 17, 2011",
+                rating = 8.4,
+                overview = """Seven noble families fight for control of the mythical land of Westeros. 
+                    |Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north.
+                    | Amidst the war, a neglected military order of misfits, the Night's Watch, 
+                    |is all that stands between the realms of men and icy horrors beyond."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Sci-Fi & Fantasy",
+                    "Drama",
+                    "Action & Adventure"
+                ),
+                episode = 6
+            ),
+
+            TvShowEntity(
+                id = 192021,
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5NYdSAnDVIXePrSG2dznHdiibMk.jpg",
+                title = "Hellbound",
+                tagLine = "Your time is up.",
+                releaseDate = "Nov 19, 2021",
+                rating = 7.6,
+                overview = """Unearthly beings deliver bloody condemnations, 
+                    |sending individuals to hell and giving rise to a religious group founded on the idea of divine justice."""
+                    .trimMargin(),
+                genres = listOf(
+                    "Drama",
+                    "Crime",
+                    "Mystery",
+                    "Sci-Fi & Fantasy",
+                ),
+                episode = 6
             )
         )
     }

@@ -11,8 +11,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieviews.R
 import com.example.movieviews.databinding.ActivityMainBinding
-import com.example.movieviews.utils.gone
-import com.example.movieviews.utils.visible
+import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.extension.visible
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding

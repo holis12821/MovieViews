@@ -1,7 +1,7 @@
 package com.example.movieviews.module
 
-import com.example.movieviews.domain.repository.MovieRepository
-import com.example.movieviews.domain.repository.MovieRepositoryImpl
+import com.example.movieviews.data.repository.MovieRepository
+import com.example.movieviews.data.repository.MovieRepositoryImpl
 
 object InjectionModule {
     fun provideMovieRepository(): MovieRepository {

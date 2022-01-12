@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/navigation_detail_movie"
-        android:name="com.example.movieviews.presentation.ui.fragment.detail_movie.DetailMovieFragment"
+        android:name="com.example.movieviews.presentation.ui.fragment.detail_screen.detail_movie.DetailMovieFragment"
         android:label="@string/detailMovie"
         tools:layout="@layout/fragment_detail_movie">
 
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/navigation_detail_tv_show"
-        android:name="com.example.movieviews.presentation.ui.fragment.detail_tvshow.DetailTvShowFragment"
+        android:name="com.example.movieviews.presentation.ui.fragment.detail_screen.detail_tv_show.DetailTvShowFragment"
         android:label="@string/detailTvShow"
         tools:layout="@layout/fragment_detail_tv_show">
 

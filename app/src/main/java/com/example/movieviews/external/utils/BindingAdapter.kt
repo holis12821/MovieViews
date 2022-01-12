@@ -1,10 +1,8 @@
-package com.example.movieviews.utils
+package com.example.movieviews.external.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("app:setImage")

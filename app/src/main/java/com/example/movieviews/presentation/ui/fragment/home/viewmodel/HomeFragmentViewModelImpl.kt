@@ -1,19 +1,19 @@
-package com.example.movieviews.presentation.ui.fragment.home.viewmoodel
+package com.example.movieviews.presentation.ui.fragment.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieviews.data.models.MovieEntity
-import com.example.movieviews.domain.repository.MovieRepository
+import com.example.movieviews.data.repository.MovieRepository
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class FragmentHomeViewModelImpl(
+class HomeFragmentViewModelImpl(
     private val repositoryDelegate: MovieRepository
-) : ViewModel(), FragmentHomeViewModel {
+) : ViewModel(), HomeFragmentViewModel {
 
     private val _state = MutableLiveData<HomeViewState>(HomeViewState.Init)
     val state: LiveData<HomeViewState>
@@ -27,9 +27,9 @@ class FragmentHomeViewModelImpl(
                     hideLoading()
                     showMessage(e.message)
                 }
-                .collect {
+                .collect { result ->
                     hideLoading()
-                    showMovie(it)
+                    showMovie(result)
                 }
         }
     }
@@ -53,6 +53,6 @@ class FragmentHomeViewModelImpl(
    }
 }
 
-interface FragmentHomeViewModel {
+interface HomeFragmentViewModel {
     fun getMovie()
 }

@@ -1,4 +1,4 @@
-package com.example.movieviews.presentation.ui.fragment.home.viewmoodel
+package com.example.movieviews.presentation.ui.fragment.home.viewmodel
 
 import com.example.movieviews.data.models.MovieEntity
 

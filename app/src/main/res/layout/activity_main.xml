@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.movieviews.presentation.ui.fragment.home.viewmoodel.FragmentHomeViewModelImpl" />
+            type="com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

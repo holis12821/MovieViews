@@ -1,4 +1,4 @@
-package com.example.movieviews.utils
+package com.example.movieviews.external.utils
 
 import android.content.res.Resources
 

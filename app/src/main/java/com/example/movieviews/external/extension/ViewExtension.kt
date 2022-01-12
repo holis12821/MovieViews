@@ -1,11 +1,7 @@
-package com.example.movieviews.utils
+package com.example.movieviews.external.extension
 
 import android.content.Context
-import android.graphics.LinearGradient
-import android.graphics.Shader
 import android.view.View
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

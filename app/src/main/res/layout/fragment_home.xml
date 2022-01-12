@@ -5,7 +5,9 @@
 
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

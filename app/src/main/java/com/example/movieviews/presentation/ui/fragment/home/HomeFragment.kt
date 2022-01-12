@@ -13,23 +13,28 @@ import androidx.navigation.fragment.findNavController
 import com.example.movieviews.R
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.databinding.FragmentHomeBinding
+import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.extension.setupHorizontalLayoutManager
+import com.example.movieviews.external.extension.visible
 import com.example.movieviews.module.InjectionModule
 import com.example.movieviews.presentation.ui.activity.MainActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.MovieAdapter
 import com.example.movieviews.presentation.ui.custom.ProgressDialog
-import com.example.movieviews.presentation.ui.fragment.home.viewmoodel.FragmentHomeViewModelFactory
-import com.example.movieviews.presentation.ui.fragment.home.viewmoodel.FragmentHomeViewModelImpl
-import com.example.movieviews.presentation.ui.fragment.home.viewmoodel.HomeViewState
-import com.example.movieviews.utils.gone
-import com.example.movieviews.utils.setupHorizontalLayoutManager
-import com.example.movieviews.utils.visible
+import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelFactory
+import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl
+import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeViewState
 
 class HomeFragment : Fragment() {
 
     private var mBinding: FragmentHomeBinding? = null
-    private lateinit var mViewModel: FragmentHomeViewModelImpl
+    private lateinit var mFragmentViewModel: HomeFragmentViewModelImpl
 
+    /**
+     * Lazy initialization is used to initialize objects when needed.
+     * This method only once invoke the instances object,
+     * if it is already it will be usable
+     * */
     private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
     
     private val mAdapterPopular by lazy {
@@ -120,17 +125,11 @@ class HomeFragment : Fragment() {
 
 
     private fun initView() {
-        /*
-        * Lazy initialization is used to initialize objects when needed.
-        * This method only once instances the object,
-        * if it is already it will be usable*/
-        val repository by lazy {
-            InjectionModule.provideMovieRepository()
-        }
-        mViewModel = ViewModelProvider(
+        mFragmentViewModel = ViewModelProvider(
             requireActivity(),
-            FragmentHomeViewModelFactory(repository)
-        )[FragmentHomeViewModelImpl::class.java]
+            HomeFragmentViewModelFactory(
+                InjectionModule.provideMovieRepository()
+            ))[HomeFragmentViewModelImpl::class.java]
         //setup image in drawable
         mBinding?.ivPoster?.setImageDrawable(
             ContextCompat.getDrawable(requireContext(),
@@ -149,7 +148,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initData() {
-        mViewModel.getMovie()
+        mBinding?.viewModel = mFragmentViewModel
+        mFragmentViewModel.getMovie()
     }
 
     private fun setupAdapterPopularMovie() {
@@ -177,7 +177,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onObserver() {
-        mViewModel.state.observe(viewLifecycleOwner, { state ->
+        mFragmentViewModel.state.observe(viewLifecycleOwner, { state ->
             handleState(state)
         })
     }
@@ -247,9 +247,9 @@ class HomeFragment : Fragment() {
     }
 
     /**
-     * A function to navigate to the Movie detail Fragment
+     * A function navigate to the Movie detail Fragment
      * */
-    fun movieDetail(movieEntity: MovieEntity) {
+    fun navigateMovieDetail(movieEntity: MovieEntity) {
         if (requireActivity() is MainActivity) {
             (activity as MainActivity?)?.hideBottomNavigationView()
         }
