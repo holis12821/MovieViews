@@ -24,7 +24,7 @@ import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFrag
 import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieViewState
 
-class MovieFragment: Fragment() {
+class MovieFragment : Fragment() {
     private var mBinding: FragmentMovieBinding? = null
     private lateinit var mFragmentMovieViewModel: MovieFragmentViewModelImpl
     private var loading: Boolean = false
@@ -61,8 +61,10 @@ class MovieFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(inflater,
-        R.layout.fragment_movie, container, false)
+        mBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_movie, container, false
+        )
         return mBinding?.root
     }
 
@@ -77,7 +79,8 @@ class MovieFragment: Fragment() {
             requireActivity(),
             MovieFragmentViewModelFactory(
                 InjectionModule.provideMovieRepository()
-            ))[MovieFragmentViewModelImpl::class.java]
+            )
+        )[MovieFragmentViewModelImpl::class.java]
         onInitState()
         initData()
         setupAdapterMovieList()
@@ -112,7 +115,7 @@ class MovieFragment: Fragment() {
     }*/
 
     private fun onObserver() {
-        mFragmentMovieViewModel.state.observe(viewLifecycleOwner, {state ->
+        mFragmentMovieViewModel.state.observe(viewLifecycleOwner, { state ->
             handleState(state)
         })
     }
@@ -137,8 +140,10 @@ class MovieFragment: Fragment() {
     }
 
     private fun onShowMessage(message: String) {
-        Toast.makeText(requireContext(),
-        message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            message, Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun onSuccess(list: List<MovieEntity>) {
@@ -155,14 +160,16 @@ class MovieFragment: Fragment() {
     }
 
     /**
-    * A function navigate to the Movie detail Fragment
-    * */
+     * A function navigate to the Movie detail Fragment
+     * */
     fun navigateMovieDetail(movieEntity: MovieEntity) {
         if (requireActivity() is MainActivity) {
             (activity as MainActivity?)?.hideBottomNavigationView()
         }
-        findNavController().navigate(MovieFragmentDirections
-            .actionMovieToDetailMovie(movieEntity))
+        findNavController().navigate(
+            MovieFragmentDirections
+                .actionMovieToDetailMovie(movieEntity)
+        )
     }
 
     override fun onResume() {

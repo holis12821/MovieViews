@@ -29,7 +29,8 @@ object DataMovieDummy {
                 duration = "1h 47m",
                 isTrending = true,
                 isPopular = true,
-                certification = "R"
+                certification = "R",
+                cast = DataCastDummy.getCastResidentEvil()
             ),
             MovieEntity(
                 id = 152021,
@@ -49,7 +50,8 @@ object DataMovieDummy {
                 ),
                 duration = "2h 28m",
                 isTrending = true,
-                isPopular = true
+                isPopular = true,
+                cast = DataCastDummy.getCastSpiderManNoWayHome()
             ),
 
             MovieEntity(

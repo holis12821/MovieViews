@@ -14,5 +14,8 @@
     <string name="up_coming_movies">Upcoming Movies</string>
     <string name="message_error">Error Fetch data</string>
     <string name="contentDescriptionImage">Image</string>
+    <string name="overview">OverView</string>
+    <string name="top_billed_cast">Top Billed cast</string>
+    <string name="user_score">User Score : %s</string>
     <string name="overview_movie">Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.</string>
 </resources>

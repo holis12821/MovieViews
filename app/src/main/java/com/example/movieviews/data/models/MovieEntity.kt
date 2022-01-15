@@ -14,6 +14,7 @@ data class MovieEntity(
     val rating: Double,
     val overview: String,
     val genres: List<String>,
+    val cast: List<CastEntity> = listOf(),
     //additional data or attributes
     val duration: String = "",
     val isFreeWatch: Boolean = false,

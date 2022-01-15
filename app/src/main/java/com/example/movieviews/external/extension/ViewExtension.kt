@@ -2,6 +2,7 @@ package com.example.movieviews.external.extension
 
 import android.content.Context
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -65,13 +66,30 @@ fun RecyclerView.setupGridLayoutManager(column: Int) {
 }
 
 fun TextView.setSpannable(
-    text: Array<String>,
+    text: Array<String>?,
     spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
 ) {
+    if (text.isNullOrEmpty()) return
     for (i in text) {
         spannableStringBuilder.append(i)
     }
     setText(spannableStringBuilder)
+}
+
+fun TextView.setSpan(
+    textFirst: String?,
+    textSecond: String?,
+    spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
+) {
+    if (textFirst.isNullOrEmpty() && textSecond.isNullOrEmpty()) return
+    spannableStringBuilder.append(textFirst)
+    spannableStringBuilder.setSpan(
+        textSecond,
+        spannableStringBuilder.length -1,
+        spannableStringBuilder.length,
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    text = spannableStringBuilder
 }
 
 

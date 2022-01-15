@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movieviews.data.models.CastEntity
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.data.repository.MovieRepository
 import kotlinx.coroutines.flow.catch
@@ -51,9 +52,15 @@ class DetailMovieFragmentViewModelImpl(
     }
 
     private fun showDetailMovie(list: List<MovieEntity>) {
+        val movieEntity = list.firstOrNull { it.id == id }
         _state.value = DetailMovieViewState.ShowDetailMovie(
-            list.firstOrNull { it.id == id }
+            movieEntity
         )
+        showCastMovieList(movieEntity?.cast)
+    }
+
+    private fun showCastMovieList(list: List<CastEntity>?) {
+        _state.value = DetailMovieViewState.ShowCastMovie(list)
     }
 }
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.example.movieviews.data.models.CastEntity" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_medium_small"
+        app:cardCornerRadius="@dimen/radius_medium"
+        app:cardElevation="@dimen/elevation_small"
+        tools:layout_width="160dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/space_big">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/sample_poster"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_original_name"
+                style="@style/TextViewBold_Dark"
+                android:paddingTop="@dimen/space_medium_small"
+                android:paddingLeft="@dimen/space_medium_small"
+                android:paddingRight="@dimen/space_medium_small"
+                android:textSize="@dimen/space_text_large_medium"
+                app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="No Time to Die"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_name_cast"
+                style="@style/TextViewRegular"
+                android:paddingLeft="@dimen/space_medium_small"
+                android:paddingRight="@dimen/space_medium_small"
+                android:textSize="@dimen/space_text_medium_large"
+                app:layout_constraintTop_toBottomOf="@+id/tv_original_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_original_name"
+                tools:text="Geralt of Rivia" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

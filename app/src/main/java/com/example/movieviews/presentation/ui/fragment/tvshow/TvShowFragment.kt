@@ -24,7 +24,7 @@ import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFr
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
 
-class TvShowFragment: Fragment() {
+class TvShowFragment : Fragment() {
     private var mBinding: FragmentTvShowBinding? = null
     private lateinit var mFragmentTvShowViewModel: TvShowFragmentViewModelImpl
     private var loading: Boolean = false
@@ -79,7 +79,8 @@ class TvShowFragment: Fragment() {
             requireActivity(),
             TvShowFragmentViewModelFactory(
                 InjectionModule.provideMovieRepository()
-            ))[TvShowFragmentViewModelImpl::class.java]
+            )
+        )[TvShowFragmentViewModelImpl::class.java]
         onInitState()
         initData()
         setupAdapterTvSHowList()
@@ -123,8 +124,10 @@ class TvShowFragment: Fragment() {
     }
 
     private fun onShowMessage(message: String) {
-        Toast.makeText(requireContext(),
-        message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            message, Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun onSuccess(list: List<MovieEntity>) {
@@ -147,8 +150,10 @@ class TvShowFragment: Fragment() {
         if (requireActivity() is MainActivity) {
             (activity as MainActivity?)?.hideBottomNavigationView()
         }
-        findNavController().navigate(TvShowFragmentDirections
-            .actionTvShowToDetailTvShow(movieEntity))
+        findNavController().navigate(
+            TvShowFragmentDirections
+                .actionTvShowToDetailTvShow(movieEntity)
+        )
     }
 
     override fun onResume() {

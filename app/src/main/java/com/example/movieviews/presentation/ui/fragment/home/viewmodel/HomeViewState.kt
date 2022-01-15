@@ -7,5 +7,4 @@ sealed class HomeViewState {
     data class Progress(val isLoading: Boolean) : HomeViewState()
     data class ShowMessage(val message: String) : HomeViewState()
     data class ShowMovie(val list: List<MovieEntity>) : HomeViewState()
-
 }
