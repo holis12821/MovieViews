@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieviews.R
-import com.example.movieviews.data.models.TvShowEntity
+import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.databinding.FragmentTvShowBinding
 import com.example.movieviews.external.extension.gone
 import com.example.movieviews.external.extension.visible
 import com.example.movieviews.module.InjectionModule
 import com.example.movieviews.presentation.ui.activity.MainActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
-import com.example.movieviews.presentation.ui.adapter.TvShowAdapter
+import com.example.movieviews.presentation.ui.adapter.MovieAdapter
 import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelFactory
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
@@ -37,16 +37,16 @@ class TvShowFragment: Fragment() {
     private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
 
     private val mAdapterTvShowList by lazy {
-        TvShowAdapter().apply {
-            listener = object : AdapterClickListener<TvShowEntity> {
+        MovieAdapter().apply {
+            listener = object : AdapterClickListener<MovieEntity> {
 
-                override fun onItemClickCallback(data: TvShowEntity, fragment: Fragment) {
+                override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
 
                 }
 
                 override fun onViewClickCallback(
                     view: View,
-                    data: TvShowEntity,
+                    data: MovieEntity,
                     fragment: Fragment
                 ) {
 
@@ -127,27 +127,28 @@ class TvShowFragment: Fragment() {
         message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun onSuccess(list: List<TvShowEntity>) {
+    private fun onSuccess(list: List<MovieEntity>) {
         mBinding?.rvTvShow?.visible()
-        setDataTvShowList(list)
+        val filterTvShowList = list.filter { it.isTvSHow }
+        setDataTvShowList(filterTvShowList)
     }
 
     /**
      * A Function set data movie into adapter
      * */
-    private fun setDataTvShowList(list: List<TvShowEntity>) {
+    private fun setDataTvShowList(list: List<MovieEntity>) {
         mAdapterTvShowList.setData(list)
     }
 
     /**
      * A function navigate to the TvSHow detail Fragment
      * */
-    fun navigateTvShowDetail(tvShowEntity: TvShowEntity) {
+    fun navigateTvShowDetail(movieEntity: MovieEntity) {
         if (requireActivity() is MainActivity) {
             (activity as MainActivity?)?.hideBottomNavigationView()
         }
         findNavController().navigate(TvShowFragmentDirections
-            .actionTvShowToDetailTvShow(tvShowEntity))
+            .actionTvShowToDetailTvShow(movieEntity))
     }
 
     override fun onResume() {

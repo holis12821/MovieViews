@@ -1,7 +1,6 @@
 package com.example.movieviews.external.dumydata
 
 import com.example.movieviews.data.models.MovieEntity
-import com.example.movieviews.data.models.TvShowEntity
 
 /**
  * Singleton object to get and produce data dummy movie*/
@@ -28,9 +27,9 @@ object DataMovieDummy {
                     "Science Fiction"
                 ),
                 duration = "1h 47m",
-                isFreeWatch = false,
                 isTrending = true,
-                isPopular = true
+                isPopular = true,
+                certification = "R"
             ),
             MovieEntity(
                 id = 152021,
@@ -49,7 +48,6 @@ object DataMovieDummy {
                     "Science Fiction"
                 ),
                 duration = "2h 28m",
-                isFreeWatch = false,
                 isTrending = true,
                 isPopular = true
             ),
@@ -70,7 +68,6 @@ object DataMovieDummy {
                     "Adventure"
                 ),
                 duration = "1h 37m",
-                isFreeWatch = false,
                 isTrending = true,
                 isPopular = true
             ),
@@ -92,7 +89,6 @@ object DataMovieDummy {
                     "Adventure"
                 ),
                 duration = "2h 4m",
-                isFreeWatch = false,
                 isTrending = true,
                 isPopular = true
             ),
@@ -115,8 +111,7 @@ object DataMovieDummy {
                 ),
                 duration = "1h 57m",
                 isFreeWatch = true,
-                isTrending = true,
-                isPopular = false
+                isTrending = true
             ),
 
             MovieEntity(
@@ -135,18 +130,17 @@ object DataMovieDummy {
                     "Fantasy",
                 ),
                 duration = "2h 12m",
-                isFreeWatch = false,
                 isTrending = true,
                 isPopular = true
             ),
 
             MovieEntity(
                 id = 32021,
-                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg",
+                posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5L7bclqxXtsqsitP83KpkZbgTQ3.jpg",
                 title = "Eternals",
                 tagLine = "In the beginning...",
                 releaseDate = "Nov 03, 2021",
-                rating = 7.1,
+                rating = 7.2,
                 overview = """The Eternals are a team of ancient aliens who have been living on Earth in secret for thousands of years. 
                     |When an unexpected tragedy forces them out of the shadows,
                     | they are forced to reunite against mankind’s most ancient enemy, the Deviants."""
@@ -158,7 +152,6 @@ object DataMovieDummy {
                     "Science Fiction"
                 ),
                 duration = "2h 37m",
-                isFreeWatch = false,
                 isTrending = true,
                 isPopular = true
             ),
@@ -180,8 +173,7 @@ object DataMovieDummy {
                 ),
                 duration = "2h 28m",
                 isFreeWatch = true,
-                isTrending = true,
-                isPopular = false
+                isTrending = true
             ),
 
             MovieEntity(
@@ -198,7 +190,6 @@ object DataMovieDummy {
                     "Documentary"
                 ),
                 duration = "1h 43m",
-                isFreeWatch = false,
                 isTrending = true,
                 isPopular = true
             ),
@@ -221,8 +212,7 @@ object DataMovieDummy {
                 ),
                 duration = "1h 39m",
                 isFreeWatch = true,
-                isTrending = false,
-                isPopular = false
+                certification = "R"
             ),
 
             MovieEntity(
@@ -241,7 +231,7 @@ object DataMovieDummy {
                 ),
                 duration = "1h 45m",
                 isFreeWatch = true,
-                isTrending = false
+                certification = "R"
             ),
 
             MovieEntity(
@@ -265,9 +255,6 @@ object DataMovieDummy {
                     "Fantasy"
                 ),
                 duration = "2h 16m",
-                isFreeWatch = false,
-                isTrending = false,
-                isPopular = false
             ),
 
             MovieEntity(
@@ -288,9 +275,7 @@ object DataMovieDummy {
                     "Drama"
                 ),
                 duration = "2h 13m",
-                isFreeWatch = true,
-                isTrending = false,
-                isPopular = false
+                isFreeWatch = true
             ),
 
             MovieEntity(
@@ -310,9 +295,7 @@ object DataMovieDummy {
                     "Science Fiction"
                 ),
                 duration = "2h 9m",
-                isFreeWatch = true,
-                isTrending = false,
-                isPopular = false
+                isFreeWatch = true
             ),
 
             MovieEntity(
@@ -332,8 +315,6 @@ object DataMovieDummy {
                     "Science Fiction"
                 ),
                 duration = "2h 14m",
-                isFreeWatch = false,
-                isTrending = false,
                 isPopular = true
             ),
 
@@ -354,9 +335,8 @@ object DataMovieDummy {
                     "Adventure"
                 ),
                 duration = "1h 50m",
-                isFreeWatch = false,
-                isTrending = false,
-                isPopular = true
+                isPopular = true,
+                certification = "R"
             ),
 
             MovieEntity(
@@ -377,9 +357,7 @@ object DataMovieDummy {
                     "Drama"
                 ),
                 duration = "1h 56m",
-                isFreeWatch = true,
-                isTrending = false,
-                isPopular = false
+                isFreeWatch = true
             ),
 
             MovieEntity(
@@ -398,9 +376,9 @@ object DataMovieDummy {
                     "Drama"
                 ),
                 duration = "1h 57m",
-                isFreeWatch = false,
                 isTrending = true,
-                isPopular = true
+                isPopular = true,
+                certification = "TV-14"
             ),
 
             MovieEntity(
@@ -424,8 +402,8 @@ object DataMovieDummy {
                 ),
                 duration = "3h 1m",
                 isFreeWatch = true,
-                isTrending = false,
-                isPopular = true
+                isPopular = true,
+                certification = "13+"
             ),
 
             MovieEntity(
@@ -447,8 +425,7 @@ object DataMovieDummy {
                 ),
                 duration = "2h 43m",
                 isFreeWatch = true,
-                isTrending = true,
-                isPopular = false
+                isTrending = true
             ),
 
             MovieEntity(
@@ -470,10 +447,8 @@ object DataMovieDummy {
                     " Music"
                 ),
                 duration = "1h 50m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = "PG"
             ),
             MovieEntity(
                 id = 142022,
@@ -492,10 +467,8 @@ object DataMovieDummy {
                     " Mystery"
                 ),
                 duration = "1h 54m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = "R"
             ),
 
             MovieEntity(
@@ -518,10 +491,8 @@ object DataMovieDummy {
                     "Music"
                 ),
                 duration = "2h 8m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = "U"
             ),
 
             MovieEntity(
@@ -542,10 +513,8 @@ object DataMovieDummy {
                     "Thriller"
                 ),
                 duration = "",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = ""
             ),
 
             MovieEntity(
@@ -569,10 +538,8 @@ object DataMovieDummy {
                     "Romance"
                 ),
                 duration = "1h 52m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = "13+"
             ),
 
             MovieEntity(
@@ -590,10 +557,8 @@ object DataMovieDummy {
                     "Romance",
                 ),
                 duration = "1h 47m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = ""
             ),
 
             MovieEntity(
@@ -614,10 +579,8 @@ object DataMovieDummy {
                     "New Journey"
                 ),
                 duration = "1h 54m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
+                certification = ""
             ),
 
             MovieEntity(
@@ -636,18 +599,11 @@ object DataMovieDummy {
                     "Romance"
                 ),
                 duration = "1h 54m",
-                isFreeWatch = false,
-                isTrending = false,
                 isUpComing = true,
-                isPopular = false
-            )
-        )
-    }
+                certification = "R"
+            ),
 
-
-    fun getTvShow(): List<TvShowEntity> {
-        return mutableListOf(
-            TvShowEntity(
+            MovieEntity(
                 id = 182021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mpgDeLhl8HbhI03XLB7iKO6M6JE.jpg",
                 title = "The Wheel of Time",
@@ -663,10 +619,12 @@ object DataMovieDummy {
                     "Sci-Fi & Fantasy",
                     "Drama"
                 ),
-                episode = 8
+                episode = 8,
+                certification = "TV-MA",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 42021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pqzjCxPVc9TkVgGRWeAoMmyqkZV.jpg",
                 title = "Hawkeye",
@@ -681,10 +639,12 @@ object DataMovieDummy {
                     "Action & Adventure",
                     "Drama"
                 ),
-                episode = 6
+                episode = 6,
+                certification = "TV-14",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 152021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/avUmZDbbCcvnIFw0yrTM3A4CLlW.jpg",
                 title = "Sword Snow Stride",
@@ -704,10 +664,12 @@ object DataMovieDummy {
                 genres = listOf(
                     "Drama"
                 ),
-                episode = 38
+                episode = 38,
+                certification = "",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 122021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/iF8ai2QLNiHV4anwY1TuSGZXqfN.jpg",
                 title = "Chucky",
@@ -720,10 +682,12 @@ object DataMovieDummy {
                 genres = listOf(
                     "Crime"
                 ),
-                episode = 8
+                episode = 8,
+                certification = "TV-MA",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 102021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/w21lgYIi9GeUH5dO8l3B9ARZbCB.jpg",
                 title = "The Walking Dead",
@@ -738,10 +702,12 @@ object DataMovieDummy {
                     "Drama",
                     "Sci-Fi & Fantasy"
                 ),
-                episode = 10
+                episode = 10,
+                certification = "TV-MA",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 182021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
                 title = "The Witcher",
@@ -756,10 +722,12 @@ object DataMovieDummy {
                     "Drama",
                     "Action & Adventure"
                 ),
-                episode = 8
+                episode = 8,
+                certification = "TV-MA",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 182021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
                 title = "Squid Game",
@@ -774,10 +742,12 @@ object DataMovieDummy {
                     "Mystery",
                     "Drama"
                 ),
-                episode = 9
+                episode = 9,
+                certification = "19",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 92021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
                 title = "Loki",
@@ -794,10 +764,12 @@ object DataMovieDummy {
                     "Drama",
                     "Sci-Fi & Fantasy"
                 ),
-                episode = 6
+                episode = 6,
+                certification = "TV-14",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 192021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
                 title = "The Falcon and the Winter Soldier",
@@ -813,10 +785,12 @@ object DataMovieDummy {
                     "Action & Adventure",
                     "Sci-Fi & Fantasy"
                 ),
-                episode = 6
+                episode = 6,
+                certification = "",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 152021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
                 title = "WandaVision",
@@ -831,13 +805,15 @@ object DataMovieDummy {
                     "Mystery",
                     "Drama"
                 ),
-                episode = 9
+                episode = 9,
+                certification = "TV-14",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 32021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/z0iCS5Znx7TeRwlYSd4c01Z0lFx.jpg",
-                title = "The D'Amelio Show ",
+                title = "The D'Amelio Show",
                 tagLine = "Followers come and go but family is forever.",
                 releaseDate = "Sep 03, 2021",
                 rating = 9.4,
@@ -847,10 +823,12 @@ object DataMovieDummy {
                 genres = listOf(
                     "Reality"
                 ),
-                episode = 8
+                episode = 8,
+                certification = "TV-14",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 252016,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
                 title = "Lucifer",
@@ -865,10 +843,12 @@ object DataMovieDummy {
                     "Crime",
                     "Sci-Fi & Fantasy"
                 ),
-                episode = 10
+                episode = 10,
+                certification = "TV-14",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 172021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
                 title = "Game of Thrones",
@@ -885,10 +865,12 @@ object DataMovieDummy {
                     "Drama",
                     "Action & Adventure"
                 ),
-                episode = 6
+                episode = 6,
+                certification = "TV-14",
+                isTvSHow = true
             ),
 
-            TvShowEntity(
+            MovieEntity(
                 id = 192021,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5NYdSAnDVIXePrSG2dznHdiibMk.jpg",
                 title = "Hellbound",
@@ -904,9 +886,10 @@ object DataMovieDummy {
                     "Mystery",
                     "Sci-Fi & Fantasy",
                 ),
-                episode = 6
+                episode = 6,
+                certification = "19",
+                isTvSHow = true
             )
         )
     }
-
 }

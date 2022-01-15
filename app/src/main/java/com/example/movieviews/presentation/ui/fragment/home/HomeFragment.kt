@@ -38,14 +38,27 @@ class HomeFragment : Fragment() {
     private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
     
     private val mAdapterPopular by lazy {
-       MovieAdapter().apply {
+       MovieAdapter(this@HomeFragment).apply {
            listener = object : AdapterClickListener<MovieEntity> {
                override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
-
+                    if (fragment is HomeFragment) {
+                        fragment.navigateMovieDetail(movieEntity = data)
+                    }
                }
 
                override fun onViewClickCallback(view: View, data: MovieEntity, fragment: Fragment) {
-
+                    when(view.id) {
+                        R.id.iv_poster -> {
+                            if (fragment is HomeFragment) {
+                                fragment.navigateMovieDetail(movieEntity = data)
+                            }
+                        }
+                        R.id.tv_title -> {
+                            if (fragment is HomeFragment) {
+                                fragment.navigateMovieDetail(movieEntity = data)
+                            }
+                        }
+                    }
                }
 
            }
@@ -53,7 +66,7 @@ class HomeFragment : Fragment() {
     }
 
     private val mAdapterFreeWatch by lazy {
-        MovieAdapter().apply {
+        MovieAdapter(this@HomeFragment).apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
 
@@ -68,7 +81,7 @@ class HomeFragment : Fragment() {
     }
 
     private val mAdapterTrending by lazy {
-        MovieAdapter().apply {
+        MovieAdapter(this@HomeFragment).apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
 
@@ -87,7 +100,7 @@ class HomeFragment : Fragment() {
     }
 
     private val mAdapterUpComingMovie by lazy {
-        MovieAdapter().apply {
+        MovieAdapter(this@HomeFragment).apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
 

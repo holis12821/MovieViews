@@ -1,4 +1,4 @@
-package com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel
+package com.example.movieviews.presentation.ui.fragment.detail_screen.detail_movie.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,15 +11,17 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class TvShowFragmentViewModelImpl(
+class DetailMovieFragmentViewModelImpl(
     private val repositoryDelegate: MovieRepository
-) : TvShowFragmentViewModel, ViewModel() {
+) : DetailMovieFragmentViewModel, ViewModel() {
 
-    private val _state = MutableLiveData<TvShowViewState>(TvShowViewState.Init)
-    val state: LiveData<TvShowViewState>
+    private val _state = MutableLiveData<DetailMovieViewState>(DetailMovieViewState.Init)
+    val state: LiveData<DetailMovieViewState>
         get() = _state
 
-    override fun getTvShowList() {
+    var id: Int = 0
+
+    override fun getDetailMovie() {
         viewModelScope.launch {
             repositoryDelegate.getMovie()
                 .onStart { showLoading() }
@@ -29,31 +31,32 @@ class TvShowFragmentViewModelImpl(
                 }
                 .collect { result ->
                     hideLoading()
-                    showTvShow(result)
+                    showDetailMovie(result)
                 }
         }
     }
 
     private fun showLoading() {
-        _state.value = TvShowViewState.Progress(isLoading = true)
+        _state.value = DetailMovieViewState.Progress(isLoading = true)
     }
 
     private fun hideLoading() {
-        _state.value = TvShowViewState.Progress(isLoading = false)
+        _state.value = DetailMovieViewState.Progress(isLoading = false)
     }
 
     private fun showMessage(message: String?) {
         if (!message.isNullOrEmpty()) {
-            _state.value = TvShowViewState.ShowMessage(message)
+            _state.value = DetailMovieViewState.ShowMessage(message)
         }
     }
 
-    private fun showTvShow(list: List<MovieEntity>) {
-        _state.value = TvShowViewState.ShowTvShow(list = list)
+    private fun showDetailMovie(list: List<MovieEntity>) {
+        _state.value = DetailMovieViewState.ShowDetailMovie(
+            list.firstOrNull { it.id == id }
+        )
     }
-
 }
 
-interface TvShowFragmentViewModel {
-    fun getTvShowList()
+interface DetailMovieFragmentViewModel {
+    fun getDetailMovie()
 }

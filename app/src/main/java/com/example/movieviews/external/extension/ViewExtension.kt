@@ -1,7 +1,9 @@
 package com.example.movieviews.external.extension
 
 import android.content.Context
+import android.text.SpannableStringBuilder
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,6 +62,16 @@ fun RecyclerView.setupVerticalLayoutManager() {
 
 fun RecyclerView.setupGridLayoutManager(column: Int) {
     layoutManager = GridLayoutManager(context, column)
+}
+
+fun TextView.setSpannable(
+    text: Array<String>,
+    spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
+) {
+    for (i in text) {
+        spannableStringBuilder.append(i)
+    }
+    setText(spannableStringBuilder)
 }
 
 

@@ -28,6 +28,10 @@ class DetailMovieFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun initView() {
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

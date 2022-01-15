@@ -16,10 +16,14 @@
     <dimen name="space_big_medium">24dp</dimen>
     <dimen name="space_big_large">30</dimen>
     <dimen name="space_big">40dp</dimen>
+    <dimen name="space_super_big_small">80dp</dimen>
+    <dimen name="space_super_big_medium">91dp</dimen>
 
 
     <!--Space mobile greater than 100dp-->
+    <dimen name="space_heavy_super_small">100dp</dimen>
     <dimen name="space_heavy_small">135dp</dimen>
+    <dimen name="space_heavy_xMedium">137dp</dimen>
     <dimen name="space_heavy_medium">175dp</dimen>
     <dimen name="space_heavy">240dp</dimen>
     <dimen name="space_heavy_large">400dp</dimen>
