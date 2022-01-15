@@ -85,6 +85,7 @@
                     style="@style/TextViewBold_Dark"
                     android:layout_marginTop="@dimen/space_super_small"
                     android:textSize="@dimen/space_text_super_medium"
+                    android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="@+id/tv_desc_overview"
                     app:layout_constraintStart_toStartOf="@+id/tv_tagline"
                     app:layout_constraintTop_toTopOf="parent"

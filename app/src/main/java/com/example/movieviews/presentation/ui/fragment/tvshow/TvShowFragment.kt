@@ -40,16 +40,18 @@ class TvShowFragment : Fragment() {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
 
-                override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
-
+                override fun onItemClickCallback(data: MovieEntity) {
+                    navigateTvShowDetail(movieEntity = data)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
-                    data: MovieEntity,
-                    fragment: Fragment
+                    data: MovieEntity
                 ) {
-
+                    when (view.id) {
+                        R.id.iv_poster -> navigateTvShowDetail(movieEntity = data)
+                        R.id.tv_title -> navigateTvShowDetail(movieEntity = data)
+                    }
                 }
 
             }

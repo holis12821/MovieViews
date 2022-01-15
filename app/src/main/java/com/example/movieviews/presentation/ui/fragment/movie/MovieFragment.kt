@@ -40,16 +40,18 @@ class MovieFragment : Fragment() {
     private val mAdapterMovieList by lazy {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
-                override fun onItemClickCallback(data: MovieEntity, fragment: Fragment) {
-
+                override fun onItemClickCallback(data: MovieEntity) {
+                    navigateMovieDetail(movieEntity = data)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
-                    data: MovieEntity,
-                    fragment: Fragment
+                    data: MovieEntity
                 ) {
-
+                    when (view.id) {
+                        R.id.iv_poster -> navigateMovieDetail(data)
+                        R.id.tv_title -> navigateMovieDetail(data)
+                    }
                 }
 
             }

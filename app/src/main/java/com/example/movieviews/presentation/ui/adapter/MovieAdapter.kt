@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
 import com.example.movieviews.data.models.MovieEntity
@@ -13,9 +12,7 @@ import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.utils.getScreenWidth
 import com.example.movieviews.external.utils.setImage
 
-class MovieAdapter(
-    private val fragment: Fragment = Fragment()
-) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     val list = mutableListOf<MovieEntity>()
 
     var maxWidth = 160
@@ -58,18 +55,18 @@ class MovieAdapter(
             }
             binding.data = data
             with(binding) {
-               tvTitle.text = data.title
-               ivPoster.setImage(data.posterUrl)
+                tvTitle.text = data.title
+                ivPoster.setImage(data.posterUrl)
             }
 
             itemView.setOnClickListener {
-                listener?.onItemClickCallback(data = data, fragment)
+                listener?.onItemClickCallback(data = data)
             }
             binding.ivPoster.setOnClickListener { ivPoster ->
-                listener?.onViewClickCallback(ivPoster, data, fragment)
+                listener?.onViewClickCallback(ivPoster, data)
             }
             binding.tvTitle.setOnClickListener { tvTitle ->
-                listener?.onViewClickCallback(tvTitle, data, fragment)
+                listener?.onViewClickCallback(tvTitle, data)
             }
         }
     }

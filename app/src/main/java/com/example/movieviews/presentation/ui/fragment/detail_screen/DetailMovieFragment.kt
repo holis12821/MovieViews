@@ -40,11 +40,11 @@ class DetailMovieFragment: Fragment() {
     private val mAdapterCastMovie by lazy {
         CastAdapterMovie().apply {
             listener = object : AdapterClickListener<CastEntity> {
-                override fun onItemClickCallback(data: CastEntity, fragment: Fragment) {
+                override fun onItemClickCallback(data: CastEntity) {
 //                  coming soon
                 }
 
-                override fun onViewClickCallback(view: View, data: CastEntity, fragment: Fragment) {
+                override fun onViewClickCallback(view: View, data: CastEntity) {
 //                  coming soon
                 }
 
