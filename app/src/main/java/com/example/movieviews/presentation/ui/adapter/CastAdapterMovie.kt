@@ -34,11 +34,11 @@ class CastAdapterMovie: RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
             if (maxWidth > 0) {
                 binding.layoutContent.layoutParams.width =
                     convertDpToPixel(itemView.context, maxWidth)
-                binding.wrapper.layoutParams.height =
+                binding.wrapperImage.layoutParams.height =
                     convertDpToPixel(itemView.context, maxWidth)
             } else {
                 binding.layoutContent.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-                binding.wrapper.layoutParams.height =
+                binding.wrapperImage.layoutParams.height =
                     (getScreenWidth().div(2)).minus(
                         convertDpToPixel(
                             itemView.context,

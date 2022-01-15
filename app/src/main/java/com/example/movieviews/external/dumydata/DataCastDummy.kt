@@ -137,4 +137,64 @@ object DataCastDummy {
             )
         )
     }
+
+    fun getCastVenomLetThereBeCarnage(): List<CastEntity> {
+        return mutableListOf(
+            CastEntity(
+                id = 1,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/9bXUMLOBCcnhcUGtfw0pdqbvpiH.jpg",
+                originalName = "Tom Hardy",
+                nameCast = "Eddie Brock / Venom"
+            ),
+
+            CastEntity(
+                id = 2,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/igxYDQBbTEdAqaJxaW6ffqswmUU.jpg",
+                originalName = "Woody Harrelson",
+                nameCast = "Cletus Kasady / Carnage"
+            ),
+
+            CastEntity(
+                id = 3,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/tGRbxGPNIH1NuL2FhwEV0JJzuNf.jpg",
+                originalName = "Michelle Williams",
+                nameCast = "Anne Weying"
+            ),
+
+            CastEntity(
+                id = 4,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/pDFs4gSeKSyIF8PditvtHqAq687.jpg",
+                originalName = "Naomie Harris",
+                nameCast = "Frances Louise Barrison / Shriek"
+            ),
+
+            CastEntity(
+                id = 5,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/kBAeDUDA7XJRXFLGNALlpE5d3lA.jpg",
+                originalName = "Reid Scott",
+                nameCast = "Dr. Dan Lewis"
+            ),
+
+            CastEntity(
+                id = 6,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/rkavERf9KK4Yvs8V4HWrTaUwoHX.jpg",
+                originalName = "Stephen Graham",
+                nameCast = "Detective Mulligan"
+            ),
+
+            CastEntity(
+                id = 7,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/ng5eaDcOf9kSwIYGNmwF9wEfIHp.jpg",
+                originalName = "Peggy Lu",
+                nameCast = "Mrs. Chen"
+            ),
+
+            CastEntity(
+                id = 8,
+                posterUrl = "https://www.themoviedb.org/t/p/w240_and_h266_face/oi11TASk3g6Y0QFgb1aapADBMAR.jpg",
+                originalName = "Michelle Greenidge",
+                nameCast = "Mugging Victim"
+            )
+        )
+    }
 }

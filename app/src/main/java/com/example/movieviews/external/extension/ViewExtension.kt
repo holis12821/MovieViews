@@ -71,7 +71,7 @@ fun TextView.setSpannable(
 ) {
     if (text.isNullOrEmpty()) return
     for (i in text) {
-        spannableStringBuilder.append(i)
+        spannableStringBuilder.append(" $i ")
     }
     setText(spannableStringBuilder)
 }
@@ -82,9 +82,9 @@ fun TextView.setSpan(
     spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
 ) {
     if (textFirst.isNullOrEmpty() && textSecond.isNullOrEmpty()) return
-    spannableStringBuilder.append(textFirst)
+    spannableStringBuilder.append("$textFirst * ")
     spannableStringBuilder.setSpan(
-        textSecond,
+        spannableStringBuilder.append(textSecond),
         spannableStringBuilder.length -1,
         spannableStringBuilder.length,
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE

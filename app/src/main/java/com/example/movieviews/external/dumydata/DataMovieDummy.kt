@@ -9,7 +9,7 @@ object DataMovieDummy {
     fun getMovies(): List<MovieEntity> {
         return mutableListOf(
             MovieEntity(
-                id = 242021,
+                id = 1,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/sR3iV0Jt080jgvPBtJhs3Tta1y9.jpg",
                 title = "Resident Evil: Welcome to Raccoon City",
                 tagLine = "Witness the beginning of evil.",
@@ -33,7 +33,7 @@ object DataMovieDummy {
                 cast = DataCastDummy.getCastResidentEvil()
             ),
             MovieEntity(
-                id = 152021,
+                id = 2,
                 posterUrl = "https://www.themoviedb.org/t/p/w440_and_h660_face/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
                 title = "Spider-Man: No Way Home",
                 tagLine = "The Multiverse unleashed.",
@@ -55,7 +55,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 302021,
+                id = 3,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
                 title = "Venom: Let There Be Carnage",
                 tagLine = "",
@@ -71,11 +71,12 @@ object DataMovieDummy {
                 ),
                 duration = "1h 37m",
                 isTrending = true,
-                isPopular = true
+                isPopular = true,
+                cast = DataCastDummy.getCastVenomLetThereBeCarnage()
             ),
 
             MovieEntity(
-                id = 112021,
+                id = 4,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/fQZxAA6PPWa2Lk9NgcO3m6QDlXQ.jpg",
                 title = "Ghostbusters: Afterlife",
                 tagLine = "Discover the past. Protect the future.",
@@ -96,7 +97,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 42021,
+                id = 5,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lAXONuqg41NwUMuzMiFvicDET9Y.jpg",
                 title = "Red Notice",
                 tagLine = "Pro and cons.",
@@ -117,7 +118,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 12021,
+                id = 6,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg",
                 title = "Shang-Chi and the Legend of the Ten Rings",
                 tagLine = "You can't outrun your destiny.",
@@ -137,7 +138,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 32021,
+                id = 7,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5L7bclqxXtsqsitP83KpkZbgTQ3.jpg",
                 title = "Eternals",
                 tagLine = "In the beginning...",
@@ -159,7 +160,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 162021,
+                id = 8,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/gZlZLxJMfnSeS60abFZMh1IvODQ.jpg",
                 title = "The Matrix Resurrections",
                 tagLine = "Return to the source.",
@@ -179,7 +180,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 12021,
+                id = 9,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/34Xss3gwKdwvtomCDkeC2lW4PVB.jpg",
                 title = "Harry Potter 20th Anniversary: Return to Hogwarts",
                 tagLine = "Welcome back to where the magic began.",
@@ -197,7 +198,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 92021,
+                id = 10,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dU4HfnTEJDf9KvxGS9hgO7BVeju.jpg",
                 title = "After We Fell",
                 tagLine = "",
@@ -218,7 +219,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 22020,
+                id = 11,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/kiX7UYfOpYrMFSAGbI6j1pFkLzQ.jpg",
                 title = "After We Collided",
                 tagLine = "Can love overcome the past?.",
@@ -237,7 +238,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 232012,
+                id = 12,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/fSbqPbqXa7ePo8bcnZYN9AHv6zA.jpg",
                 title = "The Amazing Spider-Man",
                 tagLine = "The untold story begins.",
@@ -260,7 +261,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 52017,
+                id = 13,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
                 title = "Spider-Man: Homecoming",
                 tagLine = "Homework can wait. The city can't.",
@@ -281,7 +282,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 282019,
+                id = 14,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
                 title = "Spider-Man: Far From Home",
                 tagLine = "It’s time to step up.",
@@ -301,7 +302,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 72021,
+                id = 15,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg",
                 title = "Black Widow",
                 tagLine = "Her world. Her secrets. Her legacy.",
@@ -321,7 +322,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 72021,
+                id = 16,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
                 title = "Mortal Kombat",
                 tagLine = "Get over here.",
@@ -342,7 +343,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 42021,
+                id = 17,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/kreTuJBkUjVWePRfhHZuYfhNE1T.jpg",
                 title = "Five Feet Apart",
                 tagLine = "When Life Keeps You Apart, Fight For Every Inch.",
@@ -363,7 +364,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 42021,
+                id = 18,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pqzjCxPVc9TkVgGRWeAoMmyqkZV.jpg",
                 title = "Hawkeye",
                 tagLine = "This holiday season, the best gifts come with a bow.",
@@ -384,7 +385,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 242019,
+                id = 19,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
                 title = "Avengers: Endgame",
                 tagLine = "Part of the journey is the end.",
@@ -409,7 +410,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 42021,
+                id = 20,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/iUgygt3fscRoKWCV1d0C7FbM9TP.jpg",
                 title = "No Time to Die",
                 tagLine = "The mission that changes everything begins…",
@@ -431,7 +432,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 282022,
+                id = 21,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/aWeKITRFbbwY8txG5uCj4rMCfSP.jpg",
                 title = "Sing 2",
                 tagLine = "Where will your dreams take you?",
@@ -453,7 +454,7 @@ object DataMovieDummy {
                 certification = "PG"
             ),
             MovieEntity(
-                id = 142022,
+                id = 22,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qvASAp0ZKkza023gjK1Tf2iiEos.jpg",
                 title = "Scream",
                 tagLine = "It's always someone you know.",
@@ -474,7 +475,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 212022,
+                id = 23,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9FC1wqVpaWvaIcAbu6bIYgFDu1z.jpg",
                 title = "Aline",
                 tagLine = "A fiction freely inspired by the life of Celine Dion.",
@@ -498,7 +499,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 282022,
+                id = 24,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/fQS2ZEmq2wLjmKLUhcBVdBlzg72.jpg",
                 title = "Orphan: First Kill",
                 tagLine = "",
@@ -520,7 +521,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 132022,
+                id = 25,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/yA6Pg5QWHPC3Np5JiI0zQnSQD48.jpg",
                 title = "Dear Nathan: Thank You Salma",
                 tagLine = "",
@@ -545,7 +546,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 202022,
+                id = 26,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dfeG7SUbHOOCmmOoABJ16OghZPj.jpg",
                 title = "Merindu Cahaya De Amstel",
                 tagLine = "",
@@ -564,7 +565,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 272022,
+                id = 27,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/klEycDI8ciKP9Kb6T1ed8FzXyDw.jpg",
                 title = "Ben & Jody",
                 tagLine = "",
@@ -586,7 +587,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 92021,
+                id = 28,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/prbZxJxGcy07y60eq8lCGMciTYz.jpg",
                 title = "The Hating Game",
                 tagLine = "He's the one she loves to hate.",
@@ -606,7 +607,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 182021,
+                id = 29,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mpgDeLhl8HbhI03XLB7iKO6M6JE.jpg",
                 title = "The Wheel of Time",
                 tagLine = "",
@@ -627,7 +628,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 42021,
+                id = 30,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pqzjCxPVc9TkVgGRWeAoMmyqkZV.jpg",
                 title = "Hawkeye",
                 tagLine = "This holiday season, the best gifts come with a bow.",
@@ -647,7 +648,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 152021,
+                id = 31,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/avUmZDbbCcvnIFw0yrTM3A4CLlW.jpg",
                 title = "Sword Snow Stride",
                 tagLine = "",
@@ -672,7 +673,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 122021,
+                id = 32,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/iF8ai2QLNiHV4anwY1TuSGZXqfN.jpg",
                 title = "Chucky",
                 tagLine = "A classic coming of rage story.",
@@ -690,7 +691,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 102021,
+                id = 33,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/w21lgYIi9GeUH5dO8l3B9ARZbCB.jpg",
                 title = "The Walking Dead",
                 tagLine = "Fight the dead. Fear the living.",
@@ -710,7 +711,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 182021,
+                id = 34,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7vjaCdMw15FEbXyLQTVa04URsPm.jpg",
                 title = "The Witcher",
                 tagLine = "Destiny is a beast.",
@@ -730,7 +731,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 182021,
+                id = 35,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
                 title = "Squid Game",
                 tagLine = "45.6 billion won is child's play.",
@@ -750,7 +751,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 92021,
+                id = 36,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
                 title = "Loki",
                 tagLine = "Loki's time has come.",
@@ -772,7 +773,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 192021,
+                id = 37,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
                 title = "The Falcon and the Winter Soldier",
                 tagLine = "Honor the shield.",
@@ -793,7 +794,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 152021,
+                id = 38,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
                 title = "WandaVision",
                 tagLine = "Experience a new vision of reality.",
@@ -813,7 +814,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 32021,
+                id = 39,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/z0iCS5Znx7TeRwlYSd4c01Z0lFx.jpg",
                 title = "The D'Amelio Show",
                 tagLine = "Followers come and go but family is forever.",
@@ -831,7 +832,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 252016,
+                id = 40,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
                 title = "Lucifer",
                 tagLine = "All bad things must come to an end.",
@@ -851,7 +852,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 172021,
+                id = 41,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
                 title = "Game of Thrones",
                 tagLine = "Winter Is Coming",
@@ -873,7 +874,7 @@ object DataMovieDummy {
             ),
 
             MovieEntity(
-                id = 192021,
+                id = 42,
                 posterUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5NYdSAnDVIXePrSG2dznHdiibMk.jpg",
                 title = "Hellbound",
                 tagLine = "Your time is up.",

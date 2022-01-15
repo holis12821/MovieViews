@@ -148,7 +148,7 @@ class MovieFragment : Fragment() {
 
     private fun onSuccess(list: List<MovieEntity>) {
         mBinding?.rvMovie?.visible()
-        val filterMovieNotUpComing = list.filterNot { it.isUpComing }
+        val filterMovieNotUpComing = list.filter { !it.isUpComing && !it.isTvSHow }
         setDataMovieList(filterMovieNotUpComing)
     }
 

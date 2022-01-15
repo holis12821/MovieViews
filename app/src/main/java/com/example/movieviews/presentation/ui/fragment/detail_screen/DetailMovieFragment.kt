@@ -88,7 +88,7 @@ class DetailMovieFragment: Fragment() {
     }
 
     private fun setupAdapterCastMovie() {
-        mAdapterCastMovie.maxWidth = 0
+        mAdapterCastMovie.maxWidth = 160
         mBinding?.rvBilledCast?.adapter = mAdapterCastMovie
         mBinding?.rvBilledCast?.setupHorizontalLayoutManager()
     }
@@ -143,7 +143,6 @@ class DetailMovieFragment: Fragment() {
            tvGenre.setSpannable(detailMovieEntity?.genres?.toTypedArray())
            tvOverview.text = getString(R.string.overview)
            tvDescOverview.text = detailMovieEntity?.overview
-           tvTopBilledCast.text = getString(R.string.top_billed_cast)
            if (detailMovieEntity?.tagLine.isNullOrEmpty()) tvTagline.text = "-"
            else tvTagline.text = detailMovieEntity?.tagLine
        }
@@ -152,8 +151,11 @@ class DetailMovieFragment: Fragment() {
     private fun onShowCastMovie(list: List<CastEntity>?) {
         if (list.isNullOrEmpty()) {
             mBinding?.rvBilledCast?.gone()
+            mBinding?.tvTopBilledCast?.gone()
         } else {
             mBinding?.rvBilledCast?.visible()
+            mBinding?.tvTopBilledCast?.visible()
+            mBinding?.tvTopBilledCast?.text = getString(R.string.top_billed_cast)
             setDataCastMovie(list)
         }
     }
