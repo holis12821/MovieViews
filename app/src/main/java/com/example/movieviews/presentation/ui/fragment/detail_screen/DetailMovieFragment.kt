@@ -1,4 +1,4 @@
-package com.example.movieviews.presentation.ui.fragment.detail_screen.detail_movie
+package com.example.movieviews.presentation.ui.fragment.detail_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,9 +19,9 @@ import com.example.movieviews.module.InjectionModule
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.CastAdapterMovie
 import com.example.movieviews.presentation.ui.custom.ProgressDialog
-import com.example.movieviews.presentation.ui.fragment.detail_screen.detail_movie.viewmodel.DetailMovieFragmentViewModelFactory
-import com.example.movieviews.presentation.ui.fragment.detail_screen.detail_movie.viewmodel.DetailMovieFragmentViewModelImpl
-import com.example.movieviews.presentation.ui.fragment.detail_screen.detail_movie.viewmodel.DetailMovieViewState
+import com.example.movieviews.presentation.ui.fragment.detail_screen.viewmodel.DetailMovieFragmentViewModelFactory
+import com.example.movieviews.presentation.ui.fragment.detail_screen.viewmodel.DetailMovieFragmentViewModelImpl
+import com.example.movieviews.presentation.ui.fragment.detail_screen.viewmodel.DetailMovieViewState
 
 class DetailMovieFragment: Fragment() {
 
