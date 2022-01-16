@@ -50,7 +50,7 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    kapt "com.github.bumptech.glide:compiler:$glideCompiler"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     //Unit test
@@ -68,14 +68,15 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationFragmentKtxVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationUiKtxVersion"
 
-    //Coroutines
+    //Coroutines and test
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCoreVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     //DI Koin
-    implementation "io.insert-koin:koin-core:$koinCoreVersion"
-    implementation "io.insert-koin:koin-android:$koinAndroidVersion"
-    testImplementation "io.insert-koin:koin-test:$koinTestVersion"
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
 
     //Extension activity and fragment, referring with by viewModel
     implementation "androidx.activity:activity-ktx:$activityktxVersion"
