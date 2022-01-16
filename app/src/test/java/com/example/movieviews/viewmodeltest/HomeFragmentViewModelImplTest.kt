@@ -6,13 +6,10 @@ import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeViewState
 import com.example.movieviews.utils.TestCoroutineRule
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -85,7 +82,7 @@ class HomeFragmentViewModelImplTest {
         }
     }
 
-    
+
 
     @After
     fun tearDown() {
