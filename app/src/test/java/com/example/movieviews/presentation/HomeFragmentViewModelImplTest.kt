@@ -1,4 +1,4 @@
-package com.example.movieviews.viewmodeltest
+package com.example.movieviews.presentation
 
 import androidx.lifecycle.Observer
 import com.example.movieviews.data.repository.MovieRepository
