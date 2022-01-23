@@ -1,4 +1,4 @@
-package com.example.movieviews.presentation
+package com.example.movieviews.presentation.ui.home
 
 import androidx.lifecycle.Observer
 import com.example.movieviews.data.repository.MovieRepository
@@ -7,16 +7,16 @@ import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragme
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeViewState
 import com.example.movieviews.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.mock
@@ -25,17 +25,17 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 @ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class HomeFragmentViewModelImplTest {
 
     @get:Rule
-    var testCoroutineRule = TestCoroutineRule()
+    val testCoroutineRule = TestCoroutineRule()
 
     private val mMovieRepository = mock<MovieRepository>()
     private val mHomeFragmentViewModel = HomeFragmentViewModelImpl(mMovieRepository)
     private val mObserver = mock<Observer<HomeViewState>>()
 
     private val movieList = DataMovieDummy.getMovies()
-
 
     @Before
     fun setup() {
@@ -51,43 +51,63 @@ class HomeFragmentViewModelImplTest {
     @Test
     fun getMovie() {
         testCoroutineRule.runBlockingTest {
-            //example get flow and emit movieList to stream
-            flow {
-                emit(movieList)
-            }.collect { movieList ->
-                assertNotNull(movieList)
-                assertEquals(42, movieList.size)
-            }
+            //example emit movieList to upstream flow
+            mMovieRepository.getMovie(movieList = movieList)
+                .onStart { HomeViewState.Progress(isLoading = true) }
+                .catch {
+                    HomeViewState.Progress(isLoading = false)
+                    HomeViewState.ShowMessage("Error Occurred")
+                }.collect { movieList ->
+                    HomeViewState.Progress(isLoading = false)
+                    assertNotNull(movieList)
+                    assertEquals(42, movieList.size)
+                }
         }
     }
 
     /**
-     * Showing test when data success */
-
+     * Showing test when data success
+     * */
     @Test
     fun `provide a movie list when successfully obtained from the repository on viewModel`() {
         testCoroutineRule.runBlockingTest {
-            `when`(mMovieRepository.getMovie())
+            //given
+            `when`(mMovieRepository.getMovie(movieList = movieList))
                 .thenReturn(flowOf(movieList))
 
+            //when
             mHomeFragmentViewModel.getMovie()
 
-            //verify when state on loading util onSuccess
-            verify(mMovieRepository, atLeastOnce()).getMovie()
-            verify(mObserver, atLeastOnce()).onChanged(HomeViewState.Progress(isLoading = true))
-            verify(mObserver, atLeastOnce()).onChanged(HomeViewState.Progress(isLoading = false))
-            verify(mObserver, atLeastOnce()).onChanged(HomeViewState.ShowMovie(movieList))
+            //then
+            verify(mMovieRepository).getMovie(movieList = movieList)
+            verify(mObserver).onChanged(HomeViewState.ShowMovie(movieList))
             verifyNoMoreInteractions(mMovieRepository)
             clearInvocations(mObserver, mMovieRepository)
         }
     }
 
+    @Test
+    fun `Should fail when fetchFrom data to get error message`() {
+        testCoroutineRule.runBlockingTest {
+            //given
+            `when`(mMovieRepository.getMovie(movieList = movieList))
+                .thenReturn(emptyFlow())
+            //when
+            mHomeFragmentViewModel.getMovie()
 
+            //then return
+            verify(mMovieRepository, atLeastOnce()).getMovie(movieList)
+            val viewState = HomeViewState.ShowMessage("Error occurred")
+            assertEquals("Error occurred", viewState.message)
+
+            verifyNoMoreInteractions(mMovieRepository)
+            clearInvocations(mObserver, mMovieRepository)
+        }
+    }
 
     @After
     fun tearDown() {
         testCoroutineRule.onStop()
-        verifyNoMoreInteractions(mMovieRepository)
         clearInvocations(mMovieRepository)
     }
 }

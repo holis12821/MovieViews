@@ -10,12 +10,11 @@ import kotlinx.coroutines.flow.flowOn
 
 class MovieRepositoryImpl: MovieRepository {
 
-    override suspend fun getMovie(): Flow<List<MovieEntity>> {
+    override suspend fun getMovie(movieList: List<MovieEntity>): Flow<List<MovieEntity>> {
         return flow {
             try {
-                val dataDummyMovie = DataMovieDummy.getMovies()
                 delay(1_000)
-                emit(dataDummyMovie)
+                emit(movieList)
             } catch (e: Throwable) {
                 error(e.message.toString())
             }

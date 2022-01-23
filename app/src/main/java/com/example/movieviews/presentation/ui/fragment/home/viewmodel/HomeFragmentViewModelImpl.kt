@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.data.repository.MovieRepository
+import com.example.movieviews.external.dumydata.DataMovieDummy
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -21,7 +22,8 @@ class HomeFragmentViewModelImpl(
 
     override fun getMovie() {
         viewModelScope.launch {
-            repositoryDelegate.getMovie()
+            val movieList = DataMovieDummy.getMovies()
+            repositoryDelegate.getMovie(movieList = movieList)
                 .onStart { showLoading() }
                 .catch { e ->
                     hideLoading()
