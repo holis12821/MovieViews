@@ -88,7 +88,7 @@ class DetailMovieFragment: Fragment() {
     }
 
     private fun setupAdapterCastMovie() {
-        mAdapterCastMovie.maxWidth = 160
+        mAdapterCastMovie.maxWidth = 125
         mBinding?.rvBilledCast?.adapter = mAdapterCastMovie
         mBinding?.rvBilledCast?.setupHorizontalLayoutManager()
     }
