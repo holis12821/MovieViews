@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,7 +26,7 @@ import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowVi
 class TvShowFragment : Fragment() {
     private var mBinding: FragmentTvShowBinding? = null
     private lateinit var mFragmentTvShowViewModel: TvShowFragmentViewModelImpl
-    private var loading: Boolean = false
+//    private var loading: Boolean = false
 
     /**
      * Lazy initialization is used to initialize objects when needed.
@@ -49,7 +48,7 @@ class TvShowFragment : Fragment() {
                     data: MovieEntity
                 ) {
                     when (view.id) {
-                        R.id.iv_poster -> navigateTvShowDetail(movieEntity = data)
+                        R.id.iv_poster_movie -> navigateTvShowDetail(movieEntity = data)
                         R.id.tv_title -> navigateTvShowDetail(movieEntity = data)
                     }
                 }
@@ -63,11 +62,9 @@ class TvShowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_tv_show,
-            container, false
-        )
-        return mBinding?.root
+        mBinding = FragmentTvShowBinding.inflate(inflater,
+        container, false)
+            return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,7 +86,6 @@ class TvShowFragment : Fragment() {
     }
 
     private fun initData() {
-        mBinding?.viewModel = mFragmentTvShowViewModel
         mFragmentTvShowViewModel.getTvShowList()
     }
 
@@ -120,9 +116,9 @@ class TvShowFragment : Fragment() {
     }
 
     private fun onProgress(loading: Boolean) {
-        this.loading = loading
-        if (loading) mProgressDialog.show()
-        else mProgressDialog.dismiss()
+//        this.loading = loading
+//        if (loading) mProgressDialog.show()
+//        else mProgressDialog.dismiss()
     }
 
     private fun onShowMessage(message: String) {
@@ -170,12 +166,12 @@ class TvShowFragment : Fragment() {
         mBinding = null
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
         try {
             mProgressDialog.dismiss()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
+    }*/
 }

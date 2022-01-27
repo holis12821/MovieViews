@@ -3,16 +3,14 @@ package com.example.movieviews.presentation.ui.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieviews.R
 import com.example.movieviews.data.models.CastEntity
 import com.example.movieviews.databinding.ItemViewCastAdapterBinding
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.utils.getScreenWidth
 import com.example.movieviews.external.utils.setImage
 
-class CastAdapterMovie: RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
+class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
     val list = mutableListOf<CastEntity>()
 
     var maxWidth = 160
@@ -48,7 +46,7 @@ class CastAdapterMovie: RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
             }
 
             with(binding) {
-                ivPoster.setImage(data.posterUrl)
+                ivPosterCast.setImage(data.posterUrl)
                 tvOriginalName.text = data.originalName
                 tvNameCast.text = data.nameCast
             }
@@ -58,14 +56,12 @@ class CastAdapterMovie: RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
     var listener: AdapterClickListener<CastEntity>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_view_cast_adapter,
-                parent,
-                false
-            )
-        )
+        ItemViewCastAdapterBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        ).also { itemViewCastAdapterBinding ->
+            return ViewHolder(itemViewCastAdapterBinding)
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

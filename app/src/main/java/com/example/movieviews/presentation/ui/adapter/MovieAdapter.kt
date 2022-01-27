@@ -3,9 +3,7 @@ package com.example.movieviews.presentation.ui.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieviews.R
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
 import com.example.movieviews.external.extension.convertDpToPixel
@@ -53,16 +51,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
                     )
 
             }
-            binding.data = data
             with(binding) {
                 tvTitle.text = data.title
-                ivPoster.setImage(data.posterUrl)
+                ivPosterMovie.setImage(data.posterUrl)
             }
 
             itemView.setOnClickListener {
                 listener?.onItemClickCallback(data = data)
             }
-            binding.ivPoster.setOnClickListener { ivPoster ->
+            binding.ivPosterMovie.setOnClickListener { ivPoster ->
                 listener?.onViewClickCallback(ivPoster, data)
             }
             binding.tvTitle.setOnClickListener { tvTitle ->
@@ -74,14 +71,13 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     var listener: AdapterClickListener<MovieEntity>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.item_view_movie_adapter,
-                parent,
-                false
-            )
-        )
+        ItemViewMovieAdapterBinding.inflate(
+            LayoutInflater.from(
+                parent.context
+            ), parent, false
+        ).also { itemViewMovieBinding ->
+            return ViewHolder(itemViewMovieBinding)
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

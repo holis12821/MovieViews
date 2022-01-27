@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.fragment.movie.MovieFragment">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFragmentViewModelImpl" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.fragment.movie.MovieFragment">
+        android:clipToPadding="false"
+        android:padding="@dimen/space_medium_large"
+        tools:itemCount="5"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_view_movie_adapter"
+        tools:spanCount="2" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/space_medium_large"
-            android:clipToPadding="false"
-            tools:spanCount="2"
-            tools:itemCount="5"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_view_movie_adapter" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

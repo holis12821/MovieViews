@@ -3,13 +3,11 @@ package com.example.movieviews.presentation.ui.activity.splash_screen
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import com.example.movieviews.R
 import com.example.movieviews.databinding.ActivitySplashScreenBinding
 import com.example.movieviews.presentation.ui.activity.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
-    private var mBinding: ActivitySplashScreenBinding? = null
+    private lateinit var mBinding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,10 +15,8 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        mBinding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_splash_screen
-        )
+        mBinding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         showSplashScreen()
     }
 

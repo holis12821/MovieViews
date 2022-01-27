@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -23,10 +22,11 @@ import com.example.movieviews.presentation.ui.fragment.detail_screen.viewmodel.D
 import com.example.movieviews.presentation.ui.fragment.detail_screen.viewmodel.DetailMovieFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.detail_screen.viewmodel.DetailMovieViewState
 
-class DetailMovieFragment: Fragment() {
+class DetailMovieFragment : Fragment() {
 
     private var mBinding: FragmentDetailMovieBinding? = null
     private lateinit var mFragmentDetailMovieViewModel: DetailMovieFragmentViewModelImpl
+
     //get data from previous fragment
     private val args: DetailMovieFragmentArgs by navArgs()
 
@@ -35,7 +35,7 @@ class DetailMovieFragment: Fragment() {
      * This method only once invoke the instance object,
      * if it is already it will be usable
      * */
-    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
+//    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
 
     private val mAdapterCastMovie by lazy {
         CastAdapterMovie().apply {
@@ -57,8 +57,7 @@ class DetailMovieFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_detail_movie,
+        mBinding = FragmentDetailMovieBinding.inflate(inflater,
         container, false)
         return mBinding?.root
     }
@@ -75,14 +74,13 @@ class DetailMovieFragment: Fragment() {
             DetailMovieFragmentViewModelFactory(
                 InjectionModule.provideMovieRepository()
             )
-        ) [DetailMovieFragmentViewModelImpl::class.java]
+        )[DetailMovieFragmentViewModelImpl::class.java]
         onInitState()
         initData()
         setupAdapterCastMovie()
     }
 
     private fun initData() {
-        mBinding?.viewModel = mFragmentDetailMovieViewModel
         mFragmentDetailMovieViewModel.id = args.movieEntity.id
         mFragmentDetailMovieViewModel.getDetailMovie()
     }
@@ -114,8 +112,8 @@ class DetailMovieFragment: Fragment() {
     }
 
     private fun onProgress(loading: Boolean) {
-        if (loading) mProgressDialog.show()
-        else mProgressDialog.dismiss()
+//        if (loading) mProgressDialog.show()
+//        else mProgressDialog.dismiss()
     }
 
     private fun onShowMessage(message: String) {
@@ -126,26 +124,28 @@ class DetailMovieFragment: Fragment() {
     }
 
     private fun onShowDetailMovie(detailMovieEntity: MovieEntity?) {
-       showDetailMovie(detailMovieEntity)
+        showDetailMovie(detailMovieEntity)
     }
 
     private fun showDetailMovie(detailMovieEntity: MovieEntity?) {
-       mBinding?.apply {
-           ivPoster.setImage(detailMovieEntity?.posterUrl)
-           ivPosterMovie.setImage(detailMovieEntity?.posterUrl)
-           tvTitleMovie.text = detailMovieEntity?.title
-           tvScoreFilm.text = getString(R.string.user_score,
-               detailMovieEntity?.rating.toString())
-           tvMovieCertification.setSpan(
-               textFirst = detailMovieEntity?.certification,
-               textSecond = detailMovieEntity?.duration
-           )
-           tvGenre.setSpannable(detailMovieEntity?.genres?.toTypedArray())
-           tvOverview.text = getString(R.string.overview)
-           tvDescOverview.text = detailMovieEntity?.overview
-           if (detailMovieEntity?.tagLine.isNullOrEmpty()) tvTagline.text = "-"
-           else tvTagline.text = detailMovieEntity?.tagLine
-       }
+        mBinding?.apply {
+            ivPosterImage.setImage(detailMovieEntity?.posterUrl)
+            ivPosterMovie.setImage(detailMovieEntity?.posterUrl)
+            tvTitleMovie.text = detailMovieEntity?.title
+            tvScoreFilm.text = getString(
+                R.string.user_score,
+                detailMovieEntity?.rating.toString()
+            )
+            tvMovieCertification.setSpan(
+                textFirst = detailMovieEntity?.certification,
+                textSecond = detailMovieEntity?.duration
+            )
+            tvGenre.setSpannable(detailMovieEntity?.genres?.toTypedArray())
+            tvOverview.text = getString(R.string.overview)
+            tvDescOverview.text = detailMovieEntity?.overview
+            if (detailMovieEntity?.tagLine.isNullOrEmpty()) tvTagline.text = "-"
+            else tvTagline.text = detailMovieEntity?.tagLine
+        }
     }
 
     private fun onShowCastMovie(list: List<CastEntity>?) {
@@ -172,12 +172,12 @@ class DetailMovieFragment: Fragment() {
         mBinding = null
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
         try {
             mProgressDialog.dismiss()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
+    }*/
 }

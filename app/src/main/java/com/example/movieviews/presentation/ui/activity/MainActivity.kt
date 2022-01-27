@@ -2,7 +2,6 @@ package com.example.movieviews.presentation.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,9 +22,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        mBinding = DataBindingUtil.setContentView(
-            this, R.layout.activity_main
-        )
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         //set NavHostFragment to find fragment based on id
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment

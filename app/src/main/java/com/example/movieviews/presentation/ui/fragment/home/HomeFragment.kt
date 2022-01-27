@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -49,7 +48,7 @@ class HomeFragment : Fragment() {
                     data: MovieEntity
                 ) {
                     when (view.id) {
-                        R.id.iv_poster -> navigateMovieDetail(movieEntity = data)
+                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
                         R.id.tv_title -> navigateMovieDetail(movieEntity = data)
                     }
                 }
@@ -70,7 +69,7 @@ class HomeFragment : Fragment() {
                     data: MovieEntity
                 ) {
                     when (view.id) {
-                        R.id.iv_poster -> navigateMovieDetail(movieEntity = data)
+                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
                         R.id.tv_title -> navigateMovieDetail(movieEntity = data)
                     }
                 }
@@ -90,7 +89,7 @@ class HomeFragment : Fragment() {
                     data: MovieEntity
                 ) {
                     when (view.id) {
-                        R.id.iv_poster -> navigateMovieDetail(movieEntity = data)
+                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
                         R.id.tv_title -> navigateMovieDetail(movieEntity = data)
                     }
                 }
@@ -110,7 +109,7 @@ class HomeFragment : Fragment() {
                     data: MovieEntity,
                 ) {
                     when (view.id) {
-                        R.id.iv_poster -> navigateMovieDetail(movieEntity = data)
+                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
                         R.id.tv_title -> navigateMovieDetail(movieEntity = data)
                     }
                 }
@@ -123,10 +122,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_home, container, false
-        )
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return mBinding?.root
     }
 
@@ -145,7 +141,7 @@ class HomeFragment : Fragment() {
             )
         )[HomeFragmentViewModelImpl::class.java]
         //setup image in drawable
-        mBinding?.ivPoster?.setImageDrawable(
+        mBinding?.ivPosterHome?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.banner
@@ -167,7 +163,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initData() {
-        mBinding?.viewModel = mFragmentViewModel
         mFragmentViewModel.getMovie()
     }
 
@@ -218,11 +213,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun onProgress(loading: Boolean) {
-        if (loading) {
+        /*if (loading) {
             mProgressDialog.show()
         } else {
             mProgressDialog.dismiss()
-        }
+        }*/
     }
 
     private fun onShowMessage(message: String) {
@@ -292,12 +287,12 @@ class HomeFragment : Fragment() {
         mBinding = null
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
         try {
             mProgressDialog.dismiss()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
+    }*/
 }
