@@ -28,6 +28,7 @@ class TvShowFragmentViewModelImplTest {
     private val mObserver = mock<Observer<List<MovieEntity>>>()
 
     private val movieList = DataMovieDummy.getMovies()
+    private val movieTvShows = movieList.filter { it.isTvSHow }
 
     /**
      * Things to prepare before the test takes place
@@ -44,7 +45,7 @@ class TvShowFragmentViewModelImplTest {
 
         //given
         Mockito.`when`(mMovieRepository.getMovie())
-            .thenReturn(movieList)
+            .thenReturn(movieTvShows)
 
 
         //when
@@ -52,10 +53,10 @@ class TvShowFragmentViewModelImplTest {
 
         //then
         verify(mMovieRepository, times(1)).getMovie()
-        verify(mObserver).onChanged(movieList)
+        verify(mObserver).onChanged(movieTvShows)
 
         assertNotNull(movieList)
-        assertEquals(42, movieList.size)
+        assertEquals(14, movieTvShows.size)
     }
 
 
