@@ -1,35 +1,38 @@
-package com.example.movieviews.presentation.ui.home
+package com.example.movieviews.presentation.ui.detail_screen
 
 import androidx.lifecycle.Observer
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.dumydata.DataMovieDummy
-import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl
+import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.utils.InstantRuleExecution
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.*
+import org.mockito.kotlin.clearInvocations
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-
 @RunWith(MockitoJUnitRunner::class)
-class HomeFragmentViewModelImplTest {
-
+class DetailMovieActivityViewModelImplTest {
     //mock object
     private val mMovieRepository = mock<MovieRepository>()
-    private val mHomeFragmentViewModel = HomeFragmentViewModelImpl(mMovieRepository)
+    private val mDetailMovieActivityViewModel = DetailMovieActivityViewModelImpl(mMovieRepository)
 
     //observer is A simple callback that
     //can receive from LiveData. and onChange to trigger change to UI
-    private val mObserver = mock<Observer<List<MovieEntity>>>()
+    private val mObserverMovie = mock<Observer<MovieEntity>>()
 
     private val movieList = DataMovieDummy.getMovies()
+    private val movieEntity = movieList.firstOrNull()
+
 
     /**
      * Things to prepare before the test takes place
@@ -38,33 +41,33 @@ class HomeFragmentViewModelImplTest {
     fun setup() {
         MockitoAnnotations.openMocks(this)
         InstantRuleExecution.onStart()
-        mHomeFragmentViewModel.state.observeForever(mObserver)
+        mDetailMovieActivityViewModel.observeMovie.observeForever(mObserverMovie)
+        mDetailMovieActivityViewModel.id = 1
     }
 
     @Test
-    fun getListMovie() {
+    fun getDetailMovie() {
 
         //given
-        `when`(mMovieRepository.getMovie())
+        Mockito.`when`(mMovieRepository.getMovie())
             .thenReturn(movieList)
 
         //when
-        mHomeFragmentViewModel.getMovie()
+        mDetailMovieActivityViewModel.getDetailMovie()
 
         //then
-        verify(mMovieRepository, times(1)).getMovie()
-        verify(mObserver).onChanged(movieList)
-
-        assertNotNull(movieList)
-        assertEquals(42, movieList.size)
+        verify(mMovieRepository).getMovie()
+        verify(mObserverMovie).onChanged(movieEntity)
+        assertNotNull(movieEntity)
+        assertNotNull(movieEntity.cast)
+        assertEquals(movieEntity.id, mDetailMovieActivityViewModel.id)
     }
-
 
 
     @After
     fun tearDown() {
         InstantRuleExecution.onStop()
         verifyNoMoreInteractions(mMovieRepository)
-        clearInvocations(mObserver, mMovieRepository)
+        clearInvocations(mObserverMovie, mMovieRepository)
     }
 }

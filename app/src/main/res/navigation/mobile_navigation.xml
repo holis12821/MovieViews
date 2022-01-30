@@ -9,44 +9,18 @@
         android:id="@+id/navigation_home"
         android:label="@string/home"
         android:name="com.example.movieviews.presentation.ui.fragment.home.HomeFragment"
-        tools:layout="@layout/fragment_home">
-
-        <action
-            android:id="@+id/action_home_to_detail_movie"
-            app:destination="@+id/navigation_detail_movie"/>
-
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/navigation_movie"
         android:name="com.example.movieviews.presentation.ui.fragment.movie.MovieFragment"
         android:label="@string/movie"
-        tools:layout="@layout/fragment_movie">
-
-        <action
-            android:id="@+id/action_movie_to_detail_movie"
-            app:destination="@+id/navigation_detail_movie"/>
-    </fragment>
+        tools:layout="@layout/fragment_movie"/>
 
     <fragment
         android:id="@+id/navigation_tv_show"
         android:name="com.example.movieviews.presentation.ui.fragment.tvshow.TvShowFragment"
         android:label="@string/tvShow"
-        tools:layout="@layout/fragment_tv_show">
-
-        <action
-            android:id="@+id/action_tv_show_to_detail_tv_show"
-            app:destination="@+id/navigation_detail_movie"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_detail_movie"
-        android:name="com.example.movieviews.presentation.ui.fragment.detail_screen.DetailMovieFragment"
-        android:label="@string/detailMovie"
-        tools:layout="@layout/fragment_detail_movie">
-        <argument
-            android:name="movieEntity"
-            app:argType="com.example.movieviews.data.models.MovieEntity"/>
-    </fragment>
+        tools:layout="@layout/fragment_tv_show"/>
 
 </navigation>

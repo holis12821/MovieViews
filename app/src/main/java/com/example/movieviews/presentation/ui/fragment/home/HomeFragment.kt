@@ -1,5 +1,6 @@
 package com.example.movieviews.presentation.ui.fragment.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,21 +9,18 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.movieviews.R
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.databinding.FragmentHomeBinding
-import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
 import com.example.movieviews.external.extension.setupHorizontalLayoutManager
-import com.example.movieviews.external.extension.visible
 import com.example.movieviews.module.InjectionModule
 import com.example.movieviews.presentation.ui.activity.MainActivity
+import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.MovieAdapter
-import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelFactory
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl
-import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeViewState
 
 class HomeFragment : Fragment() {
 
@@ -34,23 +32,20 @@ class HomeFragment : Fragment() {
      * This method only once invoke the instances object,
      * if it is already it will be usable
      * */
-    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
-
     private val mAdapterPopular by lazy {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity) {
-                    navigateMovieDetail(movieEntity = data)
+                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
+                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
+                    startActivity(intent)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
                     data: MovieEntity
                 ) {
-                    when (view.id) {
-                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
-                        R.id.tv_title -> navigateMovieDetail(movieEntity = data)
-                    }
+
                 }
 
             }
@@ -61,37 +56,35 @@ class HomeFragment : Fragment() {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity) {
-                    navigateMovieDetail(movieEntity = data)
+                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
+                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
+                    startActivity(intent)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
                     data: MovieEntity
                 ) {
-                    when (view.id) {
-                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
-                        R.id.tv_title -> navigateMovieDetail(movieEntity = data)
-                    }
+
                 }
             }
         }
     }
 
-    private val mAdapterTrending by lazy {
+    private val mAdapterTrendingMovie by lazy {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity) {
-                    navigateMovieDetail(movieEntity = data)
+                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
+                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
+                    startActivity(intent)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
                     data: MovieEntity
                 ) {
-                    when (view.id) {
-                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
-                        R.id.tv_title -> navigateMovieDetail(movieEntity = data)
-                    }
+
                 }
             }
         }
@@ -101,17 +94,16 @@ class HomeFragment : Fragment() {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
                 override fun onItemClickCallback(data: MovieEntity) {
-                    navigateMovieDetail(movieEntity = data)
+                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
+                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
+                    startActivity(intent)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
                     data: MovieEntity,
                 ) {
-                    when (view.id) {
-                        R.id.iv_poster_movie -> navigateMovieDetail(movieEntity = data)
-                        R.id.tv_title -> navigateMovieDetail(movieEntity = data)
-                    }
+
                 }
             }
         }
@@ -140,6 +132,15 @@ class HomeFragment : Fragment() {
                 InjectionModule.provideMovieRepository()
             )
         )[HomeFragmentViewModelImpl::class.java]
+        setupView()
+        initData()
+        setupAdapterPopularMovie()
+        setupAdapterFreeWatch()
+        setupAdapterTrendingMovie()
+        setupAdapterUpComingMovie()
+    }
+
+    private fun setupView() {
         //setup image in drawable
         mBinding?.ivPosterHome?.setImageDrawable(
             ContextCompat.getDrawable(
@@ -153,13 +154,35 @@ class HomeFragment : Fragment() {
                 R.drawable.ic_tmdb_logo
             )
         )
-        mBinding?.tvMovieDb?.text = resources.getString(R.string.app_name)
-        onInitState()
-        initData()
-        setupAdapterPopularMovie()
-        setupAdapterFreeWatch()
-        setupAdapterTrendingMovie()
-        setupAdapterUpComingMovie()
+        mBinding?.tvMovieDb?.text = getString(R.string.app_name)
+        mBinding?.tvSeeAllPopular?.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.coming_soon),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        mBinding?.tvSeeAllFreeWatch?.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.coming_soon),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        mBinding?.tvSeeAllTrending?.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.coming_soon),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        mBinding?.tvSeeAllUpcomingMovie?.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.coming_soon),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun initData() {
@@ -179,8 +202,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdapterTrendingMovie() {
-        mAdapterTrending.maxWidth = 160
-        mBinding?.rvTrendingMovie?.adapter = mAdapterTrending
+        mAdapterTrendingMovie.maxWidth = 160
+        mBinding?.rvTrendingMovie?.adapter = mAdapterTrendingMovie
         mBinding?.rvTrendingMovie?.setupHorizontalLayoutManager()
     }
 
@@ -191,47 +214,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun onObserver() {
-        mFragmentViewModel.state.observe(viewLifecycleOwner, { state ->
-            handleState(state)
+        mFragmentViewModel.state.observe(viewLifecycleOwner, { listMovie ->
+            onDataChange(listMovie)
         })
     }
 
-    private fun handleState(state: HomeViewState) {
-        when (state) {
-            is HomeViewState.Init -> onInitState()
-            is HomeViewState.Progress -> onProgress(state.isLoading)
-            is HomeViewState.ShowMessage -> onShowMessage(state.message)
-            is HomeViewState.ShowMovie -> onSuccess(state.list)
-        }
-    }
-
-    private fun onInitState() {
-        mBinding?.rvPopularMovie?.gone()
-        mBinding?.rvFreeWatch?.gone()
-        mBinding?.rvTrendingMovie?.gone()
-        mBinding?.rvUpcomingMovie?.gone()
-    }
-
-    private fun onProgress(loading: Boolean) {
-        /*if (loading) {
-            mProgressDialog.show()
-        } else {
-            mProgressDialog.dismiss()
-        }*/
-    }
-
-    private fun onShowMessage(message: String) {
-        Toast.makeText(
-            requireContext(),
-            message, Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun onSuccess(list: List<MovieEntity>) {
-        mBinding?.rvPopularMovie?.visible()
-        mBinding?.rvFreeWatch?.visible()
-        mBinding?.rvTrendingMovie?.visible()
-        mBinding?.rvUpcomingMovie?.visible()
+    private fun onDataChange(list: List<MovieEntity>) {
         //filter data based on condition
         val filterPopular = list.filter { it.isPopular }
         val filterFreeWatch = list.filter { it.isFreeWatch }
@@ -255,24 +243,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setDataMovieTrending(list: List<MovieEntity>) {
-        mAdapterTrending.setData(list)
+        mAdapterTrendingMovie.setData(list)
     }
 
     private fun setDataMovieUpComing(list: List<MovieEntity>) {
         mAdapterUpComingMovie.setData(list)
-    }
-
-    /**
-     * A function navigate to the Movie detail Fragment
-     * */
-    fun navigateMovieDetail(movieEntity: MovieEntity) {
-        if (requireActivity() is MainActivity) {
-            (activity as MainActivity?)?.hideBottomNavigationView()
-        }
-        findNavController().navigate(
-            HomeFragmentDirections
-                .actionHomeToDetailMovie(movieEntity)
-        )
     }
 
     override fun onResume() {

@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/font/font.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_course_reader.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_detail_course.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_detail_movie.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
@@ -33,7 +34,7 @@
         <entry key="app/src/main/res/layout/custom_separator.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/fragment_academy.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_detail_movie.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_detail_movie.xml" value="0.28955223880597014" />
         <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />

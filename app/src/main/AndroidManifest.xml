@@ -17,6 +17,9 @@
             android:name="com.example.movieviews.presentation.ui.activity.MainActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.movieviews.presentation.ui.activity.splash_screen.SplashScreenActivity"
             android:theme="@style/Theme.MovieViews.NoActionBar"
             android:exported="true">

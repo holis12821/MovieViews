@@ -4,11 +4,14 @@ import android.content.Context
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 /**
  * This ViewExtension contains general extension and you can call
@@ -90,6 +93,15 @@ fun TextView.setSpan(
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     text = spannableStringBuilder
+}
+
+
+fun ImageView.setImage(urlPath: String?) {
+    if (urlPath.isNullOrEmpty()) return
+    Glide.with(this)
+        .load(urlPath)
+        .apply(RequestOptions().override(600, 600))
+        .into(this)
 }
 
 

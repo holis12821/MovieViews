@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.data.models.CastEntity
 import com.example.movieviews.databinding.ItemViewCastAdapterBinding
 import com.example.movieviews.external.extension.convertDpToPixel
+import com.example.movieviews.external.extension.setImage
 import com.example.movieviews.external.utils.getScreenWidth
-import com.example.movieviews.external.utils.setImage
 
 class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
     val list = mutableListOf<CastEntity>()

@@ -1,27 +1,24 @@
 package com.example.movieviews.presentation.ui.fragment.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieviews.R
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.databinding.FragmentTvShowBinding
-import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
 import com.example.movieviews.external.extension.visible
 import com.example.movieviews.module.InjectionModule
 import com.example.movieviews.presentation.ui.activity.MainActivity
+import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.MovieAdapter
-import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelFactory
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
-import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
 
 class TvShowFragment : Fragment() {
     private var mBinding: FragmentTvShowBinding? = null
@@ -33,24 +30,21 @@ class TvShowFragment : Fragment() {
      * This method only once invoke the instance object,
      * if it is already it will be usable
      * */
-    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
-
     private val mAdapterTvShowList by lazy {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieEntity> {
 
                 override fun onItemClickCallback(data: MovieEntity) {
-                    navigateTvShowDetail(movieEntity = data)
+                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
+                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
+                    startActivity(intent)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
                     data: MovieEntity
                 ) {
-                    when (view.id) {
-                        R.id.iv_poster_movie -> navigateTvShowDetail(movieEntity = data)
-                        R.id.tv_title -> navigateTvShowDetail(movieEntity = data)
-                    }
+
                 }
 
             }
@@ -62,9 +56,11 @@ class TvShowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentTvShowBinding.inflate(inflater,
-        container, false)
-            return mBinding?.root
+        mBinding = FragmentTvShowBinding.inflate(
+            inflater,
+            container, false
+        )
+        return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +76,6 @@ class TvShowFragment : Fragment() {
                 InjectionModule.provideMovieRepository()
             )
         )[TvShowFragmentViewModelImpl::class.java]
-        onInitState()
         initData()
         setupAdapterTvSHowList()
     }
@@ -97,38 +92,12 @@ class TvShowFragment : Fragment() {
     }
 
     private fun onObserver() {
-        mFragmentTvShowViewModel.state.observe(viewLifecycleOwner, { state ->
-            handleState(state)
+        mFragmentTvShowViewModel.state.observe(viewLifecycleOwner, { listMovie ->
+            onDataSuccess(listMovie)
         })
     }
 
-    private fun handleState(state: TvShowViewState) {
-        when (state) {
-            is TvShowViewState.Init -> onInitState()
-            is TvShowViewState.Progress -> onProgress(state.isLoading)
-            is TvShowViewState.ShowMessage -> onShowMessage(state.message)
-            is TvShowViewState.ShowTvShow -> onSuccess(state.list)
-        }
-    }
-
-    private fun onInitState() {
-        mBinding?.rvTvShow?.gone()
-    }
-
-    private fun onProgress(loading: Boolean) {
-//        this.loading = loading
-//        if (loading) mProgressDialog.show()
-//        else mProgressDialog.dismiss()
-    }
-
-    private fun onShowMessage(message: String) {
-        Toast.makeText(
-            requireContext(),
-            message, Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun onSuccess(list: List<MovieEntity>) {
+    private fun onDataSuccess(list: List<MovieEntity>) {
         mBinding?.rvTvShow?.visible()
         val filterTvShowList = list.filter { it.isTvSHow }
         setDataTvShowList(filterTvShowList)
@@ -139,19 +108,6 @@ class TvShowFragment : Fragment() {
      * */
     private fun setDataTvShowList(list: List<MovieEntity>) {
         mAdapterTvShowList.setData(list)
-    }
-
-    /**
-     * A function navigate to the TvSHow detail Fragment
-     * */
-    fun navigateTvShowDetail(movieEntity: MovieEntity) {
-        if (requireActivity() is MainActivity) {
-            (activity as MainActivity?)?.hideBottomNavigationView()
-        }
-        findNavController().navigate(
-            TvShowFragmentDirections
-                .actionTvShowToDetailTvShow(movieEntity)
-        )
     }
 
     override fun onResume() {

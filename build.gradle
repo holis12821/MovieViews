@@ -37,6 +37,7 @@ ext {
     mockitoKotlinVersion = '4.0.0'
     navigationFragmentKtxVersion = '2.3.5'
     navigationUiKtxVersion = '2.3.5'
+    nav_version = '2.3.5'
     okhttpVersion = '4.9.1'
     okhttpLoggingInterceptorVersion = '4.9.1'
     retrofitVersion = '2.9.0'

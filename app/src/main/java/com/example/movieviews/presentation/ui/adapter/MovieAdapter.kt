@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.data.models.MovieEntity
 import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
 import com.example.movieviews.external.extension.convertDpToPixel
+import com.example.movieviews.external.extension.setImage
 import com.example.movieviews.external.utils.getScreenWidth
-import com.example.movieviews.external.utils.setImage
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     val list = mutableListOf<MovieEntity>()
@@ -53,17 +53,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
             }
             with(binding) {
                 tvTitle.text = data.title
-                ivPosterMovie.setImage(data.posterUrl)
+                ivPosterImage.setImage(data.posterUrl)
             }
 
             itemView.setOnClickListener {
                 listener?.onItemClickCallback(data = data)
-            }
-            binding.ivPosterMovie.setOnClickListener { ivPoster ->
-                listener?.onViewClickCallback(ivPoster, data)
-            }
-            binding.tvTitle.setOnClickListener { tvTitle ->
-                listener?.onViewClickCallback(tvTitle, data)
             }
         }
     }
