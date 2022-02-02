@@ -1,21 +1,17 @@
 package com.example.movieviews.presentation.ui.home
 
 import androidx.lifecycle.Observer
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.local.MovieEntity
 import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl
-import com.example.movieviews.presentation.ui.utils.InstantRuleExecution
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.*
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -37,33 +33,19 @@ class HomeFragmentViewModelImplTest {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        InstantRuleExecution.onStart()
-        mHomeFragmentViewModel.state.observeForever(mObserver)
+
+
     }
 
     @Test
     fun getListMovie() {
 
-        //given
-        `when`(mMovieRepository.getMovie())
-            .thenReturn(movieList)
-
-        //when
-        mHomeFragmentViewModel.getMovie()
-
-        //then
-        verify(mMovieRepository, times(1)).getMovie()
-        verify(mObserver).onChanged(movieList)
-
-        assertNotNull(movieList)
-        assertEquals(42, movieList.size)
     }
-
 
 
     @After
     fun tearDown() {
-        InstantRuleExecution.onStop()
+
         verifyNoMoreInteractions(mMovieRepository)
         clearInvocations(mObserver, mMovieRepository)
     }

@@ -15,7 +15,7 @@ android {
         targetSdk 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,6 +25,32 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        master {
+            dimension "default"
+            resValue "string", "app_name", "The Movie DB"
+            applicationIdSuffix ".main"
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+            buildConfigField("String", "API_KEY", "\"aee4638e7f40d966d6ef8f24904d0627\"")
+            buildConfigField("String", "MOVIE_IMAGE_URL", "\"https://image.tmdb.org/t/p/\"")
+
+        }
+
+        premaster {
+            dimension "default"
+            resValue "string", "app_name", "The Movie DB"
+            applicationIdSuffix ".staging"
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+            buildConfigField("String", "API_KEY", "\"aee4638e7f40d966d6ef8f24904d0627\"")
+            buildConfigField("String", "MOVIE_IMAGE_URL", "\"https://image.tmdb.org/t/p/\"")
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     buildTypes {

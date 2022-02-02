@@ -1,12 +1,14 @@
 package com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel
 
-import com.example.movieviews.data.models.CastEntity
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.local.CastEntity
+import com.example.movieviews.data.local.MovieEntity
+import com.example.movieviews.data.models.Cast
+import com.example.movieviews.data.models.DetailMovieEntity
 
 sealed class DetailMovieViewState {
     object Init: DetailMovieViewState()
-    data class Progress(val isLoading: Boolean): DetailMovieViewState()
-    data class ShowMessage(val message: String): DetailMovieViewState()
-    data class ShowDetailMovie(val detailMovieEntity: MovieEntity?): DetailMovieViewState()
-    data class ShowCastMovie(val detailMovieEntity: List<CastEntity>?): DetailMovieViewState()
+    object Loading: DetailMovieViewState()
+    data class Message(val throwable: Throwable): DetailMovieViewState()
+    data class ShowDetailMovie(val detailMovieEntity: DetailMovieEntity): DetailMovieViewState()
+    data class ShowCastMovie(val listCastMovie: List<Cast>): DetailMovieViewState()
 }

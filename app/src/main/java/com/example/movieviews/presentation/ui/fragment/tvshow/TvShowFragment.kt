@@ -5,44 +5,52 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentTvShowBinding
+import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
 import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
+import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
+import com.example.movieviews.external.extension.gone
 import com.example.movieviews.external.extension.visible
-import com.example.movieviews.module.InjectionModule
+import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.MainActivity
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.MovieAdapter
-import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelFactory
+import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
+import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TvShowFragment : Fragment() {
     private var mBinding: FragmentTvShowBinding? = null
-    private lateinit var mFragmentTvShowViewModel: TvShowFragmentViewModelImpl
-//    private var loading: Boolean = false
+    private val mFragmentTvShowViewModel by viewModel<TvShowFragmentViewModelImpl>()
 
     /**
      * Lazy initialization is used to initialize objects when needed.
      * This method only once invoke the instance object,
      * if it is already it will be usable
      * */
+
+    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
+
     private val mAdapterTvShowList by lazy {
         MovieAdapter().apply {
-            listener = object : AdapterClickListener<MovieEntity> {
+            listener = object : AdapterClickListener<MovieResult> {
 
-                override fun onItemClickCallback(data: MovieEntity) {
+                override fun onItemClickCallback(data: MovieResult) {
                     val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
-                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
+                    intent.putExtra(EXTRA_TV_SHOW_MOVIE, data.id)
+                    intent.putExtra(EXTRA_DATAIl_MOVIE, false)
                     startActivity(intent)
                 }
 
                 override fun onViewClickCallback(
                     view: View,
-                    data: MovieEntity
+                    data: MovieResult
                 ) {
 
                 }
@@ -65,18 +73,14 @@ class TvShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EspressoIdlingResource.increment()
         initView()
         onObserver()
     }
 
     private fun initView() {
-        mFragmentTvShowViewModel = ViewModelProvider(
-            requireActivity(),
-            TvShowFragmentViewModelFactory(
-                InjectionModule.provideMovieRepository()
-            )
-        )[TvShowFragmentViewModelImpl::class.java]
         initData()
+        onInitState()
         setupAdapterTvSHowList()
     }
 
@@ -92,22 +96,51 @@ class TvShowFragment : Fragment() {
     }
 
     private fun onObserver() {
-        mFragmentTvShowViewModel.state.observe(viewLifecycleOwner, { listMovie ->
-            onDataSuccess(listMovie)
+        mFragmentTvShowViewModel.state.observe(viewLifecycleOwner, { state ->
+            handleState(state)
         })
     }
 
-    private fun onDataSuccess(list: List<MovieEntity>) {
+    private fun handleState(state: TvShowViewState) {
+        when (state) {
+            is TvShowViewState.Init -> onInitState()
+            is TvShowViewState.Loading -> onProgress()
+            is TvShowViewState.Message -> onShowMessage(state.throwable.message.toString())
+            is TvShowViewState.SuccessDiscoverTvShow -> onSuccessDiscoverTvShow(state.listTvSHowDiscover)
+        }
+    }
+
+    private fun onInitState() {
+        mBinding?.rvTvShow?.gone()
+    }
+
+    private fun onProgress() {
+        mProgressDialog.show()
+    }
+
+    private fun onHideProgress() {
+        mProgressDialog.dismiss()
+    }
+
+    private fun onShowMessage(message: String) {
+        onHideProgress()
+        Toast.makeText(
+            requireActivity(),
+            message, Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun onSuccessDiscoverTvShow(listDiscoverTvShow: List<MovieResult>) {
+        onHideProgress()
         mBinding?.rvTvShow?.visible()
-        val filterTvShowList = list.filter { it.isTvSHow }
-        setDataTvShowList(filterTvShowList)
+        setDataTvShowList(listDiscoverTvShow)
     }
 
     /**
      * A Function set data movie into adapter
      * */
-    private fun setDataTvShowList(list: List<MovieEntity>) {
-        mAdapterTvShowList.setData(list)
+    private fun setDataTvShowList(listDiscoverMovie: List<MovieResult>) {
+        mAdapterTvShowList.setData(listDiscoverMovie)
     }
 
     override fun onResume() {
@@ -122,12 +155,12 @@ class TvShowFragment : Fragment() {
         mBinding = null
     }
 
-    /*override fun onDestroy() {
+    override fun onDestroy() {
         super.onDestroy()
         try {
             mProgressDialog.dismiss()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }*/
+    }
 }

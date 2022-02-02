@@ -67,9 +67,9 @@ class MainActivityTest {
 
     @Test
     fun testLoadFreeToWatchMovie() {
-        onView(withId(R.id.rv_free_watch))
+        onView(withId(R.id.rv_top_rated_movie))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.rv_free_watch))
+        onView(withId(R.id.rv_top_rated_movie))
             .perform(
                 RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
                     dummyFreeWatch.size

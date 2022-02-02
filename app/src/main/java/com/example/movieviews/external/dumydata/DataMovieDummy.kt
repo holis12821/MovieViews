@@ -1,6 +1,6 @@
 package com.example.movieviews.external.dumydata
 
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.local.MovieEntity
 
 /**
  * Singleton object to get and produce data dummy movie*/

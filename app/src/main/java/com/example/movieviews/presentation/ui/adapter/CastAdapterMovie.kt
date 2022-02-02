@@ -4,20 +4,23 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieviews.data.models.CastEntity
+import com.example.movieviews.R
+import com.example.movieviews.data.local.CastEntity
+import com.example.movieviews.data.models.Cast
 import com.example.movieviews.databinding.ItemViewCastAdapterBinding
+import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.extension.setImage
 import com.example.movieviews.external.utils.getScreenWidth
 
 class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
-    val list = mutableListOf<CastEntity>()
+    val list = mutableListOf<Cast>()
 
     var maxWidth = 160
     var marginWidth = 12
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<CastEntity>) {
+    fun setData(list: List<Cast>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
@@ -28,7 +31,7 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
     ) : RecyclerView.ViewHolder(
         binding.root
     ) {
-        fun bindItem(data: CastEntity) {
+        fun bindItem(data: Cast) {
             if (maxWidth > 0) {
                 binding.layoutContent.layoutParams.width =
                     convertDpToPixel(itemView.context, maxWidth)
@@ -45,10 +48,12 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
                     )
             }
 
+            val imageSize = itemView.context.getString(R.string.w500)
+            val urlImage = "$BASE_URL_IMAGE$imageSize/${data.profilePath}"
             with(binding) {
-                ivPosterCast.setImage(data.posterUrl)
+                ivPosterCast.setImage(urlImage)
                 tvOriginalName.text = data.originalName
-                tvNameCast.text = data.nameCast
+                tvNameCast.text = data.character
             }
         }
     }

@@ -1,21 +1,19 @@
 package com.example.movieviews.presentation.ui.movie
 
 import androidx.lifecycle.Observer
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.local.MovieEntity
 import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFragmentViewModelImpl
-import com.example.movieviews.presentation.ui.utils.InstantRuleExecution
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.kotlin.*
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
+import org.mockito.kotlin.clearInvocations
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verifyNoMoreInteractions
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -36,32 +34,19 @@ class MovieFragmentViewModelImplTest {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        InstantRuleExecution.onStart()
+
         mMovieFragmentViewModel.state.observeForever(mObserver)
     }
 
     @Test
     fun getListMovie() {
 
-        //given
-        Mockito.`when`(mMovieRepository.getMovie())
-            .thenReturn(movieList)
-
-        //when
-        mMovieFragmentViewModel.getListMovie()
-
-        //then
-        verify(mMovieRepository, times(1)).getMovie()
-        verify(mObserver).onChanged(movieList)
-
-        assertNotNull(movieList)
-        assertEquals(42, movieList.size)
     }
 
 
     @After
     fun tearDown() {
-        InstantRuleExecution.onStop()
+
         verifyNoMoreInteractions(mMovieRepository)
         clearInvocations(mObserver, mMovieRepository)
     }

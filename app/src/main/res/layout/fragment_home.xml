@@ -131,28 +131,28 @@
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_free_watch"
+                android:id="@+id/tv_top_rated_movie"
                 style="@style/TextViewBold_Dark"
                 android:layout_marginStart="@dimen/space_super_small"
                 android:layout_marginTop="@dimen/space_medium"
-                android:text="@string/free_watch"
+                android:text="@string/top_rated_movie"
                 android:textSize="@dimen/space_text_super_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_popular_movie" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_see_all_free_watch"
+                android:id="@+id/tv_see_all_top_rated_movie"
                 style="@style/TextViewBold_Dark"
                 android:layout_marginTop="@dimen/space_medium"
                 android:layout_marginEnd="@dimen/space_super_small"
                 android:text="@string/see_all"
                 android:textSize="@dimen/space_text_super_small"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/tv_free_watch"
+                app:layout_constraintLeft_toRightOf="@+id/tv_top_rated_movie"
                 app:layout_constraintTop_toBottomOf="@+id/rv_popular_movie" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_free_watch"
+                android:id="@+id/rv_top_rated_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -161,7 +161,7 @@
                 android:padding="@dimen/space_medium_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_free_watch" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_top_rated_movie" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_trending_movie"
@@ -171,7 +171,7 @@
                 android:text="@string/trending_movie"
                 android:textSize="@dimen/space_text_super_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_free_watch" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_top_rated_movie" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_see_all_trending"
@@ -182,7 +182,7 @@
                 android:textSize="@dimen/space_text_super_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/tv_trending_movie"
-                app:layout_constraintTop_toBottomOf="@+id/rv_free_watch" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_top_rated_movie" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_trending_movie"

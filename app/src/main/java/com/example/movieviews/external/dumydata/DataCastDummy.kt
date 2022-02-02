@@ -1,6 +1,6 @@
 package com.example.movieviews.external.dumydata
 
-import com.example.movieviews.data.models.CastEntity
+import com.example.movieviews.data.local.CastEntity
 
 object DataCastDummy {
 

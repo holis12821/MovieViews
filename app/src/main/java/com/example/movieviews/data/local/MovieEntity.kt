@@ -1,4 +1,4 @@
-package com.example.movieviews.data.models
+package com.example.movieviews.data.local
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

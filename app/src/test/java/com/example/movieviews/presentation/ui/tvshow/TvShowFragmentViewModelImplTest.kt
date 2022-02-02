@@ -1,7 +1,7 @@
 package com.example.movieviews.presentation.ui.tvshow
 
 import androidx.lifecycle.Observer
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.data.local.MovieEntity
 import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl

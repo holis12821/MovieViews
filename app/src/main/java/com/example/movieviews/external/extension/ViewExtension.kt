@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.movieviews.data.models.Genre
 
 /**
  * This ViewExtension contains general extension and you can call
@@ -69,13 +70,20 @@ fun RecyclerView.setupGridLayoutManager(column: Int) {
 }
 
 fun TextView.setSpannable(
-    text: Array<String>?,
+    text: List<Genre>?,
     spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
 ) {
     if (text.isNullOrEmpty()) return
-    for (i in text) {
-        spannableStringBuilder.append(" $i ")
+    val addOnTextList = mutableListOf<Genre>()
+    addOnTextList.addAll(text)
+    var addOnText = ""
+    addOnTextList.forEachIndexed { index, textItem ->
+        addOnText += textItem.name
+        if (index < addOnTextList.size - 1) {
+            addOnText += ", "
+        }
     }
+    spannableStringBuilder.append(addOnText)
     setText(spannableStringBuilder)
 }
 
@@ -85,13 +93,7 @@ fun TextView.setSpan(
     spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
 ) {
     if (textFirst.isNullOrEmpty() && textSecond.isNullOrEmpty()) return
-    spannableStringBuilder.append("$textFirst * ")
-    spannableStringBuilder.setSpan(
-        spannableStringBuilder.append(textSecond),
-        spannableStringBuilder.length -1,
-        spannableStringBuilder.length,
-        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
+    spannableStringBuilder.append("$textFirst * $textSecond")
     text = spannableStringBuilder
 }
 

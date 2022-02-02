@@ -4,26 +4,29 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieviews.data.models.MovieEntity
+import com.example.movieviews.R
+import com.example.movieviews.data.local.MovieEntity
+import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
+import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.extension.setImage
 import com.example.movieviews.external.utils.getScreenWidth
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    val list = mutableListOf<MovieEntity>()
+    val list = mutableListOf<MovieResult>()
 
     var maxWidth = 160
     var marginWidth = 12
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<MovieEntity>) {
+    fun setData(list: List<MovieResult>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun addMore(list: List<MovieEntity>) {
+    fun addMore(list: List<MovieResult>) {
         this.list.addAll(list)
         notifyItemRangeInserted(this.list.size, list.size)
     }
@@ -34,7 +37,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     ) : RecyclerView.ViewHolder(
         binding.root
     ) {
-        fun bindItem(data: MovieEntity) {
+        fun bindItem(data: MovieResult) {
             if (maxWidth > 0) {
                 binding.layoutContent.layoutParams.width =
                     convertDpToPixel(itemView.context, maxWidth)
@@ -51,9 +54,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
                     )
 
             }
+            val imageSize = itemView.context.getString(R.string.w500)
+            val urlImage = "$BASE_URL_IMAGE$imageSize/${data.posterPath}"
             with(binding) {
-                tvTitle.text = data.title
-                ivPosterImage.setImage(data.posterUrl)
+                if (!data.originalTitle.isNullOrEmpty()) {
+                    tvTitle.text = data.originalTitle
+                } else {
+                    tvTitle.text = data.originalName
+                }
+                ivPosterImage.setImage(urlImage)
             }
 
             itemView.setOnClickListener {
@@ -62,7 +71,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
         }
     }
 
-    var listener: AdapterClickListener<MovieEntity>? = null
+    var listener: AdapterClickListener<MovieResult>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         ItemViewMovieAdapterBinding.inflate(
