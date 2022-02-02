@@ -96,6 +96,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$testRule"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+    androidTestImplementation "androidx.test:core-ktx:$testCore"
 
 
     //espresso idling resource

@@ -3,34 +3,32 @@ package com.example.movieviews.presentation.ui.activity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
 import com.example.movieviews.R
-import com.example.movieviews.external.dumydata.DataMovieDummy
+import com.example.movieviews.external.utils.EspressoIdlingResource
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
-    private val dummyAllMovies = DataMovieDummy.getMovies()
-    private val dummyPopularMovie = dummyAllMovies.filter { it.isPopular }
-    private val dummyFreeWatch = dummyAllMovies.filter { it.isFreeWatch }
-    private val dummyTrendingMovie = dummyAllMovies.filter { it.isTrending }
-    private val dummyUpComingMovie = dummyAllMovies.filter { it.isUpComing }
-    private val dummyCastMovie = dummyAllMovies.firstOrNull()?.cast
-    private val dummyMovie = dummyAllMovies.filter { !it.isUpComing && !it.isTvSHow }
-    private val dummyTvShow = dummyAllMovies.filter { it.isTvSHow }
-    private val textMovie = "The Movie DB"
 
     @get:Rule
-    var activityTestRule = ActivityTestRule(MainActivity::class.java)
+    var activityTestRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setup() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource)
+    }
 
     @Test
     fun testDisplayingPosterMovie() {
@@ -48,8 +46,6 @@ class MainActivityTest {
     fun testDisplayingTextTitle() {
         onView(withId(R.id.tv_movie_db))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_movie_db))
-            .check(matches(ViewMatchers.withText(textMovie)))
     }
 
 
@@ -59,9 +55,7 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_popular_movie))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                    dummyPopularMovie.size
-                )
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5)
             )
     }
 
@@ -71,9 +65,7 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_top_rated_movie))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                    dummyFreeWatch.size
-                )
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4)
             )
     }
 
@@ -85,9 +77,7 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_trending_movie))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                    dummyTrendingMovie.size
-                )
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(1)
             )
     }
 
@@ -99,9 +89,7 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_upcoming_movie))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                    dummyUpComingMovie.size
-                )
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(6)
             )
     }
 
@@ -114,7 +102,7 @@ class MainActivityTest {
         onView(withId(R.id.rv_popular_movie))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    0,
+                    5,
                     click()
                 )
             )
@@ -124,8 +112,6 @@ class MainActivityTest {
         //check title movie
         onView(withId(R.id.tv_title_movie))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title_movie))
-            .check(matches(ViewMatchers.withText(dummyPopularMovie[0].title)))
         //check score film
         onView(withId(R.id.tv_score_film))
             .check(matches(isDisplayed()))
@@ -135,23 +121,15 @@ class MainActivityTest {
         //check movie overview
         onView(withId(R.id.tv_desc_overview))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc_overview))
-            .check(matches(ViewMatchers.withText(dummyPopularMovie[0].overview)))
         //check tagline movie
         onView(withId(R.id.tv_tagline))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_tagline))
-            .check(matches(ViewMatchers.withText(dummyPopularMovie[0].tagLine)))
         //list cast movie
         onView(withId(R.id.rv_billed_cast))
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_billed_cast))
             .perform(
-                dummyCastMovie?.size?.let {
-                    RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                        it
-                    )
-                }
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(7)
             )
         Espresso.pressBack()
     }
@@ -163,13 +141,13 @@ class MainActivityTest {
         onView(withId(R.id.rv_movie))
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyMovie.size
-            ))
+            .perform(
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4)
+            )
         onView(withId(R.id.rv_movie))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    0,
+                    4,
                     click()
                 )
             )
@@ -180,8 +158,6 @@ class MainActivityTest {
         //check title movie
         onView(withId(R.id.tv_title_movie))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title_movie))
-            .check(matches(ViewMatchers.withText(dummyMovie[0].title)))
         //check score film
         onView(withId(R.id.tv_score_film))
             .check(matches(isDisplayed()))
@@ -191,24 +167,12 @@ class MainActivityTest {
         //check movie overview
         onView(withId(R.id.tv_desc_overview))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc_overview))
-            .check(matches(ViewMatchers.withText(dummyMovie[0].overview)))
         //check tagline movie
         onView(withId(R.id.tv_tagline))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_tagline))
-            .check(matches(ViewMatchers.withText(dummyMovie[0].tagLine)))
         //list cast movie
         onView(withId(R.id.rv_billed_cast))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.rv_billed_cast))
-            .perform(
-                dummyCastMovie?.size?.let {
-                    RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                        it
-                    )
-                }
-            )
         Espresso.pressBack()
     }
 
@@ -221,13 +185,15 @@ class MainActivityTest {
         onView(withId(R.id.rv_tv_show))
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_show))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyTvShow.size
-            ))
+            .perform(
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                    3
+                )
+            )
         onView(withId(R.id.rv_tv_show))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    4,
+                    3,
                     click()
                 )
             )
@@ -238,8 +204,6 @@ class MainActivityTest {
         //check title movie
         onView(withId(R.id.tv_title_movie))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title_movie))
-            .check(matches(ViewMatchers.withText(dummyTvShow[4].title)))
         //check score film
         onView(withId(R.id.tv_score_film))
             .check(matches(isDisplayed()))
@@ -249,14 +213,15 @@ class MainActivityTest {
         //check movie overview
         onView(withId(R.id.tv_desc_overview))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc_overview))
-            .check(matches(ViewMatchers.withText(dummyTvShow[4].overview)))
         //check tagline movie
         onView(withId(R.id.tv_tagline))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.tv_tagline))
-            .check(matches(ViewMatchers.withText(dummyTvShow[4].tagLine)))
         //back to previous page
         Espresso.pressBack()
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource)
     }
 }
