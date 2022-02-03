@@ -48,7 +48,7 @@ class MovieFragmentViewModelImplTest {
      * Showing test when data success
      * */
     @Test
-    fun `provide a movie list when successfully obtained from the repository on viewModel`() {
+    fun `Check when successfully obtained from the repository on viewModel`() {
         testCoroutineRule.runBlockingTest {
             mMovieFragmentViewModel.getListMovie()
             captor.run {

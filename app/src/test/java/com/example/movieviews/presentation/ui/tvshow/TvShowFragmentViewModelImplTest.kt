@@ -49,7 +49,7 @@ class TvShowFragmentViewModelImplTest {
      * Showing test when data success
      * */
     @Test
-    fun `provide a movie list when successfully obtained from the repository on viewModel`() {
+    fun `Check when successfully obtained from the repository on viewModel`() {
         testCoroutineRule.runBlockingTest {
             mTvShowFragmentViewModel.getTvShowList()
             captor.run {

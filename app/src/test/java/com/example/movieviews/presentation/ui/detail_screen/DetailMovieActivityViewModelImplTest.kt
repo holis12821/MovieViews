@@ -51,7 +51,7 @@ class DetailMovieActivityViewModelImplTest {
      * Showing test when data success
      * */
     @Test
-    fun `provide a movie list when successfully get movie detail obtained from the repository on viewModel`() {
+    fun `Check when successfully movie detail obtained from the repository on viewModel`() {
         testCoroutineRule.runBlockingTest {
             mDetailActivityMovieViewModel.getDetailMovie()
             captor.run {
@@ -65,7 +65,7 @@ class DetailMovieActivityViewModelImplTest {
     }
 
     @Test
-    fun `provide a movie list when successfully get tv show movie obtained from the repository on viewModel`() {
+    fun `Check when successfully tv show detail obtained from the repository on viewModel`() {
         testCoroutineRule.runBlockingTest {
             mDetailActivityMovieViewModel.getDetailTvShow()
             captor.run {
@@ -93,7 +93,7 @@ class DetailMovieActivityViewModelImplTest {
     }
 
     @Test
-    fun `Should fail when fetchFrom data tv show to get error message`() {
+    fun `Should fail when fetchFrom data detail tv show to get error message`() {
         testCoroutineRule.runBlockingTest {
             mDetailActivityMovieViewModel.getDetailTvShow()
             captor.run {

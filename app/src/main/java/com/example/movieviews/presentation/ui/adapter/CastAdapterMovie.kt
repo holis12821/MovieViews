@@ -3,6 +3,7 @@ package com.example.movieviews.presentation.ui.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
 import com.example.movieviews.data.local.CastEntity
@@ -51,7 +52,16 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
             val imageSize = itemView.context.getString(R.string.w500)
             val urlImage = "$BASE_URL_IMAGE$imageSize/${data.profilePath}"
             with(binding) {
-                ivPosterCast.setImage(urlImage)
+                if (data.profilePath.isNullOrEmpty()) {
+                    ivPosterCast.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            itemView.context,
+                            R.drawable.place_holder_photo
+                        )
+                    )
+                } else {
+                    ivPosterCast.setImage(urlImage)
+                }
                 tvOriginalName.text = data.originalName
                 tvNameCast.text = data.character
             }

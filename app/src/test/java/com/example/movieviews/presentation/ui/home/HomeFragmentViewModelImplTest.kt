@@ -1,18 +1,12 @@
 package com.example.movieviews.presentation.ui.home
 
 import androidx.lifecycle.Observer
-import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.repository.MovieRepository
-import com.example.movieviews.external.constant.API_KEY
-import com.example.movieviews.external.constant.language
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.home.viewmodel.HomeViewState
-import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieViewState
 import com.example.movieviews.utils.TestCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flowOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -20,12 +14,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
-import org.mockito.Mockito.*
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.verifyNoMoreInteractions
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -52,7 +46,7 @@ class HomeFragmentViewModelImplTest {
      * Showing test when data success
      * */
     @Test
-    fun `provide a movie list when successfully obtained from the repository on viewModel`() {
+    fun `Check when successfully obtained from the repository on viewModel`() {
         testCoroutineRule.runBlockingTest {
             mHomeFragmentViewModel.getPopularMovie()
             captor.run {
