@@ -1,8 +1,8 @@
 package com.example.movieviews.external.extension
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -67,6 +67,14 @@ fun RecyclerView.setupVerticalLayoutManager() {
 
 fun RecyclerView.setupGridLayoutManager(column: Int) {
     layoutManager = GridLayoutManager(context, column)
+}
+
+fun ImageView.setImageFromDrawable(drawable: Drawable?) {
+    if (drawable == null) return
+    Glide.with(this)
+        .load(drawable)
+        .apply(RequestOptions().override(600, 600))
+        .into(this)
 }
 
 fun TextView.setSpannable(

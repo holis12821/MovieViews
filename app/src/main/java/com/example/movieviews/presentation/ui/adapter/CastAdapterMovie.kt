@@ -12,6 +12,7 @@ import com.example.movieviews.databinding.ItemViewCastAdapterBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.extension.setImage
+import com.example.movieviews.external.extension.setImageFromDrawable
 import com.example.movieviews.external.utils.getScreenWidth
 
 class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
@@ -53,11 +54,9 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
             val urlImage = "$BASE_URL_IMAGE$imageSize/${data.profilePath}"
             with(binding) {
                 if (data.profilePath.isNullOrEmpty()) {
-                    ivPosterCast.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.place_holder_photo
-                        )
+                    ivPosterCast.setImageFromDrawable(
+                        ContextCompat.getDrawable(itemView.context,
+                        R.drawable.place_holder_photo)
                     )
                 } else {
                     ivPosterCast.setImage(urlImage)
