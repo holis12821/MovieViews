@@ -106,6 +106,9 @@ class MainActivityTest {
                     click()
                 )
             )
+        //check banner movie
+        onView(withId(R.id.iv_poster_image))
+            .check(matches(isDisplayed()))
         //check poster movie
         onView(withId(R.id.iv_poster_movie))
             .check(matches(isDisplayed()))
@@ -117,6 +120,9 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         //check movie certification
         onView(withId(R.id.tv_movie_certification))
+            .check(matches(isDisplayed()))
+        //check movie genre
+        onView(withId(R.id.tv_genre))
             .check(matches(isDisplayed()))
         //check movie overview
         onView(withId(R.id.tv_desc_overview))
@@ -142,16 +148,18 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4)
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(2)
             )
         onView(withId(R.id.rv_movie))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    4,
+                    2,
                     click()
                 )
             )
-
+        //check banner movie
+        onView(withId(R.id.iv_poster_image))
+            .check(matches(isDisplayed()))
         //check poster movie
         onView(withId(R.id.iv_poster_movie))
             .check(matches(isDisplayed()))
@@ -163,6 +171,9 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         //check movie certification
         onView(withId(R.id.tv_movie_certification))
+            .check(matches(isDisplayed()))
+        //check genre movie
+        onView(withId(R.id.tv_genre))
             .check(matches(isDisplayed()))
         //check movie overview
         onView(withId(R.id.tv_desc_overview))
@@ -197,7 +208,9 @@ class MainActivityTest {
                     click()
                 )
             )
-        //check detail tv show
+        //check banner movie
+        onView(withId(R.id.iv_poster_image))
+            .check(matches(isDisplayed()))
         //check poster movie
         onView(withId(R.id.iv_poster_movie))
             .check(matches(isDisplayed()))
@@ -209,6 +222,8 @@ class MainActivityTest {
             .check(matches(isDisplayed()))
         //check movie certification
         onView(withId(R.id.tv_movie_certification))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.tv_genre))
             .check(matches(isDisplayed()))
         //check movie overview
         onView(withId(R.id.tv_desc_overview))

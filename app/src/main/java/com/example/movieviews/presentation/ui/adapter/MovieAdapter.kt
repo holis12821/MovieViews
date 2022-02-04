@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
-import com.example.movieviews.data.local.MovieEntity
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE

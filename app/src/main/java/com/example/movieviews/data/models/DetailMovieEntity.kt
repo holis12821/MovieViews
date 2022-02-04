@@ -7,6 +7,12 @@ import android.os.Parcelable
 
 @Parcelize
 data class DetailMovieEntity(
+    @SerializedName("status_code")
+    var status_code: Int? = 0,
+    @SerializedName("status_message")
+    var status_message: String? = null,
+    @SerializedName("success")
+    var success: Boolean? = false,
     @SerializedName("adult")
     var adult: Boolean? = null,
     @SerializedName("backdrop_path")

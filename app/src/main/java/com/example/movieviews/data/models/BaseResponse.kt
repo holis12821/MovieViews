@@ -3,6 +3,12 @@ package com.example.movieviews.data.models
 import com.google.gson.annotations.SerializedName
 
 data class BaseResponse<T>(
+    @SerializedName("status_code")
+    var status_code: Int? = 0,
+    @SerializedName("status_message")
+    var status_message: String? = null,
+    @SerializedName("success")
+    var success: Boolean? = false,
     @SerializedName("page")
     var page: Int? = 0,
     @SerializedName("results")
