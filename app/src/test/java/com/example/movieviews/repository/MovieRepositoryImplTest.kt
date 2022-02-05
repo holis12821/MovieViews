@@ -1,11 +1,11 @@
 package com.example.movieviews.repository
 
-import com.example.movieviews.data.models.BaseResponse
 import com.example.movieviews.data.models.DetailMovieEntity
-import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.remote.RemoteDataSource
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
+import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.utils.TestCoroutineRule
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,6 +19,7 @@ import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
+import kotlin.test.assertNotNull
 
 @ExperimentalCoroutinesApi
 class MovieRepositoryImplTest {
@@ -28,60 +29,43 @@ class MovieRepositoryImplTest {
 
     private val service = mock<RemoteDataSource>()
 
+
+    private val response = DataMovieDummy.getMovies()
+    private val tvShowResponse = DataMovieDummy.getTvShow()
     private val errorMessage = "Error to get data movie"
 
-    private val response = BaseResponse<List<MovieResult>>(
-        results = mutableListOf(
-            MovieResult(
-                id = 634649,
-                posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-                originalTitle = "Spider-Man: No Way Home",
-                overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-                releaseDate = "2021-12-15",
-                voteAverage = 8.4,
-                voteCount = 6941,
-                adult = false,
-                backdropPath = "/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg"
-            )
-        ),
-        status_message = errorMessage
-    )
-
-    private val tvShowResponse = BaseResponse<List<MovieResult>>(
-        results = mutableListOf(
-            MovieResult(
-                id = 634649,
-                posterPath = "/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg",
-                originalTitle = "Euphoria",
-                overview = "A group of high school students navigate love and friendships in a world of drugs, sex, trauma, and social media.",
-                popularity = 3549.827,
-                voteAverage = 8.4,
-                voteCount = 6102,
-                adult = false,
-                backdropPath = "/oKt4J3TFjWirVwBqoHyIvv5IImd.jpg"
-            )
-        ),
-        status_message = errorMessage
-    )
-
     private val detailMovie = DetailMovieEntity(
-        id = 271110,
-        originalTitle = "Captain America: Civil War",
-        posterPath = "/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",
-        overview = "Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies",
-        popularity = 185.97,
-        adult = false,
-        status_message = errorMessage
+        id = 634649,
+        originalTitle = "Spider-Man: No Way Home",
+        posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        overview = """Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero.
+            | When he asks for help from Doctor Strange the stakes become even more dangerous, 
+            |forcing him to discover what it truly means to be Spider-Man.""".trimMargin(),
+        releaseDate = "2021-12-15",
+        voteAverage = 8.4,
+        genres = listOf(
+            Genre(1, name = "Action"),
+            Genre( 2 ,name = "Adventure"),
+            Genre(3, name = "Science Fiction")
+        ),
+        status_message = errorMessage,
+        originalLanguage = "en"
     )
 
     private val detailTvShow = DetailMovieEntity(
-        id = 271110,
-        originalTitle = "The Flash",
-        posterPath = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
-        overview = "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \\\"meta-human\\\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
-        popularity = 954.991,
-        adult = false,
-        status_message = errorMessage
+        id = 135753,
+        posterPath = "/5bTF522eYn6g6r7aYqFpTZzmQq6.jpg",
+        originalTitle = "사랑의 꽈배기",
+        overview = """A drama depicting a sweet twist in love between the parents and children of three families around
+            | the love of two main characters.""".trimMargin(),
+        voteAverage = 4.5,
+        genres = listOf(
+            Genre(1, name = "Family"),
+            Genre(2, name = "Comedy"),
+            Genre(3, name = "Drama")
+        ),
+        status_message = errorMessage,
+        originalLanguage = "ko"
     )
 
     @Before
@@ -95,8 +79,10 @@ class MovieRepositoryImplTest {
         testCoroutineRule.runBlockingTest {
             `when`(service.getPopularMovie(API_KEY, language))
                 .thenReturn(response)
-            service.getPopularMovie(API_KEY, language)
+            val baseResponse = service.getPopularMovie(API_KEY, language)
             verify(service, atLeastOnce()).getPopularMovie(API_KEY, language)
+            assertNotNull(baseResponse)
+            assertEquals(10, baseResponse.results?.size)
         }
     }
 
@@ -117,8 +103,10 @@ class MovieRepositoryImplTest {
         testCoroutineRule.runBlockingTest {
             `when`(service.getDiscoverMovie(API_KEY, language))
                 .thenReturn(response)
-            service.getDiscoverMovie(API_KEY, language)
+            val baseResponse = service.getDiscoverMovie(API_KEY, language)
             verify(service, atLeastOnce()).getDiscoverMovie(API_KEY, language)
+            assertNotNull(baseResponse)
+            assertEquals(10, baseResponse.results?.size)
         }
     }
 
@@ -139,8 +127,10 @@ class MovieRepositoryImplTest {
         testCoroutineRule.runBlockingTest {
             `when`(service.getDiscoverTvShow(API_KEY, language))
                 .thenReturn(tvShowResponse)
-            service.getDiscoverTvShow(API_KEY, language)
+            val baseResponse = service.getDiscoverTvShow(API_KEY, language)
             verify(service, atLeastOnce()).getDiscoverTvShow(API_KEY, language)
+            assertNotNull(baseResponse)
+            assertEquals(10, baseResponse.results?.size)
         }
     }
 
@@ -156,14 +146,84 @@ class MovieRepositoryImplTest {
         }
     }
 
-
     @Test
     fun `Given repository when get detail movie form API should return success`() {
         testCoroutineRule.runBlockingTest {
             `when`(service.getDetailMovie(movie_id = detailMovie.id ?: 0, API_KEY))
                 .thenReturn(detailMovie)
-            service.getDetailMovie(movie_id = detailMovie.id ?: 0, API_KEY)
+            val detailMovieEntity = service.getDetailMovie(movie_id = detailMovie.id ?: 0, API_KEY)
             verify(service, atLeastOnce()).getDetailMovie(movie_id = detailMovie.id ?: 0, API_KEY)
+            assertNotNull(detailMovieEntity)
+            assertEquals(
+                detailMovie.id,
+                detailMovieEntity.id
+            )
+            assertEquals(
+                detailMovie.originalTitle,
+                detailMovieEntity.originalTitle
+            )
+            assertEquals(
+                detailMovie.voteAverage,
+                detailMovieEntity.voteAverage
+            )
+            assertEquals(
+                detailMovie.releaseDate,
+                detailMovieEntity.releaseDate
+            )
+            assertEquals(
+                detailMovie.genres,
+                detailMovieEntity.genres
+            )
+            assertEquals(
+                detailMovie.tagline,
+                detailMovieEntity.tagline
+            )
+
+            assertEquals(
+                detailMovie.overview,
+                detailMovieEntity.overview
+            )
+        }
+    }
+
+
+    @Test
+    fun `Given repository when get detail tv show form API should return success`() {
+        testCoroutineRule.runBlockingTest {
+            `when`(service.getDetailTvShow(tv_id = detailTvShow.id ?: 0, API_KEY))
+                .thenReturn(detailTvShow)
+            val detailTvShowEntity = service.getDetailTvShow(tv_id = detailTvShow.id ?: 0, API_KEY)
+            verify(service, atLeastOnce()).getDetailTvShow(tv_id = detailTvShow.id ?: 0, API_KEY)
+            assertNotNull(detailTvShowEntity)
+            assertEquals(
+                detailTvShow.id,
+                detailTvShowEntity.id
+            )
+            assertEquals(
+                detailTvShow.originalName,
+                detailTvShowEntity.originalName
+            )
+            assertEquals(
+                detailTvShow.voteAverage,
+                detailTvShowEntity.voteAverage
+            )
+            assertEquals(
+                detailTvShow.releaseDate,
+               detailTvShowEntity.releaseDate
+            )
+            assertEquals(
+                detailTvShow.genres,
+               detailTvShowEntity.genres
+            )
+            assertEquals(
+                detailTvShow.tagline,
+                detailTvShowEntity.tagline
+            )
+
+            assertEquals(
+                detailTvShow.overview,
+                detailTvShowEntity.overview
+            )
         }
     }
 

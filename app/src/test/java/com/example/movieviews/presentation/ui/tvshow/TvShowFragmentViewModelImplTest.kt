@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
+import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieViewState
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
@@ -11,6 +12,8 @@ import com.example.movieviews.utils.TestCoroutineRule
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flowOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -19,10 +22,15 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -33,6 +41,8 @@ class TvShowFragmentViewModelImplTest {
     private val mMovieRepository = mock<MovieRepository>()
     private val mTvShowFragmentViewModel = TvShowFragmentViewModelImpl(mMovieRepository)
     private val mObserver = mock<Observer<TvShowViewState>>()
+
+    private val response = DataMovieDummy.getMovies().results
 
     @Captor
     private lateinit var captor: ArgumentCaptor<TvShowViewState>
@@ -53,10 +63,18 @@ class TvShowFragmentViewModelImplTest {
         testCoroutineRule.runBlockingTest {
             mTvShowFragmentViewModel.getTvShowList()
             captor.run {
-                Mockito.verify(mObserver, Mockito.times(3)).onChanged(capture())
+                response?.let { responseDiscoverTvShow ->
+                    `when`(mMovieRepository.getDiscoverTvShow(API_KEY, language))
+                        .thenReturn(flowOf(responseDiscoverTvShow))
+                }
+                val discoverTvShow = mMovieRepository.getDiscoverTvShow(API_KEY, language)
+                verify(mMovieRepository, atLeastOnce()).getDiscoverTvShow(API_KEY, language)
+                verify(mObserver, Mockito.times(3)).onChanged(capture())
                 Truth.assertThat(allValues[0] is TvShowViewState.Init)
                 Truth.assertThat(allValues[1] is TvShowViewState.Loading)
                 Truth.assertThat(allValues[2] is TvShowViewState.SuccessDiscoverTvShow)
+                assertNotNull(discoverTvShow.firstOrNull())
+                assertEquals(10, discoverTvShow.firstOrNull()?.size)
                 clearInvocations(mObserver)
             }
         }
