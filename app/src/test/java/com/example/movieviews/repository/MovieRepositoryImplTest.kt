@@ -45,7 +45,7 @@ class MovieRepositoryImplTest {
         voteAverage = 8.4,
         genres = listOf(
             Genre(1, name = "Action"),
-            Genre( 2 ,name = "Adventure"),
+            Genre(2, name = "Adventure"),
             Genre(3, name = "Science Fiction")
         ),
         status_message = errorMessage,
@@ -209,11 +209,11 @@ class MovieRepositoryImplTest {
             )
             assertEquals(
                 detailTvShow.releaseDate,
-               detailTvShowEntity.releaseDate
+                detailTvShowEntity.releaseDate
             )
             assertEquals(
                 detailTvShow.genres,
-               detailTvShowEntity.genres
+                detailTvShowEntity.genres
             )
             assertEquals(
                 detailTvShow.tagline,

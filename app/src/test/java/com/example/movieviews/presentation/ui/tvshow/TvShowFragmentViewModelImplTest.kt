@@ -5,13 +5,11 @@ import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
 import com.example.movieviews.external.dumydata.DataMovieDummy
-import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieViewState
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
 import com.example.movieviews.utils.TestCoroutineRule
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import org.junit.After

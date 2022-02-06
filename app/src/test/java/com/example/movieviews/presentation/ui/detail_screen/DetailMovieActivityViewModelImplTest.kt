@@ -5,17 +5,11 @@ import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
-import com.example.movieviews.external.constant.language
-import com.example.movieviews.external.dumydata.DataMovieDummy
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieViewState
-import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieViewState
-import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
-import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
 import com.example.movieviews.utils.TestCoroutineRule
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import org.junit.After
@@ -57,7 +51,7 @@ class DetailMovieActivityViewModelImplTest {
         voteAverage = 8.4,
         genres = listOf(
             Genre(1, name = "Action"),
-            Genre( 2 ,name = "Adventure"),
+            Genre(2, name = "Adventure"),
             Genre(3, name = "Science Fiction")
         ),
         originalLanguage = "en"
@@ -99,7 +93,8 @@ class DetailMovieActivityViewModelImplTest {
             captor.run {
                 `when`(mMovieRepository.getDetailMovie(movie_id = detailMovie.id ?: 0, API_KEY))
                     .thenReturn(flowOf(detailMovie))
-                val detailMovieEntity = mMovieRepository.getDetailMovie(detailMovie.id ?: 0, API_KEY)
+                val detailMovieEntity =
+                    mMovieRepository.getDetailMovie(detailMovie.id ?: 0, API_KEY)
                 verify(mMovieRepository, atLeastOnce()).getDetailMovie(detailMovie.id ?: 0, API_KEY)
                 verify(mObserver, Mockito.times(3)).onChanged(capture())
                 Truth.assertThat(allValues[0] is DetailMovieViewState.Init)
@@ -107,7 +102,10 @@ class DetailMovieActivityViewModelImplTest {
                 Truth.assertThat(allValues[2] is DetailMovieViewState.ShowDetailMovie)
                 assertNotNull(detailMovieEntity.firstOrNull())
                 assertEquals(detailMovie.id, detailMovieEntity.firstOrNull()?.id)
-                assertEquals(detailMovie.originalTitle, detailMovieEntity.firstOrNull()?.originalTitle)
+                assertEquals(
+                    detailMovie.originalTitle,
+                    detailMovieEntity.firstOrNull()?.originalTitle
+                )
                 assertEquals(detailMovie.voteAverage, detailMovieEntity.firstOrNull()?.voteAverage)
                 assertEquals(detailMovie.releaseDate, detailMovieEntity.firstOrNull()?.releaseDate)
                 assertEquals(detailMovie.genres, detailMovieEntity.firstOrNull()?.genres)
@@ -125,17 +123,30 @@ class DetailMovieActivityViewModelImplTest {
             captor.run {
                 `when`(mMovieRepository.getDetailTvShow(detailTvShow.id ?: 0, API_KEY))
                     .thenReturn(flowOf(detailTvShow))
-                val detailTvShowEntity = mMovieRepository.getDetailTvShow(detailTvShow.id ?: 0, API_KEY)
-                verify(mMovieRepository, atLeastOnce()).getDetailTvShow(detailTvShow.id ?: 0, API_KEY)
+                val detailTvShowEntity =
+                    mMovieRepository.getDetailTvShow(detailTvShow.id ?: 0, API_KEY)
+                verify(mMovieRepository, atLeastOnce()).getDetailTvShow(
+                    detailTvShow.id ?: 0,
+                    API_KEY
+                )
                 verify(mObserver, Mockito.times(3)).onChanged(capture())
                 Truth.assertThat(allValues[0] is DetailMovieViewState.Init)
                 Truth.assertThat(allValues[1] is DetailMovieViewState.Loading)
                 Truth.assertThat(allValues[2] is DetailMovieViewState.ShowDetailMovie)
                 assertNotNull(detailTvShowEntity.firstOrNull())
                 assertEquals(detailTvShow.id, detailTvShowEntity.firstOrNull()?.id)
-                assertEquals(detailTvShow.originalName, detailTvShowEntity.firstOrNull()?.originalName)
-                assertEquals(detailTvShow.voteAverage, detailTvShowEntity.firstOrNull()?.voteAverage)
-                assertEquals(detailTvShow.releaseDate, detailTvShowEntity.firstOrNull()?.releaseDate)
+                assertEquals(
+                    detailTvShow.originalName,
+                    detailTvShowEntity.firstOrNull()?.originalName
+                )
+                assertEquals(
+                    detailTvShow.voteAverage,
+                    detailTvShowEntity.firstOrNull()?.voteAverage
+                )
+                assertEquals(
+                    detailTvShow.releaseDate,
+                    detailTvShowEntity.firstOrNull()?.releaseDate
+                )
                 assertEquals(detailTvShow.genres, detailTvShowEntity.firstOrNull()?.genres)
                 assertEquals(detailTvShow.tagline, detailTvShowEntity.firstOrNull()?.tagline)
                 assertEquals(detailTvShow.overview, detailTvShowEntity.firstOrNull()?.overview)
