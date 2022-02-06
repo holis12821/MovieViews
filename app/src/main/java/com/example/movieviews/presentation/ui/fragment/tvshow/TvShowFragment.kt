@@ -43,7 +43,6 @@ class TvShowFragment : Fragment() {
                 override fun onItemClickCallback(data: MovieResult) {
                     val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
                     intent.putExtra(EXTRA_TV_SHOW_MOVIE, data.id)
-                    intent.putExtra(EXTRA_DATAIl_MOVIE, false)
                     startActivity(intent)
                 }
 

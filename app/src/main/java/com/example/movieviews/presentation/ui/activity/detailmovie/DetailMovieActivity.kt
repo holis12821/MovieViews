@@ -81,11 +81,13 @@ class DetailMovieActivity : AppCompatActivity() {
         val tvShowId = intent.getIntExtra(EXTRA_TV_SHOW_MOVIE, 0)
         val detailMovieFlags = intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)
         if (detailMovieFlags) {
+            title = getString(R.string.detailMovie)
             mActivityDetailMovieViewModel.movieId = movieId
             mActivityDetailMovieViewModel.getDetailMovie()
             mActivityDetailMovieViewModel.getCastMovie()
         }
         else {
+            title = getString(R.string.detailTvShow)
             mActivityDetailMovieViewModel.tvShowId = tvShowId
             mActivityDetailMovieViewModel.getDetailTvShow()
         }
