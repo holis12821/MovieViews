@@ -47,7 +47,7 @@ class MainActivityTest {
         posterPath = "/ze4lhw0oLBHYmlM2KuZjBg0Sq6H.jpg",
         originalName = "지금 우리 학교는",
         overview = "A high school becomes ground zero for a zombie virus outbreak. Trapped students must fight their way out — or turn into one of the rabid infected.",
-        voteAverage = 8.7,
+        voteAverage = 8.8,
         genres = listOf(
             Genre(1, name = "Drama"),
             Genre(3, name = "Sci-Fi & Fantasy")
@@ -193,6 +193,8 @@ class MainActivityTest {
             .perform(
                 RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(20)
             )
+        onView(withId(R.id.rv_movie))
+            .perform(swipeDown())
         onView(withId(R.id.rv_movie))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
