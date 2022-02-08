@@ -9,8 +9,6 @@ import android.os.Parcelable
 data class CastMovieEntity(
     @SerializedName("cast")
     var cast: List<Cast>? = null,
-    @SerializedName("crew")
-    var crew: List<Crew>? = null,
     @SerializedName("id")
     var id: Int? = null // 524434
 ) : Parcelable

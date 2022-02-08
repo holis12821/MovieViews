@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
-import com.example.movieviews.data.repository.MovieRepository
+import com.example.movieviews.data.repository.remote.MovieRepository
 import com.example.movieviews.external.constant.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import kotlinx.coroutines.flow.catch

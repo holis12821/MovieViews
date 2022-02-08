@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movieviews.R
-import com.example.movieviews.data.local.CastEntity
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.databinding.ActivityDetailMovieBinding
@@ -39,12 +38,12 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private val mAdapterCastMovie by lazy {
         CastAdapterMovie().apply {
-            listener = object : AdapterClickListener<CastEntity> {
-                override fun onItemClickCallback(data: CastEntity) {
+            listener = object : AdapterClickListener<Cast> {
+                override fun onItemClickCallback(data: Cast) {
 //                  coming soon
                 }
 
-                override fun onViewClickCallback(view: View, data: CastEntity) {
+                override fun onViewClickCallback(view: View, data: Cast) {
 //                  coming soon
                 }
 

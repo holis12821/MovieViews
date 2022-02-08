@@ -1,8 +1,8 @@
 package com.example.movieviews.di
 
 import com.example.movieviews.data.remote.RemoteDataSource
-import com.example.movieviews.data.repository.MovieRepository
-import com.example.movieviews.data.repository.MovieRepositoryImpl
+import com.example.movieviews.data.repository.remote.MovieRepository
+import com.example.movieviews.data.repository.remote.MovieRepositoryImpl
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

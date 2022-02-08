@@ -28,32 +28,32 @@ class MainActivityTest {
 
     private val detailMovie = DetailMovieEntity(
         id = 271110,
-        originalTitle = "Spider-Man: No Way Home",
-        posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-        overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-        releaseDate = "2021-12-15",
-        voteAverage = 8.4,
         genres = listOf(
             Genre(1, name = "Action"),
             Genre( 2 ,name = "Adventure"),
             Genre(3, name = "Science Fiction")
         ),
+        originalLanguage = "en",
+        originalTitle = "Spider-Man: No Way Home",
+        overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+        posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        releaseDate = "2021-12-15",
         tagline = "The Multiverse unleashed.",
-        originalLanguage = "en"
+        voteAverage = 8.4
     )
 
     private val detailTvShow = DetailMovieEntity(
         id = 99966,
-        posterPath = "/ze4lhw0oLBHYmlM2KuZjBg0Sq6H.jpg",
-        originalName = "지금 우리 학교는",
-        overview = "A high school becomes ground zero for a zombie virus outbreak. Trapped students must fight their way out — or turn into one of the rabid infected.",
-        voteAverage = 8.8,
         genres = listOf(
             Genre(1, name = "Drama"),
             Genre(3, name = "Sci-Fi & Fantasy")
         ),
+        originalLanguage = "ko",
+        originalName = "지금 우리 학교는",
+        overview = "A high school becomes ground zero for a zombie virus outbreak. Trapped students must fight their way out — or turn into one of the rabid infected.",
+        posterPath = "/ze4lhw0oLBHYmlM2KuZjBg0Sq6H.jpg",
         tagline = "Hope is the most painful torture for people who want to despair.",
-        originalLanguage = "ko"
+        voteAverage = 8.8
     )
 
     @Before

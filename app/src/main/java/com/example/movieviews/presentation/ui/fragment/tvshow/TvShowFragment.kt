@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentTvShowBinding
-import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
 import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.example.movieviews.external.extension.gone
 import com.example.movieviews.external.extension.visible

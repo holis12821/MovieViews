@@ -36,36 +36,36 @@ class MovieRepositoryImplTest {
 
     private val detailMovie = DetailMovieEntity(
         id = 634649,
-        originalTitle = "Spider-Man: No Way Home",
-        posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-        overview = """Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero.
-            | When he asks for help from Doctor Strange the stakes become even more dangerous, 
-            |forcing him to discover what it truly means to be Spider-Man.""".trimMargin(),
-        releaseDate = "2021-12-15",
-        voteAverage = 8.4,
+        status_message = errorMessage,
         genres = listOf(
             Genre(1, name = "Action"),
             Genre(2, name = "Adventure"),
             Genre(3, name = "Science Fiction")
         ),
-        status_message = errorMessage,
-        originalLanguage = "en"
+        originalLanguage = "en",
+        originalTitle = "Spider-Man: No Way Home",
+        overview = """Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero.
+            | When he asks for help from Doctor Strange the stakes become even more dangerous, 
+            |forcing him to discover what it truly means to be Spider-Man.""".trimMargin(),
+        posterPath = "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        releaseDate = "2021-12-15",
+        voteAverage = 8.4
     )
 
     private val detailTvShow = DetailMovieEntity(
         id = 135753,
-        posterPath = "/5bTF522eYn6g6r7aYqFpTZzmQq6.jpg",
-        originalTitle = "사랑의 꽈배기",
-        overview = """A drama depicting a sweet twist in love between the parents and children of three families around
-            | the love of two main characters.""".trimMargin(),
-        voteAverage = 4.5,
+        status_message = errorMessage,
         genres = listOf(
             Genre(1, name = "Family"),
             Genre(2, name = "Comedy"),
             Genre(3, name = "Drama")
         ),
-        status_message = errorMessage,
-        originalLanguage = "ko"
+        originalLanguage = "ko",
+        originalTitle = "사랑의 꽈배기",
+        overview = """A drama depicting a sweet twist in love between the parents and children of three families around
+            | the love of two main characters.""".trimMargin(),
+        posterPath = "/5bTF522eYn6g6r7aYqFpTZzmQq6.jpg",
+        voteAverage = 4.5
     )
 
     @Before

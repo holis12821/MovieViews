@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
-import com.example.movieviews.data.local.CastEntity
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.databinding.ItemViewCastAdapterBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
@@ -50,6 +49,9 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
                     )
             }
 
+            itemView.setOnClickListener {
+                listener?.onItemClickCallback(data = data)
+            }
             val imageSize = itemView.context.getString(R.string.w500)
             val urlImage = "$BASE_URL_IMAGE$imageSize/${data.profilePath}"
             with(binding) {
@@ -67,7 +69,7 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
         }
     }
 
-    var listener: AdapterClickListener<CastEntity>? = null
+    var listener: AdapterClickListener<Cast>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         ItemViewCastAdapterBinding.inflate(

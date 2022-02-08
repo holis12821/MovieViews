@@ -82,16 +82,11 @@ fun TextView.setSpannable(
     spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
 ) {
     if (text.isNullOrEmpty()) return
-    val addOnTextList = mutableListOf<Genre>()
-    addOnTextList.addAll(text)
-    var addOnText = ""
-    addOnTextList.forEachIndexed { index, textItem ->
-        addOnText += textItem.name
-        if (index < addOnTextList.size - 1) {
-            addOnText += ", "
-        }
+
+    val joinedText = text.joinToString(", "){ genre ->
+        genre.name.toString()
     }
-    spannableStringBuilder.append(addOnText)
+    spannableStringBuilder.append(joinedText)
     setText(spannableStringBuilder)
 }
 

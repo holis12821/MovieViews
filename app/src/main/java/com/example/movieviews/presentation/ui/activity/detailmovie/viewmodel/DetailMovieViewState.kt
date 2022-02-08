@@ -1,7 +1,5 @@
 package com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel
 
-import com.example.movieviews.data.local.CastEntity
-import com.example.movieviews.data.local.MovieEntity
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.DetailMovieEntity
 

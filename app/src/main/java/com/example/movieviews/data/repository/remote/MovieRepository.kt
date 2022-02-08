@@ -1,4 +1,4 @@
-package com.example.movieviews.data.repository
+package com.example.movieviews.data.repository.remote
 
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.DetailMovieEntity
