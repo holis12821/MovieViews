@@ -11,8 +11,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.movieviews.R
-import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.data.models.Genre
+import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
@@ -26,7 +26,7 @@ class MainActivityTest {
     @get:Rule
     var activityTestRule = ActivityScenarioRule(MainActivity::class.java)
 
-    private val detailMovie = DetailMovieEntity(
+    private val detailMovie = MovieResult(
         id = 271110,
         genres = listOf(
             Genre(1, name = "Action"),
@@ -42,7 +42,7 @@ class MainActivityTest {
         voteAverage = 8.4
     )
 
-    private val detailTvShow = DetailMovieEntity(
+    private val detailTvShow = MovieResult(
         id = 99966,
         genres = listOf(
             Genre(1, name = "Drama"),

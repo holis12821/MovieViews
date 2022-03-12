@@ -1,9 +1,13 @@
 package com.example.movieviews.data.remote
 
-import com.example.movieviews.data.models.*
+import com.example.movieviews.data.models.BaseResponse
+import com.example.movieviews.data.models.CastMovieEntity
+import com.example.movieviews.data.models.ImageCollection
+import com.example.movieviews.data.models.MovieResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface RemoteDataSource {
 
@@ -47,27 +51,25 @@ interface RemoteDataSource {
 
     @GET("3/discover/movie")
     suspend fun getDiscoverMovie(
-        @Query("api_key") api_key: String,
-        @Query("language") language: String
+        @QueryMap queryMap: HashMap<String, Any?>
     ): BaseResponse<List<MovieResult>>
 
     @GET("3/discover/tv")
     suspend fun getDiscoverTvShow(
-        @Query("api_key") api_key: String,
-        @Query("language") language: String
+        @QueryMap queryMap: HashMap<String, Any?>
     ): BaseResponse<List<MovieResult>>
 
     @GET("3/movie/{id}")
     suspend fun getDetailMovie(
         @Path("id") movie_id: Int,
         @Query("api_key") api_key: String
-    ): DetailMovieEntity
+    ): MovieResult
 
     @GET("3/tv/{tv_id}")
     suspend fun getDetailTvShow(
         @Path("tv_id") tv_id : Int,
         @Query("api_key") api_key: String
-    ): DetailMovieEntity
+    ): MovieResult
 
     @GET("3/movie/{id}/credits")
     suspend fun getCreditsMovie(

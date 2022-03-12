@@ -1,31 +1,32 @@
 package com.example.movieviews.presentation.ui.fragment.movie
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.movieviews.R
+import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentMovieBinding
-import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
 import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
 import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.extension.navigateUpWithData
+import com.example.movieviews.external.extension.showToast
 import com.example.movieviews.external.extension.visible
 import com.example.movieviews.external.utils.EspressoIdlingResource
-import com.example.movieviews.presentation.ui.activity.MainActivity
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
-import com.example.movieviews.presentation.ui.adapter.MovieAdapter
-import com.example.movieviews.presentation.ui.custom.ProgressDialog
+import com.example.movieviews.presentation.ui.adapter.MovieLoadStateAdapter
+import com.example.movieviews.presentation.ui.adapter.MoviePagingDataAdapter
 import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieViewState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MovieFragment : Fragment() {
-    private var mBinding: FragmentMovieBinding? = null
+class MovieFragment : BaseFragment<FragmentMovieBinding>() {
+
+    override fun getResLayoutId(): Int = R.layout.fragment_movie
+
     private val mFragmentMovieViewModel by viewModel<MovieFragmentViewModelImpl>()
 
     /**
@@ -33,17 +34,16 @@ class MovieFragment : Fragment() {
      * This method only once invoke the instance object,
      * if it is already it will be usable
      * */
-
-    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
-
     private val mAdapterMovieList by lazy {
-        MovieAdapter().apply {
+        MoviePagingDataAdapter().apply {
             listener = object : AdapterClickListener<MovieResult> {
                 override fun onItemClickCallback(data: MovieResult) {
-                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
-                    intent.putExtra(EXTRA_MOVIE_ID, data.id)
-                    intent.putExtra(EXTRA_DATAIl_MOVIE, true)
-                    startActivity(intent)
+                    requireContext().navigateUpWithData(
+                        activity = DetailMovieActivity::class.java,
+                        key = EXTRA_MOVIE_ID,
+                        data = data.id,
+                        flags = true
+                    )
                 }
 
                 override fun onViewClickCallback(
@@ -57,20 +57,7 @@ class MovieFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mBinding = FragmentMovieBinding.inflate(
-            inflater,
-            container, false
-        )
-        return mBinding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated() {
         EspressoIdlingResource.increment()
         initView()
         onObserver()
@@ -79,18 +66,37 @@ class MovieFragment : Fragment() {
     private fun initView() {
         initData()
         onInitState()
-        setupAdapterMovieList()
+        initAdapter()
     }
 
     private fun initData() {
+        mBinding?.viewModel = mFragmentMovieViewModel
         mFragmentMovieViewModel.getListMovie()
     }
 
-    private fun setupAdapterMovieList() {
+    private fun initAdapter(
+        isMediator: Boolean = false
+    ) {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         mAdapterMovieList.maxWidth = 0
         mBinding?.rvMovie?.layoutManager = layoutManager
-        mBinding?.rvMovie?.adapter = mAdapterMovieList
+        mBinding?.rvMovie?.adapter = mAdapterMovieList.withLoadStateFooter(
+            footer = MovieLoadStateAdapter { mAdapterMovieList.retry() }
+        )
+        mAdapterMovieList.addLoadStateListener { loadState ->
+            val refreshState = if (isMediator) {
+                loadState.mediator?.refresh
+            } else {
+                loadState.source.refresh
+            }
+            mBinding?.rvMovie?.isVisible = refreshState is LoadState.NotLoading
+            mBinding?.progressBar?.isVisible = refreshState is LoadState.Loading
+            mBinding?.btnRetry?.isVisible = refreshState is LoadState.Error
+            handleError(loadState)
+        }
+        mBinding?.btnRetry?.setOnClickListener {
+            mAdapterMovieList.retry()
+        }
     }
 
     private fun onObserver() {
@@ -103,64 +109,41 @@ class MovieFragment : Fragment() {
         when (state) {
             is MovieViewState.Init -> onInitState()
             is MovieViewState.Loading -> onProgress()
+            is MovieViewState.HideLoading -> onHideProgress()
             is MovieViewState.Message -> onShowMessage(state.throwable.message.toString())
-            is MovieViewState.SuccessDiscoverMovie -> onSuccessDiscoverMovieList(state.listMovieDiscoverMovie)
+            is MovieViewState.SuccessDiscoverMovie -> state.pagingData?.let { pagingData ->
+                onSuccessDiscoverMovieList(
+                    pagingData = pagingData
+                )
+            }
         }
     }
-
 
     private fun onInitState() {
         mBinding?.rvMovie?.gone()
     }
 
     private fun onProgress() {
-        mProgressDialog.show()
+        showDialogProgress()
     }
 
     private fun onHideProgress() {
-        mProgressDialog.dismiss()
+        hideProgress()
     }
 
     private fun onShowMessage(message: String) {
-        onHideProgress()
-        Toast.makeText(
-            requireActivity(),
-            message, Toast.LENGTH_SHORT
-        ).show()
+        showToast(requireContext(), message = message)
     }
 
-    private fun onSuccessDiscoverMovieList(list: List<MovieResult>) {
-        onHideProgress()
+    private fun onSuccessDiscoverMovieList(pagingData: PagingData<MovieResult>) {
         mBinding?.rvMovie?.visible()
-        setDataMovieList(list)
+        setDataMovieList(pagingData = pagingData)
     }
 
     /**
      * A Function set data movie into adapter
      * */
-    private fun setDataMovieList(list: List<MovieResult>) {
-        mAdapterMovieList.setData(list)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (requireActivity() is MainActivity) {
-            (activity as MainActivity?)?.showBottomNavigationView()
-        }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mBinding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            mProgressDialog.dismiss()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    private fun setDataMovieList(pagingData: PagingData<MovieResult>) {
+        mAdapterMovieList.submitData(lifecycle = lifecycle, pagingData = pagingData)
     }
 }

@@ -1,18 +1,30 @@
-package com.example.movieviews.data.repository.remote
+package com.example.movieviews.data.repository
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.movieviews.core.DispatcherProvider
+import com.example.movieviews.data.local.LocalDb
 import com.example.movieviews.data.models.Cast
-import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
+import com.example.movieviews.data.remote.MoviePagingSource
+import com.example.movieviews.data.remote.MovieRemoteMediator
 import com.example.movieviews.data.remote.RemoteDataSource
+import com.example.movieviews.domain.repository.MovieRepository
+import com.example.movieviews.external.constant.PAGE_SIZE
 import com.example.movieviews.external.utils.LogUtils
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
+@ExperimentalCoroutinesApi
 class MovieRepositoryImpl(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val db: LocalDb,
+    private val dispatcher: DispatcherProvider
 ) : MovieRepository {
     override suspend fun getPopularMovie(
         api_key: String,
@@ -31,7 +43,7 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
     override suspend fun getCollectionImage(
@@ -51,7 +63,7 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
     override suspend fun getMovieUpcoming(
@@ -71,7 +83,7 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
     override suspend fun getMovieTopRated(
@@ -91,7 +103,7 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
     override suspend fun getTrendingMovie(
@@ -113,50 +125,33 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
-    override suspend fun getDiscoverMovie(
-        api_key: String,
-        language: String
-    ): Flow<List<MovieResult>> {
-        return flow {
-            try {
-                val data = remoteDataSource.getDiscoverMovie(
-                    api_key = api_key,
-                    language = language
-                )
-                data.results?.let { listMovie ->
-                    emit(listMovie)
-                }
-            } catch (e: Throwable) {
-                LogUtils.print(e)
-                error(e.message.toString())
-            }
-        }.flowOn(Dispatchers.IO)
+
+    override suspend fun getDiscoverMovie(): Flow<PagingData<MovieResult>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { MoviePagingSource(remoteDataSource, movieFlags = true) }
+        ).flow
     }
 
-    override suspend fun getDiscoverTvShow(
-        api_key: String,
-        language: String
-    ): Flow<List<MovieResult>> {
-        return flow {
-            try {
-                val data = remoteDataSource.getDiscoverTvShow(
-                    api_key = api_key,
-                    language = language
-                )
-                data.results?.let { listMovie ->
-                    emit(listMovie)
-                }
-            } catch (e: Throwable) {
-                LogUtils.print(e)
-                error(e.message.toString())
-            }
-        }.flowOn(Dispatchers.IO)
+    override suspend fun getDiscoverTvShow(): Flow<PagingData<MovieResult>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { MoviePagingSource(remoteDataSource, movieFlags = false) }
+        ).flow
     }
 
-    override suspend fun getDetailMovie(movie_id: Int, api_key: String): Flow<DetailMovieEntity> {
+    override suspend fun getDetailMovie(movie_id: Int, api_key: String): Flow<MovieResult> {
         return flow {
             try {
                 val data = remoteDataSource.getDetailMovie(
@@ -168,10 +163,10 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
-    override suspend fun getDetailTvShow(tv_id: Int, api_key: String): Flow<DetailMovieEntity> {
+    override suspend fun getDetailTvShow(tv_id: Int, api_key: String): Flow<MovieResult> {
         return flow {
             try {
                 val data = remoteDataSource.getDetailTvShow(
@@ -183,7 +178,7 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
     }
 
     override suspend fun getCreditsMovie(
@@ -205,7 +200,49 @@ class MovieRepositoryImpl(
                 LogUtils.print(e)
                 error(e.message.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher.io)
+    }
+
+    override suspend fun getMovieFromDb(): Flow<PagingData<MovieResult>> {
+        val pagingSourceFactory = {db.getFavoriteMovieDao().getAll() }
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
+    @ExperimentalPagingApi
+    override suspend fun getMovieFromMediator(): Flow<PagingData<MovieResult>> {
+        val pagingSourceFactory = { db.getFavoriteMovieDao().getAll() }
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+                enablePlaceholders = false
+            ),
+            remoteMediator = MovieRemoteMediator(
+                remoteDataSource,
+                db = db
+            ),
+             pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
+    override suspend fun isFavorite(id: Int): Flow<MovieResult> {
+        return flow {
+            try {
+                val data = db.getFavoriteMovieDao().isFavorite(id)
+                emit(data)
+            } catch (e: Throwable) {
+                LogUtils.print(e)
+                error(e.message.toString())
+            }
+        }.flowOn(dispatcher.io)
     }
 
 }

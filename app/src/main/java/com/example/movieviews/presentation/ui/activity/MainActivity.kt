@@ -1,7 +1,6 @@
 package com.example.movieviews.presentation.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -9,15 +8,17 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieviews.R
+import com.example.movieviews.core.BaseActivity
 import com.example.movieviews.databinding.ActivityMainBinding
 import com.example.movieviews.external.extension.gone
 import com.example.movieviews.external.extension.visible
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>() {
     private lateinit var mNavController: NavController
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun getResLayoutId(): Int = R.layout.activity_main
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         initView()
     }
 
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_movie,
-                R.id.navigation_tv_show
+                R.id.navigation_tv_show,
+                R.id.navigation_favorite
             )
         )
         setupActionBarWithNavController(mNavController, appBarConfiguration)
@@ -44,25 +46,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(mNavController, null)
     }
-
-    /**
-     * A Function to hide BottomNavigationView with animation.
-     * */
-
-    fun hideBottomNavigationView() {
-        mBinding.navView.clearAnimation()
-        mBinding.navView.animate().translationY(
-            mBinding.navView.height.toFloat()
-        ).duration = 300
-        mBinding.navView.gone()
-    }
-
-    /**
-     * A Function to show the BottomNavigationView with animation*/
-    fun showBottomNavigationView() {
-        mBinding.navView.clearAnimation()
-        mBinding.navView.animate().translationY(0f).duration = 300
-        mBinding.navView.visible()
-    }
-
 }

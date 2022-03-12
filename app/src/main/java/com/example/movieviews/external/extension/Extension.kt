@@ -1,11 +1,14 @@
 package com.example.movieviews.external.extension
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +16,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.movieviews.data.models.Genre
+import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.make
 
 /**
  * This ViewExtension contains general extension and you can call
@@ -51,7 +57,7 @@ fun SwipeRefreshLayout.swipeGone() {
     isRefreshing = false
 }
 
-fun SwipeRefreshLayout.setOnRefreshListener(listener: () -> Unit) {
+fun SwipeRefreshLayout.onSetRefreshListener(listener: () -> Unit) {
     this.setOnRefreshListener {
         listener.invoke()
     }
@@ -77,13 +83,17 @@ fun ImageView.setImageFromDrawable(drawable: Drawable?) {
         .into(this)
 }
 
+fun showSnackBar(view: View, message: String) {
+    make(view, message, Snackbar.LENGTH_SHORT).show()
+}
+
 fun TextView.setSpannable(
     text: List<Genre>?,
     spannableStringBuilder: SpannableStringBuilder = SpannableStringBuilder()
 ) {
     if (text.isNullOrEmpty()) return
 
-    val joinedText = text.joinToString(", "){ genre ->
+    val joinedText = text.joinToString(", ") { genre ->
         genre.name.toString()
     }
     spannableStringBuilder.append(joinedText)
@@ -107,6 +117,36 @@ fun ImageView.setImage(urlPath: String?) {
         .load(urlPath)
         .apply(RequestOptions().override(600, 600))
         .into(this)
+}
+
+fun showToast(context: Context, message: String) {
+    makeText(
+        context, message,
+        Toast.LENGTH_SHORT
+    )
+        .show()
+}
+
+fun <T> Context.navigateUp(activity: Class<T>) {
+    val intent = Intent(this, activity)
+    startActivity(intent)
+}
+
+fun <T> Context.navigateUpWithData(
+    activity: Class<T>,
+    key: String?,
+    data: Any?,
+    flags: Boolean
+) {
+    if (data == null && key.isNullOrEmpty()) return
+    val intent = Intent(this, activity).apply {
+        when (data) {
+            is String -> putExtra(key, data)
+            is Int -> putExtra(key, data)
+        }
+        putExtra(EXTRA_DATAIl_MOVIE, flags)
+    }
+    startActivity(intent)
 }
 
 

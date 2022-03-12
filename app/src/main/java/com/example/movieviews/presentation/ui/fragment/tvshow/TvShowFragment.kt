@@ -1,30 +1,28 @@
 package com.example.movieviews.presentation.ui.fragment.tvshow
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.movieviews.R
+import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentTvShowBinding
 import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.extension.showToast
 import com.example.movieviews.external.extension.visible
 import com.example.movieviews.external.utils.EspressoIdlingResource
-import com.example.movieviews.presentation.ui.activity.MainActivity
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.MovieAdapter
-import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TvShowFragment : Fragment() {
-    private var mBinding: FragmentTvShowBinding? = null
+class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
+
+    override fun getResLayoutId(): Int = R.layout.fragment_tv_show
+
     private val mFragmentTvShowViewModel by viewModel<TvShowFragmentViewModelImpl>()
 
     /**
@@ -32,16 +30,13 @@ class TvShowFragment : Fragment() {
      * This method only once invoke the instance object,
      * if it is already it will be usable
      * */
-
-    private val mProgressDialog by lazy { ProgressDialog(requireContext()) }
-
     private val mAdapterTvShowList by lazy {
         MovieAdapter().apply {
             listener = object : AdapterClickListener<MovieResult> {
 
                 override fun onItemClickCallback(data: MovieResult) {
                     val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
-                    intent.putExtra(EXTRA_TV_SHOW_MOVIE, data.id)
+                    intent.putExtra(EXTRA_TV_SHOW_MOVIE, data)
                     startActivity(intent)
                 }
 
@@ -56,20 +51,7 @@ class TvShowFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mBinding = FragmentTvShowBinding.inflate(
-            inflater,
-            container, false
-        )
-        return mBinding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated() {
         EspressoIdlingResource.increment()
         initView()
         onObserver()
@@ -102,6 +84,7 @@ class TvShowFragment : Fragment() {
         when (state) {
             is TvShowViewState.Init -> onInitState()
             is TvShowViewState.Loading -> onProgress()
+            is TvShowViewState.HideLoading -> onHideProgress()
             is TvShowViewState.Message -> onShowMessage(state.throwable.message.toString())
             is TvShowViewState.SuccessDiscoverTvShow -> onSuccessDiscoverTvShow(state.listTvSHowDiscover)
         }
@@ -112,25 +95,24 @@ class TvShowFragment : Fragment() {
     }
 
     private fun onProgress() {
-        mProgressDialog.show()
+        showDialogProgress()
     }
 
     private fun onHideProgress() {
-        mProgressDialog.dismiss()
+        hideProgress()
     }
 
     private fun onShowMessage(message: String) {
-        onHideProgress()
-        Toast.makeText(
-            requireActivity(),
-            message, Toast.LENGTH_SHORT
-        ).show()
+        showToast(requireContext(), message = message)
     }
 
-    private fun onSuccessDiscoverTvShow(listDiscoverTvShow: List<MovieResult>) {
-        onHideProgress()
-        mBinding?.rvTvShow?.visible()
-        setDataTvShowList(listDiscoverTvShow)
+    private fun onSuccessDiscoverTvShow(listDiscoverTvShow: List<MovieResult>?) {
+        if (listDiscoverTvShow.isNullOrEmpty()) {
+            mBinding?.rvTvShow?.gone()
+        } else {
+            mBinding?.rvTvShow?.visible()
+            setDataTvShowList(listDiscoverTvShow)
+        }
     }
 
     /**
@@ -138,26 +120,5 @@ class TvShowFragment : Fragment() {
      * */
     private fun setDataTvShowList(listDiscoverMovie: List<MovieResult>) {
         mAdapterTvShowList.setData(listDiscoverMovie)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (requireActivity() is MainActivity) {
-            (activity as MainActivity?)?.showBottomNavigationView()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mBinding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            mProgressDialog.dismiss()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 }

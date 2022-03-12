@@ -2,10 +2,7 @@ package com.example.movieviews.data.models
 
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
-import android.os.Parcelable
 
-@Parcelize
 data class Poster(
     @SerializedName("aspect_ratio")
     var aspectRatio: Double? = null, // 0.667
@@ -21,4 +18,4 @@ data class Poster(
     var voteCount: Int? = null, // 3
     @SerializedName("width")
     var width: Int? = null // 2000
-) : Parcelable
+)

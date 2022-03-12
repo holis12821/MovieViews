@@ -1,8 +1,8 @@
 package com.example.movieviews.repository
 
-import com.example.movieviews.data.models.DetailMovieEntity
+/*import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.data.models.Genre
-import com.example.movieviews.data.remote.RemoteDataSource
+import com.example.movieviews.data.remote.ApiService
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
 import com.example.movieviews.external.dumydata.DataMovieDummy
@@ -27,7 +27,7 @@ class MovieRepositoryImplTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
-    private val service = mock<RemoteDataSource>()
+    private val service = mock<ApiService>()
 
 
     private val response = DataMovieDummy.getMovies()
@@ -246,3 +246,4 @@ class MovieRepositoryImplTest {
         clearInvocations(service)
     }
 }
+*/

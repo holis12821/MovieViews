@@ -1,7 +1,8 @@
 package com.example.movieviews.presentation.ui.tvshow
 
+/*
 import androidx.lifecycle.Observer
-import com.example.movieviews.data.repository.remote.MovieRepository
+import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
 import com.example.movieviews.external.dumydata.DataMovieDummy
@@ -98,3 +99,5 @@ class TvShowFragmentViewModelImplTest {
         clearInvocations(mMovieRepository)
     }
 }
+
+ */

@@ -13,7 +13,7 @@ import org.junit.runner.Description
  * unit testing. A TestCoroutineScope provide control over the execution of
  * coroutines.
  * */
-@ExperimentalCoroutinesApi
+/*@ExperimentalCoroutinesApi
 class TestCoroutineRule: TestWatcher() {
 
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
@@ -53,3 +53,4 @@ class TestCoroutineRule: TestWatcher() {
     fun runBlockingTest(block: suspend TestCoroutineScope.() -> Unit) =
         testCoroutineScope.runBlockingTest { block() }
 }
+*/

@@ -12,7 +12,7 @@ object LogUtils {
 
     fun info(message: String) {
         if (BuildConfig.DEBUG) {
-            Timber.i(message)
+            Timber.d(message)
         }
     }
 

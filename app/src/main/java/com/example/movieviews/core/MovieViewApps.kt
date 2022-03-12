@@ -2,6 +2,7 @@ package com.example.movieviews.core
 
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.example.movieviews.di.dbModule
 import com.example.movieviews.di.networkModule
 import com.example.movieviews.di.repositoryModule
 import com.example.movieviews.di.viewModelModule
@@ -25,6 +26,7 @@ class MovieViewApps : MultiDexApplication() {
             androidContext(this@MovieViewApps)
             //module
             modules(
+                dbModule,
                 networkModule,
                 repositoryModule,
                 viewModelModule

@@ -14,4 +14,9 @@
         android:id="@+id/navigation_tv_show"
         android:icon="@drawable/ic_tv_show"
         android:title="@string/tvShow"/>
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_favorite_selected"
+        android:title="@string/favorite"/>
 </menu>

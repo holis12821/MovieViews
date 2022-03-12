@@ -4,12 +4,11 @@ import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movieviews.R
 import com.example.movieviews.data.models.Cast
-import com.example.movieviews.data.models.DetailMovieEntity
+import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.ActivityDetailMovieBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
@@ -19,7 +18,6 @@ import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieViewState
-import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.CastAdapterMovie
 import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +26,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityDetailMovieBinding
     private val mActivityDetailMovieViewModel by viewModel<DetailMovieActivityViewModelImpl>()
+    private var detailMovieFlags = false
 
     /**
      * Lazy initialization is used to initialize objects when needed.
@@ -36,20 +35,7 @@ class DetailMovieActivity : AppCompatActivity() {
      * */
     private val mProgressDialog by lazy { ProgressDialog(this) }
 
-    private val mAdapterCastMovie by lazy {
-        CastAdapterMovie().apply {
-            listener = object : AdapterClickListener<Cast> {
-                override fun onItemClickCallback(data: Cast) {
-//                  coming soon
-                }
-
-                override fun onViewClickCallback(view: View, data: Cast) {
-//                  coming soon
-                }
-
-            }
-        }
-    }
+    private val mAdapterCastMovie by lazy { CastAdapterMovie() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,16 +62,17 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        val tvShowId = intent.getIntExtra(EXTRA_TV_SHOW_MOVIE, 0)
-        val detailMovieFlags = intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)
+        val movie = intent.getParcelableExtra<MovieResult>(EXTRA_MOVIE_ID)
+        val movieId = movie?.id ?: 0
+        val tvShow = intent.getParcelableExtra<MovieResult>(EXTRA_TV_SHOW_MOVIE)
+        val tvShowId = tvShow?.id ?: 0
+        detailMovieFlags = intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)
         if (detailMovieFlags) {
             title = getString(R.string.detailMovie)
             mActivityDetailMovieViewModel.movieId = movieId
             mActivityDetailMovieViewModel.getDetailMovie()
             mActivityDetailMovieViewModel.getCastMovie()
-        }
-        else {
+        } else {
             title = getString(R.string.detailTvShow)
             mActivityDetailMovieViewModel.tvShowId = tvShowId
             mActivityDetailMovieViewModel.getDetailTvShow()
@@ -134,13 +121,13 @@ class DetailMovieActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun onShowDetailMovie(detailMovieEntity: DetailMovieEntity) {
+    private fun onShowDetailMovie(detailMovieEntity: MovieResult) {
         onHideProgress()
         mBinding.clContent.visible()
         showDetailMovie(detailMovieEntity)
     }
 
-    private fun showDetailMovie(detailMovieEntity: DetailMovieEntity?) {
+    private fun showDetailMovie(detailMovieEntity: MovieResult?) {
         val imageSizeLarge = getString(R.string.original)
         val imageSizeSmall = getString(R.string.w500)
         val imageUrlBanner = "$BASE_URL_IMAGE$imageSizeLarge/${detailMovieEntity?.backdropPath}"
@@ -148,7 +135,8 @@ class DetailMovieActivity : AppCompatActivity() {
         mBinding.apply {
             ivPosterImage.setImage(imageUrlBanner)
             ivPosterMovie.setImage(imageUrlPoster)
-            if (!detailMovieEntity?.originalTitle.isNullOrEmpty()) tvTitleMovie.text = detailMovieEntity?.originalTitle
+            if (!detailMovieEntity?.originalTitle.isNullOrEmpty()) tvTitleMovie.text =
+                detailMovieEntity?.originalTitle
             else tvTitleMovie.text = detailMovieEntity?.originalName
             tvScoreFilm.text = getString(
                 R.string.user_score,

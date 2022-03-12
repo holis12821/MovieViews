@@ -1,8 +1,9 @@
 package com.example.movieviews.presentation.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
 import com.example.movieviews.data.models.MovieResult
@@ -10,6 +11,7 @@ import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.extension.setImage
+import com.example.movieviews.external.utils.DiffUtilCallBack
 import com.example.movieviews.external.utils.getScreenWidth
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -18,18 +20,14 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     var maxWidth = 160
     var marginWidth = 12
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun setData(list: List<MovieResult>) {
+        val diffCallBack = DiffUtilCallBack(this.list, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallBack)
         this.list.clear()
         this.list.addAll(list)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
-
-    fun addMore(list: List<MovieResult>) {
-        this.list.addAll(list)
-        notifyItemRangeInserted(this.list.size, list.size)
-    }
-
 
     inner class ViewHolder(
         private val binding: ItemViewMovieAdapterBinding
@@ -37,6 +35,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
         binding.root
     ) {
         fun bindItem(data: MovieResult) {
+            binding.data = data
             if (maxWidth > 0) {
                 binding.layoutContent.layoutParams.width =
                     convertDpToPixel(itemView.context, maxWidth)
@@ -73,13 +72,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     var listener: AdapterClickListener<MovieResult>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        ItemViewMovieAdapterBinding.inflate(
-            LayoutInflater.from(
-                parent.context
-            ), parent, false
-        ).also { itemViewMovieBinding ->
-            return ViewHolder(itemViewMovieBinding)
-        }
+        return ViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_view_movie_adapter, parent, false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

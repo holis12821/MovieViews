@@ -24,7 +24,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        dataBinding = true
     }
 
     flavorDimensions "default"
@@ -88,6 +88,8 @@ dependencies {
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "app.cash.turbine:turbine:$turbinVersion"
+
     androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
@@ -97,6 +99,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
     androidTestImplementation "androidx.test:core-ktx:$testCore"
+    androidTestImplementation "com.google.truth:truth:$truthVersion"
 
 
     //espresso idling resource
@@ -114,6 +117,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+
+    //pagination
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationFragmentKtxVersion"

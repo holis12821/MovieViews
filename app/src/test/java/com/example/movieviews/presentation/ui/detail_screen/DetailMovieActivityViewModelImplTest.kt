@@ -1,16 +1,15 @@
 package com.example.movieviews.presentation.ui.detail_screen
 
-import androidx.lifecycle.Observer
+/*import androidx.lifecycle.Observer
 import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.data.models.Genre
-import com.example.movieviews.data.repository.remote.MovieRepository
-import com.example.movieviews.external.constant.API_KEY
+import com.example.movieviews.data.repository.local.MovieDbRepository
+import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieViewState
 import com.example.movieviews.utils.TestCoroutineRule
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import org.junit.After
 import org.junit.Before
@@ -91,11 +90,11 @@ class DetailMovieActivityViewModelImplTest {
         testCoroutineRule.runBlockingTest {
             mDetailActivityMovieViewModel.getDetailMovie()
             captor.run {
-                `when`(mMovieRepository.getDetailMovie(movie_id = detailMovie.id ?: 0, API_KEY))
+                `when`(mMovieRepository.getDetailMovie(movieId = detailMovie.id ?: 0))
                     .thenReturn(flowOf(detailMovie))
                 val detailMovieEntity =
-                    mMovieRepository.getDetailMovie(detailMovie.id ?: 0, API_KEY)
-                verify(mMovieRepository, atLeastOnce()).getDetailMovie(detailMovie.id ?: 0, API_KEY)
+                    mMovieRepository.getDetailMovie(,)
+                verify(mMovieRepository, atLeastOnce()).getDetailMovie(,)
                 verify(mObserver, Mockito.times(3)).onChanged(capture())
                 Truth.assertThat(allValues[0] is DetailMovieViewState.Init)
                 Truth.assertThat(allValues[1] is DetailMovieViewState.Loading)
@@ -121,13 +120,12 @@ class DetailMovieActivityViewModelImplTest {
         testCoroutineRule.runBlockingTest {
             mDetailActivityMovieViewModel.getDetailTvShow()
             captor.run {
-                `when`(mMovieRepository.getDetailTvShow(detailTvShow.id ?: 0, API_KEY))
+                `when`(mMovieRepository.getDetailTvShow(,))
                     .thenReturn(flowOf(detailTvShow))
                 val detailTvShowEntity =
-                    mMovieRepository.getDetailTvShow(detailTvShow.id ?: 0, API_KEY)
+                    mMovieRepository.getDetailTvShow(,)
                 verify(mMovieRepository, atLeastOnce()).getDetailTvShow(
-                    detailTvShow.id ?: 0,
-                    API_KEY
+                    ,
                 )
                 verify(mObserver, Mockito.times(3)).onChanged(capture())
                 Truth.assertThat(allValues[0] is DetailMovieViewState.Init)
@@ -189,3 +187,4 @@ class DetailMovieActivityViewModelImplTest {
         clearInvocations(mMovieRepository)
     }
 }
+*/

@@ -93,6 +93,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_movie"
                 tools:text="User Score : 8.1" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="@dimen/space_big_large"
+                android:layout_height="@dimen/space_big_large"
+                android:layout_marginTop="@dimen/space_super_small"
+                app:srcCompat="@drawable/ic_favorite_unselected"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_score_film"
+                app:layout_constraintBottom_toTopOf="@+id/tv_tagline"
+                tools:background="@drawable/ic_favorite_unselected"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_movie_certification"
                 style="@style/TextViewBold_Dark"

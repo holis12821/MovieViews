@@ -1,31 +1,50 @@
 package com.example.movieviews.data.models
 
 
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.movieviews.external.constant.DatabaseRoom
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "MovieResult")
+@Entity(tableName = DatabaseRoom.MOVIE_TABLE_NAME)
 data class MovieResult(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
     @SerializedName("id")
     var id: Int? = null,
+    @SerializedName("status_code")
+    var status_code: Int? = 0,
+    @SerializedName("status_message")
+    var status_message: String? = "",
+    @SerializedName("success")
+    var success: Boolean? = false,
     @SerializedName("adult")
     var adult: Boolean? = null,
     @ColumnInfo(name = "backdrop_path")
     @SerializedName("backdrop_path")
     var backdropPath: String? = null,
+    @Ignore
     @SerializedName("genre_ids")
     var genreIds: List<Int>? = null,
     @SerializedName("name")
     var name: String? = null,
+    @SerializedName("budget")
+    var budget: Int? = 0,
+    @Ignore
+    @ColumnInfo(name = "genres")
+    @SerializedName("genres")
+    var genres: List<Genre>? = null,
+    @SerializedName("homepage")
+    var homepage: String? = "",
+    @SerializedName("imdb_id")
+    var imdbId: String? = "",
     @ColumnInfo(name = "original_language")
     @SerializedName("original_language")
     var originalLanguage: String? = null,
@@ -46,6 +65,15 @@ data class MovieResult(
     @ColumnInfo(name = "release_date")
     @SerializedName("release_date")
     var releaseDate: String? = null,
+    @SerializedName("revenue")
+    var revenue: Int? = 0,
+    @SerializedName("runtime")
+    var runtime: Int? = 0,
+    @SerializedName("status")
+    var status: String? = "",
+    @ColumnInfo(name = "tagline")
+    @SerializedName("tagline")
+    var tagline: String? = "",
     @SerializedName("title")
     var title: String? = null,
     @SerializedName("video")

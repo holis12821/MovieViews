@@ -23,4 +23,10 @@
         android:label="@string/tvShow"
         tools:layout="@layout/fragment_tv_show"/>
 
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.example.movieviews.presentation.ui.fragment.favorite.FavoriteFragment"
+        android:label="@string/favorite"
+        tools:layout="@layout/fragment_favorite"/>
+
 </navigation>

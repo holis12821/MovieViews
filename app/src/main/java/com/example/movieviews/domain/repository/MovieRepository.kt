@@ -1,7 +1,7 @@
-package com.example.movieviews.data.repository.remote
+package com.example.movieviews.domain.repository
 
+import androidx.paging.PagingData
 import com.example.movieviews.data.models.Cast
-import com.example.movieviews.data.models.DetailMovieEntity
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
 import kotlinx.coroutines.flow.Flow
@@ -34,29 +34,29 @@ interface MovieRepository {
         api_key: String
     ): Flow<List<MovieResult>>
 
-    suspend fun getDiscoverMovie(
-        api_key: String,
-        language: String
-    ): Flow<List<MovieResult>>
+    suspend fun getDiscoverMovie(): Flow<PagingData<MovieResult>>
 
-    suspend fun getDiscoverTvShow(
-        api_key: String,
-        language: String
-    ): Flow<List<MovieResult>>
+    suspend fun getDiscoverTvShow(): Flow<PagingData<MovieResult>>
 
     suspend fun getDetailMovie(
         movie_id: Int,
         api_key: String
-    ): Flow<DetailMovieEntity>
+    ): Flow<MovieResult>
 
     suspend fun getDetailTvShow(
-        tv_id : Int,
+        tv_id: Int,
         api_key: String
-    ): Flow<DetailMovieEntity>
+    ): Flow<MovieResult>
 
     suspend fun getCreditsMovie(
         movie_id: Int,
         api_key: String,
         language: String
     ): Flow<List<Cast>>
+
+    suspend fun getMovieFromDb(): Flow<PagingData<MovieResult>>
+    suspend fun getMovieFromMediator(): Flow<PagingData<MovieResult>>
+
+    suspend fun isFavorite(id: Int): Flow<MovieResult>
+
 }

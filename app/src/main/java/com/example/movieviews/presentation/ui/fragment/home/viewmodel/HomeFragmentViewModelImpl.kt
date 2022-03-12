@@ -2,11 +2,11 @@ package com.example.movieviews.presentation.ui.fragment.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movieviews.core.BaseViewModel
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
-import com.example.movieviews.data.repository.remote.MovieRepository
+import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.external.constant.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import kotlinx.coroutines.flow.catch
@@ -16,11 +16,19 @@ import kotlinx.coroutines.launch
 
 class HomeFragmentViewModelImpl(
     private val repositoryDelegate: MovieRepository
-) : ViewModel(), HomeFragmentViewModel {
+) : BaseViewModel(), HomeFragmentViewModel {
 
     //init state
     private val _stateData = MutableLiveData<HomeViewState>(HomeViewState.Init)
     val stateData: LiveData<HomeViewState> get() = _stateData
+
+    fun onStart() {
+        getPopularMovie()
+        getCollectionImage()
+        getMovieUpcoming()
+        getMovieTopRated()
+        getTrendingMovie()
+    }
 
     override fun getPopularMovie() {
         viewModelScope.launch {
@@ -29,9 +37,11 @@ class HomeFragmentViewModelImpl(
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
+                    hideLoading()
                     showMessage(e)
                 }
                 .collect { listPopular ->
+                    hideLoading()
                     EspressoIdlingResource.decrement()
                     successPopularMovie(listPopular)
                 }
@@ -45,9 +55,11 @@ class HomeFragmentViewModelImpl(
                 api_key = API_KEY
             ).onStart { showLoading() }
                 .catch { e ->
+                    hideLoading()
                     showMessage(e)
                 }
                 .collect { listPoster ->
+                    hideLoading()
                     EspressoIdlingResource.decrement()
                     successPosterMovie(listPoster)
                 }
@@ -61,9 +73,11 @@ class HomeFragmentViewModelImpl(
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
+                    hideLoading()
                     showMessage(e)
                 }
                 .collect { listUpcomingMovie ->
+                    hideLoading()
                     EspressoIdlingResource.decrement()
                     successUpComingMovie(listUpcomingMovie)
                 }
@@ -77,9 +91,11 @@ class HomeFragmentViewModelImpl(
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
+                    hideLoading()
                     showMessage(e)
                 }
                 .collect { listMovieTopRated ->
+                    hideLoading()
                     EspressoIdlingResource.decrement()
                     successMovieTopRated(listMovieTopRated)
                 }
@@ -94,40 +110,46 @@ class HomeFragmentViewModelImpl(
                 api_key = API_KEY
             ).onStart { showLoading() }
                 .catch { e ->
+                    hideLoading()
                     showMessage(e)
                 }
                 .collect { listTrendingMovie ->
+                    hideLoading()
                     EspressoIdlingResource.decrement()
                     successTrendingMovie(listTrendingMovie)
                 }
         }
     }
 
-    private fun showLoading() {
+    override fun showLoading() {
         _stateData.value = HomeViewState.Loading
     }
 
-    private fun showMessage(throwable: Throwable) {
+    override fun hideLoading() {
+        _stateData.value = HomeViewState.HideLoading
+    }
+
+    override fun showMessage(throwable: Throwable) {
         _stateData.value = HomeViewState.Message(throwable)
     }
 
-    private fun successPosterMovie(listPoster: List<Poster>) {
+    private fun successPosterMovie(listPoster: List<Poster>?) {
         _stateData.value = HomeViewState.PosterMovie(listPoster)
     }
 
-    private fun successPopularMovie(listMoviePopular: List<MovieResult>) {
+    private fun successPopularMovie(listMoviePopular: List<MovieResult>?) {
         _stateData.value = HomeViewState.SuccessPopularMovie(listPopularMovie = listMoviePopular)
     }
 
-    private fun successUpComingMovie(listUpcomingMovie: List<MovieResult>) {
+    private fun successUpComingMovie(listUpcomingMovie: List<MovieResult>?) {
         _stateData.value = HomeViewState.SuccessUpcomingMovie(listUpcomingMovie = listUpcomingMovie)
     }
 
-    private fun successMovieTopRated(listTopRatedMovie: List<MovieResult>) {
+    private fun successMovieTopRated(listTopRatedMovie: List<MovieResult>?) {
         _stateData.value = HomeViewState.SuccessTopRatedMovie(listTopRatedMovie = listTopRatedMovie)
     }
 
-    private fun successTrendingMovie(listTrendingMovie: List<MovieResult>) {
+    private fun successTrendingMovie(listTrendingMovie: List<MovieResult>?) {
         _stateData.value = HomeViewState.SuccessTrendingMovie(listTrendingMovie = listTrendingMovie)
     }
 
