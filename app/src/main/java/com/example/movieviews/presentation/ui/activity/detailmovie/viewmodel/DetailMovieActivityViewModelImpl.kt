@@ -15,6 +15,7 @@ class DetailMovieActivityViewModelImpl(
     val state: LiveData<DetailMovieViewState>
         get() = _state
 
+    var detailMovieFlags = false
     var movieId: Int = 0
     var tvShowId: Int = 0
 

@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.movieviews.databinding.FragmentFavoriteBinding
 import com.example.movieviews.external.constant.TAB_TITLES_FRAGMENT
 import com.example.movieviews.presentation.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-class FavoriteFragment: Fragment() {
+class FavoriteFragment: Fragment() { /*
     private var mBinding: FragmentFavoriteBinding? = null
 
     override fun onCreateView(
@@ -43,5 +42,5 @@ class FavoriteFragment: Fragment() {
                 tabLayout.text = getString(TAB_TITLES_FRAGMENT[position])
             }.attach()
         }
-    }
+    }*/
 }

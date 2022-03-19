@@ -1,5 +1,6 @@
 package com.example.movieviews.core
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.LayoutRes
@@ -25,17 +26,6 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         onActivityCreated(savedInstanceState = savedInstanceState)
     }
-
-   protected fun handleError(loadStates: CombinedLoadStates) {
-       val errorState = loadStates.source.append as? LoadState.Error
-           ?: loadStates.source.prepend as? LoadState.Error
-       errorState?.let { loadStateError ->
-           Toast.makeText(this,
-               "${loadStateError.error}",
-               Toast.LENGTH_SHORT
-           ).show()
-       }
-   }
 
    protected fun showDialogProgress() {
         try {

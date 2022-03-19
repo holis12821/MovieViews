@@ -6,6 +6,7 @@ import com.example.movieviews.di.dbModule
 import com.example.movieviews.di.networkModule
 import com.example.movieviews.di.repositoryModule
 import com.example.movieviews.di.viewModelModule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -13,6 +14,7 @@ import org.koin.core.logger.Level
 import timber.log.Timber
 
 class MovieViewApps : MultiDexApplication() {
+    @ExperimentalCoroutinesApi
     override fun onCreate() {
         super.onCreate()
         MultiDex.install(this)

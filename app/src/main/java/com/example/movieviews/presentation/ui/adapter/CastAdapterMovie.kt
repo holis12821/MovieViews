@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
 import com.example.movieviews.data.models.Cast
@@ -72,12 +73,12 @@ class CastAdapterMovie : RecyclerView.Adapter<CastAdapterMovie.ViewHolder>() {
     var listener: AdapterClickListener<Cast>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        ItemViewCastAdapterBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent, false
-        ).also { itemViewCastAdapterBinding ->
-            return ViewHolder(itemViewCastAdapterBinding)
-        }
+        return ViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_view_cast_adapter, parent, false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

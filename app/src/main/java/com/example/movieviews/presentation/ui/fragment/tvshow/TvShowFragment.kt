@@ -1,20 +1,21 @@
 package com.example.movieviews.presentation.ui.fragment.tvshow
 
-import android.content.Intent
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieviews.R
 import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentTvShowBinding
-import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
-import com.example.movieviews.external.extension.gone
-import com.example.movieviews.external.extension.showToast
-import com.example.movieviews.external.extension.visible
+import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE_ID
+import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
-import com.example.movieviews.presentation.ui.adapter.MovieAdapter
+import com.example.movieviews.presentation.ui.adapter.MovieLoadStateAdapter
+import com.example.movieviews.presentation.ui.adapter.MoviePagingDataAdapter
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowFragmentViewModelImpl
 import com.example.movieviews.presentation.ui.fragment.tvshow.viewmodel.TvShowViewState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,13 +32,15 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
      * if it is already it will be usable
      * */
     private val mAdapterTvShowList by lazy {
-        MovieAdapter().apply {
+        MoviePagingDataAdapter().apply {
             listener = object : AdapterClickListener<MovieResult> {
 
                 override fun onItemClickCallback(data: MovieResult) {
-                    val intent = Intent(requireActivity(), DetailMovieActivity::class.java)
-                    intent.putExtra(EXTRA_TV_SHOW_MOVIE, data)
-                    startActivity(intent)
+                    requireContext().navigateUpWithData(
+                        activity = DetailMovieActivity::class.java,
+                        key = EXTRA_TV_SHOW_MOVIE_ID,
+                        data = data.id
+                    )
                 }
 
                 override fun onViewClickCallback(
@@ -60,18 +63,41 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
     private fun initView() {
         initData()
         onInitState()
-        setupAdapterTvSHowList()
+        setupView()
+        initAdapter()
+    }
+
+    private fun setupView() {
+        mBinding?.swipeRefresh?.onSetRefreshListener {
+            mFragmentTvShowViewModel.getTvShowList()
+        }
     }
 
     private fun initData() {
         mFragmentTvShowViewModel.getTvShowList()
     }
 
-    private fun setupAdapterTvSHowList() {
+    private fun initAdapter(
+        isMediator: Boolean = false
+    ) {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         mAdapterTvShowList.maxWidth = 0
         mBinding?.rvTvShow?.layoutManager = layoutManager
-        mBinding?.rvTvShow?.adapter = mAdapterTvShowList
+        mBinding?.rvTvShow?.adapter = mAdapterTvShowList.withLoadStateFooter(
+            footer = MovieLoadStateAdapter { mAdapterTvShowList.retry() }
+        )
+        mAdapterTvShowList.addLoadStateListener { loadState ->
+            val refreshState = if (isMediator) {
+                loadState.mediator?.refresh
+            } else {
+                loadState.source.refresh
+            }
+            mBinding?.rvTvShow?.isVisible = refreshState is LoadState.NotLoading
+            mBinding?.progressBar?.isVisible = refreshState is LoadState.Loading
+            mBinding?.btnRetry?.isVisible = refreshState is LoadState.Error
+            handleError(loadState)
+        }
+        mBinding?.btnRetry?.setOnClickListener { mAdapterTvShowList.retry() }
     }
 
     private fun onObserver() {
@@ -86,7 +112,11 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
             is TvShowViewState.Loading -> onProgress()
             is TvShowViewState.HideLoading -> onHideProgress()
             is TvShowViewState.Message -> onShowMessage(state.throwable.message.toString())
-            is TvShowViewState.SuccessDiscoverTvShow -> onSuccessDiscoverTvShow(state.listTvSHowDiscover)
+            is TvShowViewState.SuccessDiscoverTvShow -> state.data?.let { pagingData ->
+                onSuccessDiscoverTvShow(
+                    pagingData
+                )
+            }
         }
     }
 
@@ -96,29 +126,28 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
 
     private fun onProgress() {
         showDialogProgress()
+        mBinding?.swipeRefresh?.swipeVisible()
     }
 
     private fun onHideProgress() {
         hideProgress()
+        mBinding?.swipeRefresh?.swipeGone()
     }
 
     private fun onShowMessage(message: String) {
         showToast(requireContext(), message = message)
+        mBinding?.swipeRefresh?.swipeGone()
     }
 
-    private fun onSuccessDiscoverTvShow(listDiscoverTvShow: List<MovieResult>?) {
-        if (listDiscoverTvShow.isNullOrEmpty()) {
-            mBinding?.rvTvShow?.gone()
-        } else {
-            mBinding?.rvTvShow?.visible()
-            setDataTvShowList(listDiscoverTvShow)
-        }
+    private fun onSuccessDiscoverTvShow(pagingData: PagingData<MovieResult>) {
+        setDataTvShowList(pagingData)
     }
 
     /**
      * A Function set data movie into adapter
      * */
-    private fun setDataTvShowList(listDiscoverMovie: List<MovieResult>) {
-        mAdapterTvShowList.setData(listDiscoverMovie)
+    private fun setDataTvShowList(pagingData: PagingData<MovieResult>) {
+        mBinding?.rvTvShow?.visible()
+        mAdapterTvShowList.submitData(lifecycle, pagingData)
     }
 }

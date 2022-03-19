@@ -136,7 +136,7 @@ fun <T> Context.navigateUpWithData(
     activity: Class<T>,
     key: String?,
     data: Any?,
-    flags: Boolean
+    flags: Boolean = false
 ) {
     if (data == null && key.isNullOrEmpty()) return
     val intent = Intent(this, activity).apply {

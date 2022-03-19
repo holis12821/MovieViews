@@ -21,7 +21,7 @@ const val PAGE_SIZE = 6
 
 const val EXTRA_MOVIE_ID = "extra_movie_id"
 const val EXTRA_DATAIl_MOVIE = "extra_detail_movie"
-const val EXTRA_TV_SHOW_MOVIE = "extra_tv_show_movie"
+const val EXTRA_TV_SHOW_MOVIE_ID = "extra_tv_show_movie"
 
 @StringRes
 val TAB_TITLES_FRAGMENT = intArrayOf(

@@ -6,22 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieviews.data.models.MovieResult
-import com.example.movieviews.databinding.FragmentMovieBinding
-import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
-import com.example.movieviews.external.extension.navigateUpWithData
 import com.example.movieviews.external.utils.LogUtils
-import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
-import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
-import com.example.movieviews.presentation.ui.adapter.MovieLoadStateAdapter
-import com.example.movieviews.presentation.ui.adapter.MoviePagingDataAdapter
 import com.example.movieviews.presentation.ui.custom.ProgressDialog
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {

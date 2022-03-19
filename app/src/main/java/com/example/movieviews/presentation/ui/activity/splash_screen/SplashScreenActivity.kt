@@ -2,21 +2,20 @@ package com.example.movieviews.presentation.ui.activity.splash_screen
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.example.movieviews.R
+import com.example.movieviews.core.BaseActivity
 import com.example.movieviews.databinding.ActivitySplashScreenBinding
 import com.example.movieviews.presentation.ui.activity.MainActivity
 
-class SplashScreenActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivitySplashScreenBinding
+class SplashScreenActivity : BaseActivity<ActivitySplashScreenBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun getResLayoutId(): Int = R.layout.activity_splash_screen
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         initView()
     }
 
     private fun initView() {
-        mBinding = ActivitySplashScreenBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
         showSplashScreen()
     }
 

@@ -4,50 +4,39 @@ import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.movieviews.R
+import com.example.movieviews.core.BaseActivity
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.ActivityDetailMovieBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
 import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
-import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
+import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE_ID
 import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieViewState
 import com.example.movieviews.presentation.ui.adapter.CastAdapterMovie
-import com.example.movieviews.presentation.ui.custom.ProgressDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailMovieActivity : AppCompatActivity() {
+class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
-    private lateinit var mBinding: ActivityDetailMovieBinding
+    override fun getResLayoutId(): Int = R.layout.activity_detail_movie
+
     private val mActivityDetailMovieViewModel by viewModel<DetailMovieActivityViewModelImpl>()
-    private var detailMovieFlags = false
 
     /**
      * Lazy initialization is used to initialize objects when needed.
      * This method only once invoke the instance object,
      * if it is already it will be usable
      * */
-    private val mProgressDialog by lazy { ProgressDialog(this) }
-
     private val mAdapterCastMovie by lazy { CastAdapterMovie() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         EspressoIdlingResource.increment()
-        setupLayoutDetailMovie()
         initView()
         onObserverMovie()
-    }
-
-    private fun setupLayoutDetailMovie() {
-        mBinding = ActivityDetailMovieBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
     }
 
     private fun initView() {
@@ -62,12 +51,14 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun initData() {
+        mBinding.viewModel = mActivityDetailMovieViewModel
         val movie = intent.getParcelableExtra<MovieResult>(EXTRA_MOVIE_ID)
         val movieId = movie?.id ?: 0
-        val tvShow = intent.getParcelableExtra<MovieResult>(EXTRA_TV_SHOW_MOVIE)
+        val tvShow = intent.getParcelableExtra<MovieResult>(EXTRA_TV_SHOW_MOVIE_ID)
         val tvShowId = tvShow?.id ?: 0
-        detailMovieFlags = intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)
-        if (detailMovieFlags) {
+        mActivityDetailMovieViewModel.detailMovieFlags =
+            intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)
+        if (mActivityDetailMovieViewModel.detailMovieFlags) {
             title = getString(R.string.detailMovie)
             mActivityDetailMovieViewModel.movieId = movieId
             mActivityDetailMovieViewModel.getDetailMovie()
@@ -94,8 +85,12 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun handleState(state: DetailMovieViewState) {
         when (state) {
             is DetailMovieViewState.Init -> onInitState()
-            is DetailMovieViewState.Loading -> onProgress()
-            is DetailMovieViewState.Message -> onShowMessage(state.throwable.message.toString())
+            is DetailMovieViewState.Loading -> showDialogProgress()
+            is DetailMovieViewState.HideLoading -> hideProgress()
+            is DetailMovieViewState.Message -> showToast(
+                this,
+                message = state.throwable.message.toString()
+            )
             is DetailMovieViewState.ShowDetailMovie -> onShowDetailMovie(state.detailMovieEntity)
             is DetailMovieViewState.ShowCastMovie -> onShowCastMovie(state.listCastMovie)
         }
@@ -105,24 +100,7 @@ class DetailMovieActivity : AppCompatActivity() {
         mBinding.clContent.gone()
     }
 
-    private fun onProgress() {
-        mProgressDialog.show()
-    }
-
-    private fun onHideProgress() {
-        mProgressDialog.dismiss()
-    }
-
-    private fun onShowMessage(message: String) {
-        onHideProgress()
-        Toast.makeText(
-            this,
-            message, Toast.LENGTH_SHORT
-        ).show()
-    }
-
     private fun onShowDetailMovie(detailMovieEntity: MovieResult) {
-        onHideProgress()
         mBinding.clContent.visible()
         showDetailMovie(detailMovieEntity)
     }
@@ -169,11 +147,11 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun onShowCastMovie(list: List<Cast>?) {
         if (list.isNullOrEmpty()) {
-            mBinding.rvBilledCast.gone()
             mBinding.tvTopBilledCast.gone()
+            mBinding.rvBilledCast.gone()
         } else {
-            mBinding.rvBilledCast.visible()
             mBinding.tvTopBilledCast.visible()
+            mBinding.rvBilledCast.visible()
             mBinding.tvTopBilledCast.text = getString(R.string.top_billed_cast)
             setDataCastMovie(list)
         }
@@ -189,14 +167,5 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         onBackPressed()
         return true
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            mProgressDialog.dismiss()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 }

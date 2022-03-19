@@ -23,8 +23,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun initView() {
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
         //set NavHostFragment to find fragment based on id
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment

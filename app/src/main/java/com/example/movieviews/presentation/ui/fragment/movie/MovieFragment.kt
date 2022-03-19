@@ -10,10 +10,7 @@ import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentMovieBinding
 import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
-import com.example.movieviews.external.extension.gone
-import com.example.movieviews.external.extension.navigateUpWithData
-import com.example.movieviews.external.extension.showToast
-import com.example.movieviews.external.extension.visible
+import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
@@ -125,13 +122,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     private fun onProgress() {
         showDialogProgress()
+        mBinding?.swipeRefresh?.swipeVisible()
     }
 
     private fun onHideProgress() {
         hideProgress()
+        mBinding?.swipeRefresh?.swipeGone()
     }
 
     private fun onShowMessage(message: String) {
+        mBinding?.swipeRefresh?.swipeGone()
         showToast(requireContext(), message = message)
     }
 
