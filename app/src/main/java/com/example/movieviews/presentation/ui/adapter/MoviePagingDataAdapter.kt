@@ -2,6 +2,7 @@ package com.example.movieviews.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviews.R
@@ -48,7 +49,16 @@ class MoviePagingDataAdapter : PagingDataAdapter<MovieResult, MoviePagingDataAda
                 } else {
                     tvTitle.text = data.originalName
                 }
-                ivPosterImage.setImage(urlImage)
+
+                if (data.posterPath.isNullOrEmpty()) {
+                    ivPosterImage.setBackgroundColor(
+                        ContextCompat.getColor(
+                            itemView.context, R.color.sand
+                        )
+                    )
+                } else {
+                    ivPosterImage.setImage(urlImage)
+                }
             }
 
             itemView.setOnClickListener {

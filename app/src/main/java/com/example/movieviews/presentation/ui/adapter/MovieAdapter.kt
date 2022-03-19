@@ -2,6 +2,7 @@ package com.example.movieviews.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -60,7 +61,16 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
                 } else {
                     tvTitle.text = data.originalName
                 }
-                ivPosterImage.setImage(urlImage)
+
+                if (data.posterPath.isNullOrEmpty()) {
+                    ivPosterImage.setBackgroundColor(
+                        ContextCompat.getColor(
+                            itemView.context, R.color.sand
+                        )
+                    )
+                } else {
+                    ivPosterImage.setImage(urlImage)
+                }
             }
 
             itemView.setOnClickListener {

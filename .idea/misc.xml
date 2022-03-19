@@ -50,7 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_tv_show.xml" value="0.1" />
         <entry key="app/src/main/res/layout/handle.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/layout/item_view_cast_adapter.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_view_load_state.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/item_view_load_state.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_view_movie_adapter.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_view_top_movie_adapter.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_view_tv_show_adapter.xml" value="0.1" />

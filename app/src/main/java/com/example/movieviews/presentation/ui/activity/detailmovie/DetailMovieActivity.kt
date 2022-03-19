@@ -11,8 +11,8 @@ import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.ActivityDetailMovieBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
-import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
-import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE_ID
+import com.example.movieviews.external.constant.EXTRA_MOVIE
+import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
@@ -52,9 +52,9 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
     private fun initData() {
         mBinding.viewModel = mActivityDetailMovieViewModel
-        val movie = intent.getParcelableExtra<MovieResult>(EXTRA_MOVIE_ID)
+        val movie = intent.getParcelableExtra<MovieResult>(EXTRA_MOVIE)
         val movieId = movie?.id ?: 0
-        val tvShow = intent.getParcelableExtra<MovieResult>(EXTRA_TV_SHOW_MOVIE_ID)
+        val tvShow = intent.getParcelableExtra<MovieResult>(EXTRA_TV_SHOW_MOVIE)
         val tvShowId = tvShow?.id ?: 0
         mActivityDetailMovieViewModel.detailMovieFlags =
             intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)

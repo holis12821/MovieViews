@@ -9,7 +9,7 @@ import com.example.movieviews.R
 import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentMovieBinding
-import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
+import com.example.movieviews.external.constant.EXTRA_MOVIE
 import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
@@ -37,8 +37,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                 override fun onItemClickCallback(data: MovieResult) {
                     requireContext().navigateUpWithData(
                         activity = DetailMovieActivity::class.java,
-                        key = EXTRA_MOVIE_ID,
-                        data = data.id,
+                        key = EXTRA_MOVIE,
+                        data = data,
                         flags = true
                     )
                 }
@@ -61,9 +61,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun initView() {
-        initData()
+        setupView()
         onInitState()
+        initData()
         initAdapter()
+    }
+
+    private fun setupView() {
+        mBinding?.swipeRefresh?.onSetRefreshListener {
+            mFragmentMovieViewModel.getListMovie()
+        }
     }
 
     private fun initData() {
@@ -136,7 +143,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun onSuccessDiscoverMovieList(pagingData: PagingData<MovieResult>) {
-        mBinding?.rvMovie?.visible()
         setDataMovieList(pagingData = pagingData)
     }
 
@@ -144,6 +150,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
      * A Function set data movie into adapter
      * */
     private fun setDataMovieList(pagingData: PagingData<MovieResult>) {
+        mBinding?.rvMovie?.visible()
         mAdapterMovieList.submitData(lifecycle = lifecycle, pagingData = pagingData)
     }
 }

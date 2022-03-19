@@ -9,7 +9,7 @@ import com.example.movieviews.R
 import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentTvShowBinding
-import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE_ID
+import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
@@ -38,8 +38,8 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
                 override fun onItemClickCallback(data: MovieResult) {
                     requireContext().navigateUpWithData(
                         activity = DetailMovieActivity::class.java,
-                        key = EXTRA_TV_SHOW_MOVIE_ID,
-                        data = data.id
+                        key = EXTRA_TV_SHOW_MOVIE,
+                        data = data
                     )
                 }
 
@@ -61,9 +61,9 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
     }
 
     private fun initView() {
-        initData()
-        onInitState()
         setupView()
+        onInitState()
+        initData()
         initAdapter()
     }
 

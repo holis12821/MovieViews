@@ -9,7 +9,7 @@ import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
 import com.example.movieviews.databinding.FragmentHomeBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
-import com.example.movieviews.external.constant.EXTRA_MOVIE_ID
+import com.example.movieviews.external.constant.EXTRA_MOVIE
 import com.example.movieviews.external.extension.*
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
@@ -36,8 +36,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 override fun onItemClickCallback(data: MovieResult) {
                     requireContext().navigateUpWithData(
                         activity = DetailMovieActivity::class.java,
-                        key = EXTRA_MOVIE_ID,
-                        data = data.id,
+                        key = EXTRA_MOVIE,
+                        data = data,
                         flags = true
                     )
                 }
@@ -59,8 +59,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 override fun onItemClickCallback(data: MovieResult) {
                     requireContext().navigateUpWithData(
                         activity = DetailMovieActivity::class.java,
-                        key = EXTRA_MOVIE_ID,
-                        data = data.id,
+                        key = EXTRA_MOVIE,
+                        data = data,
                         flags = true
                     )
                 }
@@ -81,8 +81,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 override fun onItemClickCallback(data: MovieResult) {
                     requireContext().navigateUpWithData(
                         activity = DetailMovieActivity::class.java,
-                        key = EXTRA_MOVIE_ID,
-                        data = data.id,
+                        key = EXTRA_MOVIE,
+                        data = data,
                         flags = true
                     )
                 }
@@ -103,8 +103,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 override fun onItemClickCallback(data: MovieResult) {
                     requireContext().navigateUpWithData(
                         activity = DetailMovieActivity::class.java,
-                        key = EXTRA_MOVIE_ID,
-                        data = data.id,
+                        key = EXTRA_MOVIE,
+                        data = data,
                         flags = true
                     )
                 }
@@ -126,9 +126,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun initView() {
-        initData()
-        onInitState()
         setupView()
+        onInitState()
+        initData()
         setupAdapterPopularMovie()
         setupAdapterFreeWatch()
         setupAdapterTrendingMovie()
@@ -261,22 +261,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun onSuccessMoviePopular(listPopularMovie: List<MovieResult>?) {
-        mBinding?.rvPopularMovie?.visible()
         setDataMoviePopular(listPopularMovie)
     }
 
     private fun onSuccessMovieTopRating(listTopRatedMovie: List<MovieResult>?) {
-        mBinding?.rvTopRatedMovie?.visible()
         setDataTopRatingMovie(listTopRatedMovie)
     }
 
     private fun onSuccessTrendingMovie(listTrendingMovie: List<MovieResult>?) {
-        mBinding?.rvTrendingMovie?.visible()
         setDataMovieTrending(listTrendingMovie)
     }
 
     private fun onSuccessDataMovieUpComing(listMovieUpcoming: List<MovieResult>?) {
-        mBinding?.rvUpcomingMovie?.visible()
         setDataMovieUpComing(listMovieUpcoming)
     }
 
@@ -285,18 +281,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
      * A Function set data movie into adapter*/
 
     private fun setDataMoviePopular(list: List<MovieResult>?) {
+        mBinding?.rvPopularMovie?.visible()
         mAdapterPopular.setData(list ?: emptyList())
     }
 
     private fun setDataTopRatingMovie(list: List<MovieResult>?) {
+        mBinding?.rvTopRatedMovie?.visible()
         mAdapterTopRatingMovie.setData(list ?: emptyList())
     }
 
     private fun setDataMovieTrending(list: List<MovieResult>?) {
+        mBinding?.rvTrendingMovie?.visible()
         mAdapterTrendingMovie.setData(list ?: emptyList())
     }
 
     private fun setDataMovieUpComing(list: List<MovieResult>?) {
+        mBinding?.rvUpcomingMovie?.visible()
         mAdapterUpComingMovie.setData(list ?: emptyList())
     }
 }

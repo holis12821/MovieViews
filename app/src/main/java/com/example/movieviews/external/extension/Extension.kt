@@ -16,7 +16,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.movieviews.data.models.Genre
+import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
+import com.example.movieviews.external.constant.EXTRA_MOVIE
+import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.make
 
@@ -135,15 +138,13 @@ fun <T> Context.navigateUp(activity: Class<T>) {
 fun <T> Context.navigateUpWithData(
     activity: Class<T>,
     key: String?,
-    data: Any?,
+    data: MovieResult?,
     flags: Boolean = false
 ) {
     if (data == null && key.isNullOrEmpty()) return
     val intent = Intent(this, activity).apply {
-        when (data) {
-            is String -> putExtra(key, data)
-            is Int -> putExtra(key, data)
-        }
+        if (flags) putExtra(EXTRA_MOVIE, data)
+        else putExtra(EXTRA_TV_SHOW_MOVIE, data)
         putExtra(EXTRA_DATAIl_MOVIE, flags)
     }
     startActivity(intent)
