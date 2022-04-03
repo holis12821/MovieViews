@@ -36,7 +36,7 @@ data class MovieResult(
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("budget")
-    var budget: Int? = 0,
+    var budget: Long? = 0,
     @Ignore
     @ColumnInfo(name = "genres")
     @SerializedName("genres")
@@ -66,7 +66,7 @@ data class MovieResult(
     @SerializedName("release_date")
     var releaseDate: String? = null,
     @SerializedName("revenue")
-    var revenue: Int? = 0,
+    var revenue: Long? = 0,
     @SerializedName("runtime")
     var runtime: Int? = 0,
     @SerializedName("status")
@@ -82,5 +82,5 @@ data class MovieResult(
     @SerializedName("vote_average")
     var voteAverage: Double? = null,
     @SerializedName("vote_count")
-    var voteCount: Int? = null
+    var voteCount: Long? = null
 ) : Parcelable

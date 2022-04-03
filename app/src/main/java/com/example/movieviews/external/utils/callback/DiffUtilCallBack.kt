@@ -1,4 +1,4 @@
-package com.example.movieviews.external.utils
+package com.example.movieviews.external.utils.callback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.movieviews.data.models.MovieResult

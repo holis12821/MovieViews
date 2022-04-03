@@ -10,15 +10,15 @@
             type="com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFragmentViewModelImpl" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.ui.fragment.movie.MovieFragment">
+        android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:context=".presentation.ui.fragment.movie.MovieFragment">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_movie"
@@ -37,9 +37,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_medium"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_movie" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_retry"
@@ -50,11 +53,13 @@
                 android:text="@string/retry"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+                app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+                tools:visibility="visible"/>
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

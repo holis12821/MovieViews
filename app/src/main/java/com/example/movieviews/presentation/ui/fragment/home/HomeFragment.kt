@@ -2,7 +2,6 @@ package com.example.movieviews.presentation.ui.fragment.home
 
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.example.movieviews.R
 import com.example.movieviews.core.BaseFragment
 import com.example.movieviews.data.models.MovieResult
@@ -136,15 +135,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setupView() {
-        //setup image in drawable
         mBinding?.apply {
-            ivLogo.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_tmdb_logo
-                )
-            )
-            tvMovieDb.text = getString(R.string.app_name)
             tvSeeAllPopular.setOnClickListener {
                 Toast.makeText(
                     requireContext(),

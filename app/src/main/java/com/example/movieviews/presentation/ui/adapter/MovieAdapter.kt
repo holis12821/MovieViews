@@ -12,7 +12,7 @@ import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.extension.setImage
-import com.example.movieviews.external.utils.DiffUtilCallBack
+import com.example.movieviews.external.utils.callback.DiffUtilCallBack
 import com.example.movieviews.external.utils.getScreenWidth
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

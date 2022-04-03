@@ -135,8 +135,9 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
     }
 
     private fun onShowMessage(message: String) {
-        showToast(requireContext(), message = message)
         mBinding?.swipeRefresh?.swipeGone()
+        mBinding?.rvTvShow?.gone()
+        showToast(requireContext(), message = message)
     }
 
     private fun onSuccessDiscoverTvShow(pagingData: PagingData<MovieResult>) {

@@ -125,9 +125,8 @@ fun ImageView.setImage(urlPath: String?) {
 fun showToast(context: Context, message: String) {
     makeText(
         context, message,
-        Toast.LENGTH_SHORT
-    )
-        .show()
+        Toast.LENGTH_LONG
+    ).show()
 }
 
 fun <T> Context.navigateUp(activity: Class<T>) {

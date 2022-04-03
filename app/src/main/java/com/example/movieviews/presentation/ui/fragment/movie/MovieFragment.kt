@@ -139,6 +139,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     private fun onShowMessage(message: String) {
         mBinding?.swipeRefresh?.swipeGone()
+        mBinding?.rvMovie?.gone()
         showToast(requireContext(), message = message)
     }
 

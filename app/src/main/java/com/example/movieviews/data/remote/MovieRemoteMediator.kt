@@ -16,11 +16,12 @@ import retrofit2.HttpException
 @ExperimentalPagingApi
 class MovieRemoteMediator(
     private val remoteDataSource: RemoteDataSource,
-    private val db: LocalDb
+    private val db: LocalDb,
+    private val movieFlags: Boolean
 ) : RemoteMediator<Int, MovieResult>() {
 
     override suspend fun initialize(): InitializeAction {
-       return InitializeAction.LAUNCH_INITIAL_REFRESH
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     override suspend fun load(
@@ -37,7 +38,11 @@ class MovieRemoteMediator(
             queryMap["api_key"] = API_KEY
             queryMap["page"] = page
             queryMap["pageSize"] = state.config.pageSize
-            val response = remoteDataSource.getDiscoverMovie(queryMap = queryMap)
+            val response = if (movieFlags) {
+                remoteDataSource.getDiscoverMovie(queryMap = queryMap)
+            } else {
+                remoteDataSource.getDiscoverTvShow(queryMap)
+            }
             val isEndOfList = response.results.isNullOrEmpty()
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -94,10 +99,10 @@ class MovieRemoteMediator(
     }
 
     private suspend fun getLastRemoteKey(state: PagingState<Int, MovieResult>): RemoteKey? {
-       return state.pages
-           .lastOrNull { it.data.isNotEmpty() }
-           ?.data?.lastOrNull()
-           ?.let { movieResult -> db.getKeysDao().remoteKeysMovieId(id = movieResult.id ?: 0) }
+        return state.pages
+            .lastOrNull { it.data.isNotEmpty() }
+            ?.data?.lastOrNull()
+            ?.let { movieResult -> db.getKeysDao().remoteKeysMovieId(id = movieResult.id ?: 0) }
     }
 
     private suspend fun getFirstRemoteKey(state: PagingState<Int, MovieResult>): RemoteKey? {

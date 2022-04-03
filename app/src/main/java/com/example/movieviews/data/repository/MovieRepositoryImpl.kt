@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
+@ExperimentalPagingApi
 @ExperimentalCoroutinesApi
 class MovieRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
@@ -215,7 +216,6 @@ class MovieRepositoryImpl(
         ).flow
     }
 
-    @ExperimentalPagingApi
     override suspend fun getMovieFromMediator(): Flow<PagingData<MovieResult>> {
         val pagingSourceFactory = { db.getFavoriteMovieDao().getAll() }
 
@@ -227,7 +227,8 @@ class MovieRepositoryImpl(
             ),
             remoteMediator = MovieRemoteMediator(
                 remoteDataSource,
-                db = db
+                db = db,
+                movieFlags = true
             ),
              pagingSourceFactory = pagingSourceFactory
         ).flow

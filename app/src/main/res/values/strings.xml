@@ -26,6 +26,7 @@
     <string name="unset_favorite_tv_show_message">Remove tv show to favorite</string>
     <string name="timeout">Request Timeout</string>
     <string name="retry">Retry</string>
+    <string name="not_connection">Tidak ada koneksi jaringan</string>
     
     <!--Size image from API-->
     <string name="original">original</string>

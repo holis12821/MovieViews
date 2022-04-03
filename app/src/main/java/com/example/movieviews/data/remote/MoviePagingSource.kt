@@ -38,7 +38,7 @@ class MoviePagingSource(
             }
             val movies = response.results
             //delay before data is received
-            delay(1000)
+            delay(500)
             LoadResult.Page(
                 data = movies ?: emptyList(),
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),

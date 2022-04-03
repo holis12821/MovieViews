@@ -75,10 +75,12 @@
     <style name="CustomTabLayout" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="tabTextAppearance">@style/TabLayoutTextAppearance</item>
         <item name="android:fontFamily">@font/titillium_web_semi_bold</item>
+        <item name="tabTextColor">@color/primary_dark</item>
+        <item name="tabIndicatorColor">@color/primary_dark</item>
     </style>
 
     <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">@dimen/space_text_large_medium</item>
+        <item name="android:textSize">@dimen/space_text_large</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
