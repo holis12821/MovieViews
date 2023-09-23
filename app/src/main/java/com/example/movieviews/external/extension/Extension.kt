@@ -18,15 +18,25 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
+import com.example.movieviews.external.constant.EXTRA_GENRES
 import com.example.movieviews.external.constant.EXTRA_MOVIE
 import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.make
+import com.google.gson.Gson
 
 /**
  * This ViewExtension contains general extension and you can call
  * extension function to specified view
  * */
+
+fun Any?.toJson(): String? {
+    return try {
+        Gson().toJson(this)
+    } catch (e: Exception) {
+        null
+    }
+}
 
 fun View.gone() {
     visibility = View.GONE
@@ -145,6 +155,18 @@ fun <T> Context.navigateUpWithData(
         if (flags) putExtra(EXTRA_MOVIE, data)
         else putExtra(EXTRA_TV_SHOW_MOVIE, data)
         putExtra(EXTRA_DATAIl_MOVIE, flags)
+    }
+    startActivity(intent)
+}
+
+fun <T> Context.navigateUpWithFilterData(
+    activity: Class<T>,
+    key: String?,
+    data: ArrayList<Genre>?
+) {
+    if (data == null && key.isNullOrEmpty()) return
+    val intent = Intent(this, activity).apply {
+        putParcelableArrayListExtra(EXTRA_GENRES, data)
     }
     startActivity(intent)
 }

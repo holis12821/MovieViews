@@ -18,7 +18,8 @@
     <string name="user_score">User Score : %s</string>
     <string name="overview_movie">Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.</string>
     <string name="coming_soon">Coming Soon</string>
-    <string name="favorite">Favorite</string>
+    <string name="genres">Genres</string>
+    <string name="reset_filter">Reset Filter</string>
     <string name="set_favorite_movie_message">Add movie to favorite</string>
     <string name="unset_favorite_movie_message">Remove movie to favorite</string>
 
@@ -27,7 +28,10 @@
     <string name="timeout">Request Timeout</string>
     <string name="retry">Retry</string>
     <string name="not_connection">Tidak ada koneksi jaringan</string>
-    
+    <string name="back_pressed_again">Tekan sekali lagi untuk keluar</string>
+    <string name="btn_filter">Filter</string>
+    <string name="btn_sort">Sort</string>
+
     <!--Size image from API-->
     <string name="original">original</string>
     <string name="w500">w500</string>

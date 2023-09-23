@@ -13,6 +13,8 @@ data class BaseResponse<T>(
     var page: Int? = 0,
     @SerializedName("results")
     var results: T? = null,
+    @SerializedName("genres")
+    var genres: T? = null,
     @SerializedName("total_pages")
     var total_pages: Long? = 0,
     @SerializedName("total_results")

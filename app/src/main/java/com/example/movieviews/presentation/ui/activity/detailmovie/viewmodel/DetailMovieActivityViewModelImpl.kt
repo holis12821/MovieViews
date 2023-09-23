@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieviews.core.BaseViewModel
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Video
 import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
@@ -30,8 +31,8 @@ class DetailMovieActivityViewModelImpl(
     override fun getDetailMovie() {
         viewModelScope.launch {
             repositoryDelegate.getDetailMovie(
-                movie_id = movieId,
-                api_key = API_KEY
+                movieId = movieId,
+                apiKey = API_KEY
             ).onStart { showLoading() }
                 .catch { e ->
                     hideLoading()
@@ -48,8 +49,8 @@ class DetailMovieActivityViewModelImpl(
     override fun getDetailTvShow() {
         viewModelScope.launch {
             repositoryDelegate.getDetailTvShow(
-                tv_id = tvShowId,
-                api_key = API_KEY
+                tvId = tvShowId,
+                apiKey = API_KEY
             ).onStart { showLoading() }
                 .catch { e ->
                     hideLoading()
@@ -66,8 +67,8 @@ class DetailMovieActivityViewModelImpl(
     override fun getCastMovie() {
         viewModelScope.launch {
             repositoryDelegate.getCreditsMovie(
-                movie_id = movieId,
-                api_key = API_KEY,
+                movieId = movieId,
+                apiKey = API_KEY,
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
@@ -78,6 +79,21 @@ class DetailMovieActivityViewModelImpl(
                     hideLoading()
                     EspressoIdlingResource.decrement()
                     showCastMovieList(creditMovie)
+                }
+        }
+    }
+
+    override fun getVideoMovie() {
+        viewModelScope.launch {
+            repositoryDelegate.getVideo(
+                movieId = movieId,
+                apiKey = API_KEY,
+                language = language
+            ).catch { e->
+                showMessage(e)
+            }
+                .collect { videos ->
+                    showVideo(videos)
                 }
         }
     }
@@ -101,10 +117,15 @@ class DetailMovieActivityViewModelImpl(
     private fun showCastMovieList(listCast: List<Cast>) {
         _state.value = DetailMovieViewState.ShowCastMovie(listCast)
     }
+
+    private fun showVideo(videos: List<Video>) {
+        _state.value = DetailMovieViewState.ShowVideo(videos)
+    }
 }
 
 interface DetailMovieActivityViewModel {
     fun getDetailMovie()
     fun getDetailTvShow()
     fun getCastMovie()
+    fun getVideoMovie()
 }

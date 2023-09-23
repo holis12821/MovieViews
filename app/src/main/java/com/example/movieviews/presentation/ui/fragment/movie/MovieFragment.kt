@@ -1,18 +1,32 @@
 package com.example.movieviews.presentation.ui.fragment.movie
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieviews.R
 import com.example.movieviews.core.BaseFragment
+import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.databinding.FragmentMovieBinding
+import com.example.movieviews.external.constant.EXTRA_FILTER
+import com.example.movieviews.external.constant.EXTRA_GENRES
 import com.example.movieviews.external.constant.EXTRA_MOVIE
-import com.example.movieviews.external.extension.*
+import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.extension.navigateUpWithData
+import com.example.movieviews.external.extension.onSetRefreshListener
+import com.example.movieviews.external.extension.showToast
+import com.example.movieviews.external.extension.swipeGone
+import com.example.movieviews.external.extension.swipeVisible
+import com.example.movieviews.external.extension.toJson
+import com.example.movieviews.external.extension.visible
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.DetailMovieActivity
+import com.example.movieviews.presentation.ui.activity.filter.FilterActivity
 import com.example.movieviews.presentation.ui.adapter.AdapterClickListener
 import com.example.movieviews.presentation.ui.adapter.MovieLoadStateAdapter
 import com.example.movieviews.presentation.ui.adapter.MoviePagingDataAdapter
@@ -69,12 +83,27 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     private fun setupView() {
         mBinding?.swipeRefresh?.onSetRefreshListener {
+            mAdapterMovieList.refresh()
+            mFragmentMovieViewModel.getGenres()
             mFragmentMovieViewModel.getListMovie()
+        }
+
+        mBinding?.btnFilter?.setOnClickListener {
+            onFilterClick()
+        }
+
+        mBinding?.btnSorting?.setOnClickListener {
+            onSortClick()
         }
     }
 
+    private fun onSortClick() {
+
+    }
+
     private fun initData() {
-        mBinding?.viewModel = mFragmentMovieViewModel
+        mBinding?.data = mFragmentMovieViewModel
+        mFragmentMovieViewModel.getGenres()
         mFragmentMovieViewModel.getListMovie()
     }
 
@@ -104,9 +133,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun onObserver() {
-        mFragmentMovieViewModel.state.observe(viewLifecycleOwner, { state ->
+        mFragmentMovieViewModel.state.observe(viewLifecycleOwner) { state ->
             handleState(state)
-        })
+        }
     }
 
     private fun handleState(state: MovieViewState) {
@@ -120,6 +149,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     pagingData = pagingData
                 )
             }
+
+            is MovieViewState.ShowGenres -> onShowGenres(state.genres)
         }
     }
 
@@ -144,7 +175,30 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun onSuccessDiscoverMovieList(pagingData: PagingData<MovieResult>) {
+        onFilterCount()
         setDataMovieList(pagingData = pagingData)
+    }
+
+    private fun onShowGenres(genres: List<Genre>?) {
+        mFragmentMovieViewModel.genres = genres
+    }
+
+    private fun onFilterCount() {
+        var filterCount = 0
+        mFragmentMovieViewModel.genres?.forEach { genre ->
+            if (mFragmentMovieViewModel.filterGenres.value?.firstOrNull { it.id == genre.id } != null) {
+                filterCount += 1
+            }
+        }
+
+        mFragmentMovieViewModel.filterCount.value = filterCount
+    }
+
+    private fun onFilterClick() {
+        val intent = Intent(requireContext(), FilterActivity::class.java)
+        intent.putExtra(EXTRA_GENRES, mFragmentMovieViewModel.genres.toJson())
+        intent.putExtra(EXTRA_FILTER, mFragmentMovieViewModel.filterGenres.value.toJson())
+        updateFilter.launch(intent)
     }
 
     /**
@@ -154,4 +208,15 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         mBinding?.rvMovie?.visible()
         mAdapterMovieList.submitData(lifecycle = lifecycle, pagingData = pagingData)
     }
+
+    private val updateFilter =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val genres = Genre.arrayFromData(result.data?.getStringExtra(EXTRA_FILTER))
+                mFragmentMovieViewModel.filterGenres.value = genres
+                mFragmentMovieViewModel.currentPage = 1
+                mFragmentMovieViewModel.getListMovie()
+                mFragmentMovieViewModel.getGenres()
+            }
+        }
 }

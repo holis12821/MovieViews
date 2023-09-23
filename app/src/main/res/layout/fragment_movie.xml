@@ -5,31 +5,115 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="viewModel"
+            name="data"
             type="com.example.movieviews.presentation.ui.fragment.movie.viewmodel.MovieFragmentViewModelImpl" />
     </data>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".presentation.ui.fragment.movie.MovieFragment">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_movie"
+            <LinearLayout
+                android:id="@+id/section_filter_and_sort"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/space_medium_large"
-                tools:itemCount="1"
-                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/item_view_movie_adapter"
-                tools:spanCount="2" />
+                android:background="@color/white"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <RelativeLayout
+                    android:id="@+id/btn_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:layout_marginStart="@dimen/space_medium_small"
+                    android:layout_marginEnd="@dimen/space_medium_small"
+                    android:layout_marginBottom="@dimen/space_small"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_outline_sand_small">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewBold_Dark"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/tv_filter_text"
+                        android:background="@drawable/rounded_info"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/space_medium_small"
+                        android:paddingEnd="@dimen/space_medium_small"
+                        android:text="@{``+ data.filterCount}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/space_text_large"
+                        android:visibility="@{data.filterCount == 0 ? View.GONE : View.VISIBLE}"
+                        tools:text="1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_filter_text"
+                        style="@style/TextViewRegular"
+                        android:layout_centerInParent="true"
+                        android:drawableStart="@drawable/ic_filter_list"
+                        android:drawablePadding="@dimen/space_medium_large"
+                        android:paddingStart="@dimen/space_large"
+                        android:paddingTop="@dimen/space_medium"
+                        android:paddingEnd="@dimen/space_large"
+                        android:paddingBottom="@dimen/space_medium"
+                        android:text="@string/btn_filter"
+                        android:textSize="@dimen/space_text_large" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btn_sorting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small"
+                    android:layout_marginStart="@dimen/space_medium_small"
+                    android:layout_marginEnd="@dimen/space_medium_small"
+                    android:layout_marginBottom="@dimen/space_small"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_outline_sand_small">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewRegular"
+                        android:layout_centerInParent="true"
+                        android:drawableStart="@drawable/ic_sort"
+                        android:drawablePadding="@dimen/space_medium"
+                        android:paddingStart="@dimen/space_large"
+                        android:paddingTop="@dimen/space_small"
+                        android:paddingEnd="@dimen/space_large"
+                        android:paddingBottom="@dimen/space_small"
+                        android:text="@string/btn_sort"
+                        android:textSize="@dimen/space_text_large"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/section_filter_and_sort">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/space_medium_large"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="10"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_view_movie_adapter"
+                    tools:spanCount="2" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -59,7 +143,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
                 tools:visibility="visible"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

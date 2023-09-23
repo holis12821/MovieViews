@@ -12,7 +12,7 @@ import com.example.movieviews.databinding.ItemViewMovieAdapterBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
 import com.example.movieviews.external.extension.convertDpToPixel
 import com.example.movieviews.external.extension.setImage
-import com.example.movieviews.external.utils.callback.DiffUtilCallBack
+import com.example.movieviews.external.utils.callback.DiffUtilCallBackMovie
 import com.example.movieviews.external.utils.getScreenWidth
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -23,7 +23,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
 
     fun setData(list: List<MovieResult>) {
-        val diffCallBack = DiffUtilCallBack(this.list, list)
+        val diffCallBack = DiffUtilCallBackMovie(this.list, list)
         val diffResult = DiffUtil.calculateDiff(diffCallBack)
         this.list.clear()
         this.list.addAll(list)

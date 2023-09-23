@@ -201,9 +201,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun onObserver() {
-        mFragmentViewModel.stateData.observe(viewLifecycleOwner, { stateData ->
+        mFragmentViewModel.stateData.observe(viewLifecycleOwner) { stateData ->
             handleState(stateData)
-        })
+        }
     }
 
     private fun handleState(stateData: HomeViewState) {
@@ -289,5 +289,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setDataMovieUpComing(list: List<MovieResult>?) {
         mBinding?.rvUpcomingMovie?.visible()
         mAdapterUpComingMovie.setData(list ?: emptyList())
+    }
+
+    fun scrollToTop() {
+        try {
+            mBinding?.nestedScroll?.smoothScrollTo(0, 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

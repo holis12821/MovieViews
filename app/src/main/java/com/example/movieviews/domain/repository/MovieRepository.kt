@@ -2,61 +2,71 @@ package com.example.movieviews.domain.repository
 
 import androidx.paging.PagingData
 import com.example.movieviews.data.models.Cast
+import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
+import com.example.movieviews.data.models.Video
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
     //remote repository
     suspend fun getPopularMovie(
-        api_key: String,
+        apiKey: String,
         language: String
     ): Flow<List<MovieResult>>
 
     suspend fun getCollectionImage(
         collectionId: Int,
-        api_key: String
+        apiKey: String
     ): Flow<List<Poster>>
 
     suspend fun getMovieUpcoming(
-        api_key: String,
+        apiKey: String,
         language: String
     ): Flow<List<MovieResult>>
 
     suspend fun getMovieTopRated(
-        api_key: String,
+        apiKey: String,
         language: String
     ): Flow<List<MovieResult>>
 
     suspend fun getTrendingMovie(
-        media_type: String,
-        time_window: String,
-        api_key: String
+        mediaType: String,
+        timeWindow: String,
+        apiKey: String
     ): Flow<List<MovieResult>>
 
-    suspend fun getDiscoverMovie(): Flow<PagingData<MovieResult>>
+    suspend fun getDiscoverMovie(
+        currentPage: Int,
+        filterBy: String
+    ): Flow<PagingData<MovieResult>>
 
     suspend fun getDiscoverTvShow(): Flow<PagingData<MovieResult>>
 
     suspend fun getDetailMovie(
-        movie_id: Int,
-        api_key: String
+        movieId: Int,
+        apiKey: String
     ): Flow<MovieResult>
 
     suspend fun getDetailTvShow(
-        tv_id: Int,
-        api_key: String
+        tvId: Int,
+        apiKey: String
     ): Flow<MovieResult>
 
     suspend fun getCreditsMovie(
-        movie_id: Int,
-        api_key: String,
+        movieId: Int,
+        apiKey: String,
         language: String
     ): Flow<List<Cast>>
 
-    suspend fun getMovieFromDb(): Flow<PagingData<MovieResult>>
-    suspend fun getMovieFromMediator(): Flow<PagingData<MovieResult>>
+    suspend fun getGenres(
+        apiKey: String,
+        language: String
+    ): Flow<List<Genre>>
 
-    suspend fun isFavorite(id: Int): Flow<MovieResult>
-
+    suspend fun getVideo(
+        movieId: Int,
+        apiKey: String,
+        language: String
+    ): Flow<List<Video>>
 }

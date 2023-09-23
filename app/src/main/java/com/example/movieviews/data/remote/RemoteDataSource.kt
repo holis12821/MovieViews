@@ -2,8 +2,10 @@ package com.example.movieviews.data.remote
 
 import com.example.movieviews.data.models.BaseResponse
 import com.example.movieviews.data.models.CastMovieEntity
+import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.ImageCollection
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Video
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -67,7 +69,7 @@ interface RemoteDataSource {
 
     @GET("3/tv/{tv_id}")
     suspend fun getDetailTvShow(
-        @Path("tv_id") tv_id : Int,
+        @Path("tv_id") tv_id: Int,
         @Query("api_key") api_key: String
     ): MovieResult
 
@@ -77,4 +79,17 @@ interface RemoteDataSource {
         @Query("api_key") api_key: String,
         @Query("language") language: String
     ): CastMovieEntity
+
+    @GET("3/genre/movie/list")
+    suspend fun getGenres(
+        @Query("api_key") api_key: String,
+        @Query("language") language: String
+    ): BaseResponse<List<Genre>>
+
+    @GET("/3/movie/{movie_id}/videos")
+    suspend fun getVideoMovie(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String,
+        @Query("language") language: String
+    ): BaseResponse<List<Video>>
 }

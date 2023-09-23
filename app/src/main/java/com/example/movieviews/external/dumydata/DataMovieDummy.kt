@@ -9,6 +9,7 @@ object DataMovieDummy {
 
     fun getMovies(): BaseResponse<List<MovieResult>> {
         return BaseResponse(
+            status_message = "Error to get data movie",
             results = mutableListOf(
                 MovieResult(
                     id = 634649,
@@ -119,14 +120,14 @@ object DataMovieDummy {
                     releaseDate = "2021-11-05",
                     voteAverage = 6.8
                 )
-            ),
-            status_message = "Error to get data movie"
+            )
         )
     }
 
 
     fun getTvShow(): BaseResponse<List<MovieResult>> {
         return BaseResponse(
+            status_message = "Error to get data movie",
             results = mutableListOf(
                 MovieResult(
                     id = 99966,
@@ -215,8 +216,7 @@ object DataMovieDummy {
                     posterPath = "/ynFd1Xmr2r05qPqalNZnh2uxuJ0.jpg",
                     voteAverage = 4.5
                 )
-            ),
-            status_message = "Error to get data movie"
+            )
         )
     }
 

@@ -3,7 +3,7 @@ package com.example.movieviews.external.utils.callback
 import androidx.recyclerview.widget.DiffUtil
 import com.example.movieviews.data.models.MovieResult
 
-class DiffUtilCallBack(
+class DiffUtilCallBackMovie(
     private val mOldMovieResults: List<MovieResult>,
     private val mNewMovieResults: List<MovieResult>
 ) : DiffUtil.Callback() {

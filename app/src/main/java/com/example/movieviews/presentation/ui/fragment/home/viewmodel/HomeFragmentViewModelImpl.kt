@@ -33,7 +33,7 @@ class HomeFragmentViewModelImpl(
     override fun getPopularMovie() {
         viewModelScope.launch {
             repositoryDelegate.getPopularMovie(
-                api_key = API_KEY,
+                apiKey = API_KEY,
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
@@ -52,7 +52,7 @@ class HomeFragmentViewModelImpl(
         viewModelScope.launch {
             repositoryDelegate.getCollectionImage(
                 collectionId = collectionId,
-                api_key = API_KEY
+                apiKey = API_KEY
             ).onStart { showLoading() }
                 .catch { e ->
                     hideLoading()
@@ -69,7 +69,7 @@ class HomeFragmentViewModelImpl(
     override fun getMovieUpcoming() {
         viewModelScope.launch {
             repositoryDelegate.getMovieUpcoming(
-                api_key = API_KEY,
+                apiKey = API_KEY,
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
@@ -87,7 +87,7 @@ class HomeFragmentViewModelImpl(
     override fun getMovieTopRated() {
         viewModelScope.launch {
             repositoryDelegate.getMovieTopRated(
-                api_key = API_KEY,
+                apiKey = API_KEY,
                 language = language
             ).onStart { showLoading() }
                 .catch { e ->
@@ -105,9 +105,9 @@ class HomeFragmentViewModelImpl(
     override fun getTrendingMovie() {
         viewModelScope.launch {
             repositoryDelegate.getTrendingMovie(
-                media_type = MEDIA_TYPE,
-                time_window = TIME_WINDOW,
-                api_key = API_KEY
+                mediaType = MEDIA_TYPE,
+                timeWindow = TIME_WINDOW,
+                apiKey = API_KEY
             ).onStart { showLoading() }
                 .catch { e ->
                     hideLoading()

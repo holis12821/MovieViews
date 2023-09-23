@@ -101,9 +101,9 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
     }
 
     private fun onObserver() {
-        mFragmentTvShowViewModel.state.observe(viewLifecycleOwner, { state ->
+        mFragmentTvShowViewModel.state.observe(viewLifecycleOwner) { state ->
             handleState(state)
-        })
+        }
     }
 
     private fun handleState(state: TvShowViewState) {

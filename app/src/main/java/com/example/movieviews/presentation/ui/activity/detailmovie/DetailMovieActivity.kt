@@ -1,22 +1,39 @@
 package com.example.movieviews.presentation.ui.activity.detailmovie
 
+import android.content.Intent
 import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.view.isVisible
 import com.example.movieviews.R
 import com.example.movieviews.core.BaseActivity
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Video
 import com.example.movieviews.databinding.ActivityDetailMovieBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
+import com.example.movieviews.external.constant.CLIP
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
+import com.example.movieviews.external.constant.EXTRA_KEY_VIDEO
 import com.example.movieviews.external.constant.EXTRA_MOVIE
 import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
-import com.example.movieviews.external.extension.*
+import com.example.movieviews.external.constant.EXTRA_URL
+import com.example.movieviews.external.constant.TYPE_VIDEO
+import com.example.movieviews.external.constant.URL_YOUTUBE
+import com.example.movieviews.external.constant.VIDEO
+import com.example.movieviews.external.constant.YOUTUBE
+import com.example.movieviews.external.extension.gone
+import com.example.movieviews.external.extension.setImage
+import com.example.movieviews.external.extension.setSpan
+import com.example.movieviews.external.extension.setSpannable
+import com.example.movieviews.external.extension.setupHorizontalLayoutManager
+import com.example.movieviews.external.extension.showToast
+import com.example.movieviews.external.extension.visible
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieViewState
+import com.example.movieviews.presentation.ui.activity.videoview.VideoViewActivity
 import com.example.movieviews.presentation.ui.adapter.CastAdapterMovie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -58,11 +75,13 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         val tvShowId = tvShow?.id ?: 0
         mActivityDetailMovieViewModel.detailMovieFlags =
             intent.getBooleanExtra(EXTRA_DATAIl_MOVIE, false)
+
         if (mActivityDetailMovieViewModel.detailMovieFlags) {
             title = getString(R.string.detailMovie)
             mActivityDetailMovieViewModel.movieId = movieId
             mActivityDetailMovieViewModel.getDetailMovie()
             mActivityDetailMovieViewModel.getCastMovie()
+            mActivityDetailMovieViewModel.getVideoMovie()
         } else {
             title = getString(R.string.detailTvShow)
             mActivityDetailMovieViewModel.tvShowId = tvShowId
@@ -77,9 +96,9 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     }
 
     private fun onObserverMovie() {
-        mActivityDetailMovieViewModel.state.observe(this, { state ->
+        mActivityDetailMovieViewModel.state.observe(this) { state ->
             handleState(state)
-        })
+        }
     }
 
     private fun handleState(state: DetailMovieViewState) {
@@ -91,8 +110,23 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
                 this,
                 message = state.throwable.message.toString()
             )
+
             is DetailMovieViewState.ShowDetailMovie -> onShowDetailMovie(state.detailMovieEntity)
             is DetailMovieViewState.ShowCastMovie -> onShowCastMovie(state.listCastMovie)
+            is DetailMovieViewState.ShowVideo -> onShowVideo(state.videos)
+        }
+    }
+
+    private fun onShowVideo(videos: List<Video>?) {
+        val videoData =
+            videos?.firstOrNull { it.official == true && it.site == YOUTUBE && it.type == CLIP }
+        mBinding.icPlayVideo.isVisible = videoData?.official == true && videoData.site == YOUTUBE
+        mBinding.icPlayVideo.setOnClickListener {
+            val intent = Intent(this, VideoViewActivity::class.java)
+            intent.putExtra(EXTRA_KEY_VIDEO, videoData?.key)
+            intent.putExtra(EXTRA_URL, URL_YOUTUBE)
+            intent.putExtra(TYPE_VIDEO, VIDEO)
+            startActivity(intent)
         }
     }
 

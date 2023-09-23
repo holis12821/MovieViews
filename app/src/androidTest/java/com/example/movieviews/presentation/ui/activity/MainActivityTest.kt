@@ -29,9 +29,9 @@ class MainActivityTest {
     private val detailMovie = MovieResult(
         id = 271110,
         genres = listOf(
-            Genre(1, name = "Action"),
-            Genre( 2 ,name = "Adventure"),
-            Genre(3, name = "Science Fiction")
+            Genre(id = 1, name = "Action"),
+            Genre(id = 2, name = "Adventure"),
+            Genre(id = 3, name = "Science Fiction")
         ),
         originalLanguage = "en",
         originalTitle = "Spider-Man: No Way Home",
@@ -45,8 +45,8 @@ class MainActivityTest {
     private val detailTvShow = MovieResult(
         id = 99966,
         genres = listOf(
-            Genre(1, name = "Drama"),
-            Genre(3, name = "Sci-Fi & Fantasy")
+            Genre(id = 1, name = "Drama"),
+            Genre(id = 3, name = "Sci-Fi & Fantasy")
         ),
         originalLanguage = "ko",
         originalName = "지금 우리 학교는",

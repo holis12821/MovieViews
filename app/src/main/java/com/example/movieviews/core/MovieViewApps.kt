@@ -2,7 +2,7 @@ package com.example.movieviews.core
 
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.example.movieviews.di.dbModule
+import androidx.paging.ExperimentalPagingApi
 import com.example.movieviews.di.networkModule
 import com.example.movieviews.di.repositoryModule
 import com.example.movieviews.di.viewModelModule
@@ -15,6 +15,7 @@ import timber.log.Timber
 
 class MovieViewApps : MultiDexApplication() {
     @ExperimentalCoroutinesApi
+    @ExperimentalPagingApi
     override fun onCreate() {
         super.onCreate()
         MultiDex.install(this)
@@ -24,11 +25,10 @@ class MovieViewApps : MultiDexApplication() {
          * Start koin with add module from dependency
          * */
         startKoin {
-            androidLogger(Level.DEBUG)
+            androidLogger(Level.ERROR)
             androidContext(this@MovieViewApps)
             //module
             modules(
-                dbModule,
                 networkModule,
                 repositoryModule,
                 viewModelModule

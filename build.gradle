@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20-Beta2"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -51,6 +51,6 @@ ext {
     turbinVersion = '0.7.0'
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }

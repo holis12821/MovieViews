@@ -13,7 +13,9 @@ import retrofit2.HttpException
 @ExperimentalCoroutinesApi
 class MoviePagingSource(
     private val remoteDataSource: RemoteDataSource,
-    private val movieFlags: Boolean
+    private val movieFlags: Boolean,
+    private val filterBy: String = "",
+    private val currentPage: Int = STARTING_PAGE_INDEX
 ): PagingSource<Int, MovieResult>() {
 
     override fun getRefreshKey(state: PagingState<Int, MovieResult>): Int? {
@@ -25,11 +27,12 @@ class MoviePagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResult> {
         return try {
-            val page  = params.key ?: STARTING_PAGE_INDEX
+            val page  = params.key ?: currentPage
             val queryMap = HashMap<String, Any?>()
             queryMap["api_key"] = API_KEY
             queryMap["page"] = page
             queryMap["pageSize"] = params.loadSize
+            queryMap["with_genres"] = filterBy
 
             val response = if (movieFlags) {
                 remoteDataSource.getDiscoverMovie(queryMap)
@@ -41,7 +44,7 @@ class MoviePagingSource(
             delay(500)
             LoadResult.Page(
                 data = movies ?: emptyList(),
-                prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),
+                prevKey = if (page == currentPage) null else page.minus(1),
                 nextKey = if (movies.isNullOrEmpty()) null else page.plus(1)
             )
         } catch (e: IOException) {
