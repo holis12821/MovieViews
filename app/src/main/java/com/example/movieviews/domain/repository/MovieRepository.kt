@@ -38,7 +38,8 @@ interface MovieRepository {
 
     suspend fun getDiscoverMovie(
         currentPage: Int,
-        filterBy: String
+        filterBy: String,
+        sortBy: String
     ): Flow<PagingData<MovieResult>>
 
     suspend fun getDiscoverTvShow(): Flow<PagingData<MovieResult>>

@@ -16,6 +16,11 @@ import com.example.movieviews.databinding.FragmentMovieBinding
 import com.example.movieviews.external.constant.EXTRA_FILTER
 import com.example.movieviews.external.constant.EXTRA_GENRES
 import com.example.movieviews.external.constant.EXTRA_MOVIE
+import com.example.movieviews.external.constant.EXTRA_SELECTED_SORT
+import com.example.movieviews.external.constant.EXTRA_SORT
+import com.example.movieviews.external.constant.TYPE
+import com.example.movieviews.external.constant.TYPE_FILTER
+import com.example.movieviews.external.constant.TYPE_SORT
 import com.example.movieviews.external.extension.gone
 import com.example.movieviews.external.extension.navigateUpWithData
 import com.example.movieviews.external.extension.onSetRefreshListener
@@ -98,7 +103,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     private fun onSortClick() {
-
+        val intent = Intent(requireContext(), FilterActivity::class.java)
+        intent.putExtra(EXTRA_SORT, mFragmentMovieViewModel.sortMovies.toJson())
+        intent.putExtra(EXTRA_SELECTED_SORT, mFragmentMovieViewModel.selectedSort)
+        intent.putExtra(TYPE, TYPE_SORT)
+        updateFilter.launch(intent)
     }
 
     private fun initData() {
@@ -107,9 +116,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         mFragmentMovieViewModel.getListMovie()
     }
 
-    private fun initAdapter(
-        isMediator: Boolean = false
-    ) {
+    private fun initAdapter() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         mAdapterMovieList.maxWidth = 0
         mBinding?.rvMovie?.layoutManager = layoutManager
@@ -117,11 +124,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
             footer = MovieLoadStateAdapter { mAdapterMovieList.retry() }
         )
         mAdapterMovieList.addLoadStateListener { loadState ->
-            val refreshState = if (isMediator) {
-                loadState.mediator?.refresh
-            } else {
-                loadState.source.refresh
-            }
+            val refreshState = loadState.source.refresh
             mBinding?.rvMovie?.isVisible = refreshState is LoadState.NotLoading
             mBinding?.progressBar?.isVisible = refreshState is LoadState.Loading
             mBinding?.btnRetry?.isVisible = refreshState is LoadState.Error
@@ -198,6 +201,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         val intent = Intent(requireContext(), FilterActivity::class.java)
         intent.putExtra(EXTRA_GENRES, mFragmentMovieViewModel.genres.toJson())
         intent.putExtra(EXTRA_FILTER, mFragmentMovieViewModel.filterGenres.value.toJson())
+        intent.putExtra(TYPE, TYPE_FILTER)
         updateFilter.launch(intent)
     }
 
@@ -213,10 +217,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val genres = Genre.arrayFromData(result.data?.getStringExtra(EXTRA_FILTER))
+                val sortBy = result.data?.getStringExtra(EXTRA_SELECTED_SORT)
                 mFragmentMovieViewModel.filterGenres.value = genres
+                mFragmentMovieViewModel.selectedSort = sortBy
                 mFragmentMovieViewModel.currentPage = 1
                 mFragmentMovieViewModel.getListMovie()
-                mFragmentMovieViewModel.getGenres()
             }
         }
 }

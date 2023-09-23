@@ -12,6 +12,45 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.activity.filter.FilterActivity">
 
+        <RadioGroup
+            android:id="@+id/option_sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_large"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginTop="@dimen/space_medium_large"
+                android:textSize="@dimen/space_text_large_medium"
+                android:textColor="@color/primary_light"
+                tools:text="Paling Popular" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginTop="@dimen/space_medium_large"
+                android:textSize="@dimen/space_text_large_medium"
+                android:textColor="@color/primary_light"
+                tools:text="Paling Popular" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginTop="@dimen/space_medium_large"
+                android:textSize="@dimen/space_text_large_medium"
+                android:textColor="@color/primary_light"
+                tools:text="Paling Popular" />
+
+        </RadioGroup>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/filter_genre"
             style="@style/TextViewMatchParentWrap"
@@ -20,8 +59,9 @@
             android:padding="@dimen/space_super_small"
             android:text="@string/genres"
             android:textSize="@dimen/space_text_super_small"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/option_sort_by" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_filter_genres"
@@ -44,7 +84,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/btn_reset"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="45dp"
                 android:layout_margin="@dimen/space_small"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -55,9 +95,9 @@
                 android:text="@string/reset_filter" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_filter"
+                android:id="@+id/btn_primary"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="45dp"
                 android:layout_margin="@dimen/space_medium_small"
                 android:layout_weight="1"
                 android:background="@drawable/btn_primary"

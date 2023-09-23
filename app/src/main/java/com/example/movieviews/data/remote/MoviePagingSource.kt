@@ -15,6 +15,7 @@ class MoviePagingSource(
     private val remoteDataSource: RemoteDataSource,
     private val movieFlags: Boolean,
     private val filterBy: String = "",
+    private val sortBy: String = "",
     private val currentPage: Int = STARTING_PAGE_INDEX
 ): PagingSource<Int, MovieResult>() {
 
@@ -33,6 +34,7 @@ class MoviePagingSource(
             queryMap["page"] = page
             queryMap["pageSize"] = params.loadSize
             queryMap["with_genres"] = filterBy
+            queryMap["sort_by"] = sortBy
 
             val response = if (movieFlags) {
                 remoteDataSource.getDiscoverMovie(queryMap)

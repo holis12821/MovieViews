@@ -117,7 +117,7 @@ class MovieRepositoryImpl(
 
 
     override suspend fun getDiscoverMovie(
-        currentPage: Int, filterBy: String
+        currentPage: Int, filterBy: String, sortBy: String
     ): Flow<PagingData<MovieResult>> {
         return Pager(config = PagingConfig(
             pageSize = PAGE_SIZE,
@@ -125,7 +125,11 @@ class MovieRepositoryImpl(
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MoviePagingSource(
-                remoteDataSource, movieFlags = true, filterBy, currentPage
+                remoteDataSource,
+                movieFlags = true,
+                filterBy = filterBy,
+                sortBy = sortBy,
+                currentPage = currentPage,
             )
         }).flow
     }

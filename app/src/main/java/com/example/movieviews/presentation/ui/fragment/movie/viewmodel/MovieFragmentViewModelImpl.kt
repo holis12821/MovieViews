@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Sort
 import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
 import com.example.movieviews.external.constant.language
@@ -26,8 +27,17 @@ class MovieFragmentViewModelImpl(
 
     var currentPage = 1
     var genres: List<Genre>? = null
+    var selectedSort: String? = null
+
     var filterGenres = MutableLiveData<List<Genre>>()
     var filterCount = MutableLiveData<Int>()
+
+
+    val sortMovies = listOf(
+        Sort(id = 1, value = "popularity.asc", title = "Paling Populer"),
+        Sort(id = 2, value = "revenue.asc", title = "Berdasarkan Pendapatan"),
+        Sort(id = 3, value = "primary_release_date.asc", title = "Berdasarkan Tanggal Rilis")
+    )
 
     override fun getListMovie() {
         val listGenres = arrayListOf<Int>()
@@ -38,19 +48,25 @@ class MovieFragmentViewModelImpl(
             }
         }
 
+        if (selectedSort.isNullOrEmpty()) {
+            selectedSort = "popularity.desc"
+        }
+
         viewModelScope.launch {
-            listGenres.toJson()?.let {
-                repositoryDelegate.getDiscoverMovie(currentPage, it)
-                    .onStart { showLoading() }
-                    .catch { e ->
-                        hideLoading()
-                        showMessage(e)
-                    }
-                    .collect { pagingData ->
-                        hideLoading()
-                        showDiscoverMovie(pagingData = pagingData)
-                    }
-            }
+            repositoryDelegate.getDiscoverMovie(
+                currentPage = currentPage,
+                filterBy = listGenres.toJson() ?: "",
+                sortBy = selectedSort ?: ""
+            )
+                .onStart { showLoading() }
+                .catch { e ->
+                    hideLoading()
+                    showMessage(e)
+                }
+                .collect { pagingData ->
+                    hideLoading()
+                    showDiscoverMovie(pagingData = pagingData)
+                }
         }
     }
 

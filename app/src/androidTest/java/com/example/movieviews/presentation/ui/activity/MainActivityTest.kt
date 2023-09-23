@@ -74,13 +74,6 @@ class MainActivityTest {
     }
 
     @Test
-    fun testDisplayingTextTitle() {
-        onView(withId(R.id.tv_movie_db))
-            .check(matches(isDisplayed()))
-    }
-
-
-    @Test
     fun testLoadPopularMovie() {
         onView(withId(R.id.rv_popular_movie))
             .check(matches(isDisplayed()))
