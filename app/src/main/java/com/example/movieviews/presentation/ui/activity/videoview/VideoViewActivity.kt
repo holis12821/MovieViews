@@ -37,7 +37,7 @@ class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>() {
         keyType = intent.getStringExtra(TYPE_VIDEO)
         url = intent.getStringExtra(EXTRA_URL)
         setupShowToolbar()
-        showVideo()
+        showVideo(url)
         setupWebView()
     }
 
@@ -50,7 +50,7 @@ class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>() {
         mBinding.videosWebView.apply {
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    showVideo()
+                    showVideo(url)
                 }
 
                 @Deprecated("Deprecated in Java")
@@ -92,7 +92,7 @@ class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>() {
         }
     }
 
-    private fun showVideo() {
+    private fun showVideo(url: String?) {
         if (keyType == TYPE_VIDEO) {
            Handler(Looper.getMainLooper()).postDelayed({
                val scriptTag = if (url?.contains("https://www.youtube.com/watch") == true)"document.getElementsByClassName('ytp-play-button')[0].click()"

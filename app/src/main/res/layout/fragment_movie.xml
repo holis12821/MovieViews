@@ -85,11 +85,11 @@
                         style="@style/TextViewRegular"
                         android:layout_centerInParent="true"
                         android:drawableStart="@drawable/ic_sort"
-                        android:drawablePadding="@dimen/space_medium"
+                        android:drawablePadding="@dimen/space_medium_large"
                         android:paddingStart="@dimen/space_large"
-                        android:paddingTop="@dimen/space_small"
+                        android:paddingTop="@dimen/space_medium"
                         android:paddingEnd="@dimen/space_large"
-                        android:paddingBottom="@dimen/space_small"
+                        android:paddingBottom="@dimen/space_medium"
                         android:text="@string/btn_sort"
                         android:textSize="@dimen/space_text_large"/>
 
