@@ -10,15 +10,16 @@ import com.example.movieviews.R
 import com.example.movieviews.core.BaseActivity
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Review
 import com.example.movieviews.data.models.Video
 import com.example.movieviews.databinding.ActivityDetailMovieBinding
 import com.example.movieviews.external.constant.BASE_URL_IMAGE
-import com.example.movieviews.external.constant.CLIP
 import com.example.movieviews.external.constant.EXTRA_DATAIl_MOVIE
 import com.example.movieviews.external.constant.EXTRA_KEY_VIDEO
 import com.example.movieviews.external.constant.EXTRA_MOVIE
 import com.example.movieviews.external.constant.EXTRA_TV_SHOW_MOVIE
 import com.example.movieviews.external.constant.EXTRA_URL
+import com.example.movieviews.external.constant.TRAILER
 import com.example.movieviews.external.constant.TYPE_VIDEO
 import com.example.movieviews.external.constant.URL_YOUTUBE
 import com.example.movieviews.external.constant.VIDEO
@@ -28,12 +29,15 @@ import com.example.movieviews.external.extension.setImage
 import com.example.movieviews.external.extension.setSpan
 import com.example.movieviews.external.extension.setSpannable
 import com.example.movieviews.external.extension.setupHorizontalLayoutManager
+import com.example.movieviews.external.extension.setupVerticalLayoutManager
 import com.example.movieviews.external.extension.showToast
 import com.example.movieviews.external.extension.visible
 import com.example.movieviews.external.utils.EspressoIdlingResource
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl
 import com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieViewState
+import com.example.movieviews.presentation.ui.activity.reviewmovie.ReviewListActivity
 import com.example.movieviews.presentation.ui.activity.videoview.VideoViewActivity
+import com.example.movieviews.presentation.ui.adapter.AdapterReviewMovie
 import com.example.movieviews.presentation.ui.adapter.CastAdapterMovie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,6 +53,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
      * if it is already it will be usable
      * */
     private val mAdapterCastMovie by lazy { CastAdapterMovie() }
+    private val mAdapterReviewMovie by lazy { AdapterReviewMovie() }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         EspressoIdlingResource.increment()
@@ -61,6 +66,11 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         initData()
         onInitState()
         setupAdapterCastMovie()
+        setupAdapterReviewMovie()
+
+        mBinding.tvSeeMore.setOnClickListener {
+            navigateUp()
+        }
     }
 
     private fun setupShowToolbar() {
@@ -82,6 +92,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
             mActivityDetailMovieViewModel.getDetailMovie()
             mActivityDetailMovieViewModel.getCastMovie()
             mActivityDetailMovieViewModel.getVideoMovie()
+            mActivityDetailMovieViewModel.getReviewMovie()
         } else {
             title = getString(R.string.detailTvShow)
             mActivityDetailMovieViewModel.tvShowId = tvShowId
@@ -93,6 +104,11 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         mAdapterCastMovie.maxWidth = 125
         mBinding.rvBilledCast.adapter = mAdapterCastMovie
         mBinding.rvBilledCast.setupHorizontalLayoutManager()
+    }
+
+    private fun setupAdapterReviewMovie() {
+        mBinding.rvReviewMovie.adapter = mAdapterReviewMovie
+        mBinding.rvReviewMovie.setupVerticalLayoutManager()
     }
 
     private fun onObserverMovie() {
@@ -114,12 +130,13 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
             is DetailMovieViewState.ShowDetailMovie -> onShowDetailMovie(state.detailMovieEntity)
             is DetailMovieViewState.ShowCastMovie -> onShowCastMovie(state.listCastMovie)
             is DetailMovieViewState.ShowVideo -> onShowVideo(state.videos)
+            is DetailMovieViewState.ShowReview -> onShowReviewMovie(state.review)
         }
     }
 
     private fun onShowVideo(videos: List<Video>?) {
         val videoData =
-            videos?.firstOrNull { it.official == true && it.site == YOUTUBE && it.type == CLIP }
+            videos?.firstOrNull { it.official == true && it.site == YOUTUBE && it.type == TRAILER }
         mBinding.icPlayVideo.isVisible = videoData?.official == true && videoData.site == YOUTUBE
         mBinding.icPlayVideo.setOnClickListener {
             val intent = Intent(this, VideoViewActivity::class.java)
@@ -196,6 +213,21 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
      * */
     private fun setDataCastMovie(list: List<Cast>) {
         mAdapterCastMovie.setData(list)
+    }
+
+    private fun onShowReviewMovie(reviews: List<Review>?) {
+        val filterReview = reviews?.filter { (it.author_details?.rating ?: 0) >= 3 }
+        val isShowMovie = !filterReview.isNullOrEmpty()
+        mBinding.tvReview.isVisible =  isShowMovie
+        mBinding.tvSeeMore.isVisible =  isShowMovie
+        mBinding.rvReviewMovie.isVisible = isShowMovie
+        mAdapterReviewMovie.setData(filterReview)
+    }
+
+    private fun navigateUp() {
+        val intent = Intent(this, ReviewListActivity::class.java)
+        intent.putExtra(EXTRA_MOVIE, mActivityDetailMovieViewModel.movieId)
+        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

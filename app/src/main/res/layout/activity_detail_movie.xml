@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.movieviews.presentation.ui.activity.detailmovie.viewmodel.DetailMovieActivityViewModelImpl" />
@@ -12,7 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".presentation.ui.activity.detailmovie.DetailMovieActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -71,10 +72,10 @@
                         android:layout_height="100dp"
                         android:src="@drawable/ic_play_circle"
                         android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@+id/wrapper_image"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintStart_toEndOf="@+id/wrapper_image"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,6 +187,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_top_billed_cast"
                     tools:itemCount="5"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_review"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginStart="@dimen/space_super_small"
+                    android:layout_marginTop="@dimen/space_medium_large"
+                    android:text="@string/title_review"
+                    app:layout_constraintLeft_toLeftOf="@+id/rv_billed_cast"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_billed_cast" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_see_more"
+                    style="@style/TextViewBold_Dark"
+                    android:layout_marginTop="@dimen/space_medium_large"
+                    android:layout_marginEnd="@dimen/space_super_small"
+                    android:text="@string/see_all_review"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_billed_cast" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_review_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_medium_large"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_review"
+                    app:layout_constraintStart_toStartOf="@+id/tv_review"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_review"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_view_review" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,6 +5,7 @@ import com.example.movieviews.data.models.CastMovieEntity
 import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.ImageCollection
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Review
 import com.example.movieviews.data.models.Video
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -92,4 +93,17 @@ interface RemoteDataSource {
         @Query("api_key") api_key: String,
         @Query("language") language: String
     ): BaseResponse<List<Video>>
+
+    @GET("3/movie/{movie_id}/reviews")
+    suspend fun getReviewMovie(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String,
+        @Query("language") language: String
+    ): BaseResponse<List<Review>>
+
+    @GET("3/movie/{movie_id}/reviews")
+    suspend fun getReviewMoviePagingSource(
+        @Path("movie_id") movie_id: Int,
+        @QueryMap queryMap: HashMap<String, Any?>
+    ): BaseResponse<List<Review>>
 }

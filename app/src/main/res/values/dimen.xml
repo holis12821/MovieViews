@@ -17,6 +17,7 @@
     <dimen name="space_big_medium_large">28dp</dimen>
     <dimen name="space_big_large">30dp</dimen>
     <dimen name="space_big">40dp</dimen>
+    <dimen name="space_45">45dp</dimen>
     <dimen name="space_super_big_small">80dp</dimen>
     <dimen name="space_super_big_medium">91dp</dimen>
 

@@ -1,10 +1,11 @@
 package com.example.movieviews.test_koin
 
 import android.app.Application
-import com.example.movieviews.di.dbModule
+import androidx.paging.ExperimentalPagingApi
 import com.example.movieviews.di.networkModule
 import com.example.movieviews.di.repositoryModule
 import com.example.movieviews.di.viewModelModule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.logger.Level
@@ -17,6 +18,7 @@ class KoinTestModule : KoinTest {
 
     private var context: Application = mock()
 
+    @OptIn(ExperimentalPagingApi::class, ExperimentalCoroutinesApi::class)
     @Test
     fun testCoreModule() {
         koinApplication {
@@ -24,7 +26,6 @@ class KoinTestModule : KoinTest {
             androidContext(context)
             modules(
                 listOf(
-                    dbModule,
                     networkModule,
                     repositoryModule,
                     viewModelModule

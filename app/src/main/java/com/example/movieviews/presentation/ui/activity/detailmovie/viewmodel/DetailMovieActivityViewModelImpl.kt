@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieviews.core.BaseViewModel
 import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.MovieResult
+import com.example.movieviews.data.models.Review
 import com.example.movieviews.data.models.Video
 import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.external.constant.API_KEY
@@ -98,6 +99,22 @@ class DetailMovieActivityViewModelImpl(
         }
     }
 
+    override fun getReviewMovie() {
+        viewModelScope.launch {
+            repositoryDelegate.getReviewMovie(
+                movieId = movieId,
+                apiKey = API_KEY,
+                language = language
+            ).catch { e->
+                showMessage(e)
+            }
+                .collect { reviews ->
+                    showReview(reviews)
+                }
+        }
+    }
+
+
     override fun showLoading() {
         _state.value = DetailMovieViewState.Loading
     }
@@ -121,6 +138,10 @@ class DetailMovieActivityViewModelImpl(
     private fun showVideo(videos: List<Video>) {
         _state.value = DetailMovieViewState.ShowVideo(videos)
     }
+
+    private fun showReview(reviews: List<Review>) {
+        _state.value = DetailMovieViewState.ShowReview(reviews)
+    }
 }
 
 interface DetailMovieActivityViewModel {
@@ -128,4 +149,5 @@ interface DetailMovieActivityViewModel {
     fun getDetailTvShow()
     fun getCastMovie()
     fun getVideoMovie()
+    fun getReviewMovie()
 }

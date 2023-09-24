@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieViews">
         <activity
+            android:name=".presentation.ui.activity.reviewmovie.ReviewListActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.activity.videoview.VideoViewActivity"
             android:exported="false" />
         <activity

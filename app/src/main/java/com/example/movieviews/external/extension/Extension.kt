@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.makeText
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -136,19 +137,20 @@ fun ImageView.setImage(urlPath: String?) {
         .into(this)
 }
 
-fun RadioButton.getRadioButtonColor(): ColorStateList {
+fun RadioButton.getRadioButtonColor(themeMode: Int): ColorStateList {
     val states = arrayOf(
         intArrayOf(-android.R.attr.state_checked),
         intArrayOf(android.R.attr.state_checked)
     )
-
     val colors = intArrayOf(
         ContextCompat.getColor(context, R.color.battleship_grey),
-        ContextCompat.getColor(context, R.color.primary_light)
+        if (themeMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) ContextCompat.getColor(
+            context,
+            R.color.white
+        ) else ContextCompat.getColor(context, R.color.primary_light)
     )
 
     return ColorStateList(states, colors)
-
 }
 
 fun showToast(context: Context, message: String) {

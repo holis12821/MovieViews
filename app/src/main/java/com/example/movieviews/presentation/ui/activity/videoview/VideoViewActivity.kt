@@ -55,9 +55,9 @@ class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>() {
 
                 @Deprecated("Deprecated in Java")
                 override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    if (url?.contains("https://www.youtube.com/watch") == true) {
+                    if (url?.contains("https://www.youtube.com/embed/") == true) {
                         try {
-                            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("$url?v=$keyYoutube"))
+                            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("$url$keyYoutube"))
                             startActivity(webIntent)
                             return true
                         } catch (e: Exception) {
@@ -86,7 +86,7 @@ class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>() {
             settings.pluginState = WebSettings.PluginState.ON
             settings.mediaPlaybackRequiresUserGesture = false
 
-            val videoUrl = "${this@VideoViewActivity.url}?v=${keyYoutube}?autoplay=1&fs=0"
+            val videoUrl = "${this@VideoViewActivity.url}${keyYoutube}?autoplay=1&fs=0"
             loadUrl(videoUrl)
             LogUtils.info(videoUrl)
         }
@@ -94,13 +94,14 @@ class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>() {
 
     private fun showVideo(url: String?) {
         if (keyType == TYPE_VIDEO) {
-           Handler(Looper.getMainLooper()).postDelayed({
-               val scriptTag = if (url?.contains("https://www.youtube.com/watch") == true)"document.getElementsByClassName('ytp-play-button')[0].click()"
-               else "document.getElementsByTagName('video')[0].play()"
-               mBinding.videosWebView.evaluateJavascript("(function() { return ($scriptTag); })();") {result ->
-                   Timber.tag("playScript").e(result)
-               }
-           }, 500)
+            Handler(Looper.getMainLooper()).postDelayed({
+                val scriptTag =
+                    if (url?.contains("https://www.youtube.com/embed/") == true) "document.getElementsByClassName('ytp-play-button')[0].click()"
+                    else "document.getElementsByTagName('video')[0].play()"
+                mBinding.videosWebView.evaluateJavascript("(function() { return ($scriptTag); })();") { result ->
+                    Timber.tag("playScript").e(result)
+                }
+            }, 500)
         }
     }
 

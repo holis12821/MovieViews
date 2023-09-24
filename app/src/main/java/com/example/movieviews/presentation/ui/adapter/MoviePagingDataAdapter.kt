@@ -14,7 +14,7 @@ import com.example.movieviews.external.extension.setImage
 import com.example.movieviews.external.utils.DiffUtils
 import com.example.movieviews.external.utils.getScreenWidth
 
-class MoviePagingDataAdapter : PagingDataAdapter<MovieResult, MoviePagingDataAdapter.ViewHolder>(DiffUtils.COMPARATOR) {
+class MoviePagingDataAdapter : PagingDataAdapter<MovieResult, MoviePagingDataAdapter.ViewHolder>(DiffUtils.COMPARATOR_MOVIES) {
 
     var maxWidth = 160
     var marginWidth = 12

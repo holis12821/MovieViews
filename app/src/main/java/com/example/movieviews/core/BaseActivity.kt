@@ -2,10 +2,13 @@ package com.example.movieviews.core
 
 import android.content.IntentFilter
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import com.example.movieviews.R
 import com.example.movieviews.external.extension.showToast
 import com.example.movieviews.external.utils.LogUtils
@@ -46,6 +49,18 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         )
 
         onActivityCreated(savedInstanceState = savedInstanceState)
+    }
+
+    protected fun handleError(loadStates: CombinedLoadStates) {
+        val errorState = loadStates.source.append as? LoadState.Error
+            ?: loadStates.source.prepend as? LoadState.Error
+        errorState?.let { loadStateError ->
+            Toast.makeText(
+                this,
+                "${loadStateError.error}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     protected fun showDialogProgress() {

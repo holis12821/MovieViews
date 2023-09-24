@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatRadioButton
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.movieviews.R
 import com.example.movieviews.core.BaseActivity
@@ -99,8 +99,9 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>() {
             sortData?.forEach { sorts ->
                 val option = AppCompatRadioButton(this)
                 option.text = sorts.title
-                option.buttonTintList = option.getRadioButtonColor()
-                option.setTextColor(ContextCompat.getColor(this, R.color.primary_light))
+                option.setTextColor(option.getRadioButtonColor(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
+                option.buttonTintList =
+                    option.getRadioButtonColor(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 val layoutParams = RadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT

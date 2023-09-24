@@ -9,9 +9,11 @@ import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
+import com.example.movieviews.data.models.Review
 import com.example.movieviews.data.models.Video
 import com.example.movieviews.data.remote.MoviePagingSource
 import com.example.movieviews.data.remote.RemoteDataSource
+import com.example.movieviews.data.remote.ReviewPagingSource
 import com.example.movieviews.domain.repository.MovieRepository
 import com.example.movieviews.external.constant.PAGE_SIZE
 import com.example.movieviews.external.utils.LogUtils
@@ -219,5 +221,35 @@ class MovieRepositoryImpl(
                 error(e.message.toString())
             }
         }.flowOn(dispatcher.io)
+    }
+
+    override suspend fun getReviewMovie(
+        movieId: Int, apiKey: String, language: String
+    ): Flow<List<Review>> {
+        return flow {
+            try {
+                val data = remoteDataSource.getReviewMovie(
+                    movie_id = movieId, api_key = apiKey, language = language
+                )
+                data.results?.let { reviews ->
+                    emit(reviews)
+                }
+            } catch (e: Throwable) {
+                LogUtils.print(e)
+                error(e.message.toString())
+            }
+        }.flowOn(dispatcher.io)
+    }
+
+    override suspend fun getReviewMoviePagingSource(movieId: Int): Flow<PagingData<Review>> {
+        return Pager(config = PagingConfig(
+            pageSize = PAGE_SIZE,
+            maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
+            enablePlaceholders = false
+        ), pagingSourceFactory = {
+            ReviewPagingSource(
+                remoteDataSource = remoteDataSource, movieId = movieId
+            )
+        }).flow
     }
 }

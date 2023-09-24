@@ -5,6 +5,7 @@ import com.example.movieviews.data.models.Cast
 import com.example.movieviews.data.models.Genre
 import com.example.movieviews.data.models.MovieResult
 import com.example.movieviews.data.models.Poster
+import com.example.movieviews.data.models.Review
 import com.example.movieviews.data.models.Video
 import kotlinx.coroutines.flow.Flow
 
@@ -70,4 +71,14 @@ interface MovieRepository {
         apiKey: String,
         language: String
     ): Flow<List<Video>>
+
+    suspend fun getReviewMovie(
+        movieId: Int,
+        apiKey: String,
+        language: String
+    ): Flow<List<Review>>
+
+    suspend fun getReviewMoviePagingSource(
+        movieId: Int
+    ): Flow<PagingData<Review>>
 }
