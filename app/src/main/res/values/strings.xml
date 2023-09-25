@@ -34,6 +34,7 @@
     <string name="btn_sort">Sort</string>
 
     <string name="review_by_name">A review by %s</string>
+    <string name="review_date">Written on %s</string>
 
     <!--Size image from API-->
     <string name="original">original</string>

@@ -15,7 +15,8 @@ import com.example.movieviews.external.extension.setImageFromDrawable
 import com.example.movieviews.external.utils.DateFormatter
 import com.example.movieviews.external.utils.DiffUtils
 
-class ReviewPagingDataAdapter : PagingDataAdapter<Review, ReviewPagingDataAdapter.ViewHolder>(DiffUtils.COMPARATOR_REVIEW) {
+class ReviewPagingDataAdapter :
+    PagingDataAdapter<Review, ReviewPagingDataAdapter.ViewHolder>(DiffUtils.COMPARATOR_REVIEW) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(position)?.let { reviewResult ->
@@ -46,8 +47,7 @@ class ReviewPagingDataAdapter : PagingDataAdapter<Review, ReviewPagingDataAdapte
                 if (review.author_details?.avatar_path.isNullOrEmpty()) {
                     circleImageView.setImageFromDrawable(
                         ContextCompat.getDrawable(
-                            itemView.context,
-                            R.drawable.place_holder_photo
+                            itemView.context, R.drawable.place_holder_photo
                         )
                     )
                 } else {
@@ -58,13 +58,12 @@ class ReviewPagingDataAdapter : PagingDataAdapter<Review, ReviewPagingDataAdapte
                 } else {
                     itemView.context.getString(R.string.review_by_name, review.author_details?.name)
                 }
-                tvWritingDate.text = "Written by ${review.author_details?.name} on : ${
-                    review.created_at?.let {
-                        DateFormatter.getDateFormatting(
+                tvWritingDate.text =
+                    itemView.context.getString(R.string.review_date, review.created_at?.let {
+                        DateFormatter.getFormatted(
                             it
                         )
-                    }
-                }"
+                    })
                 ratingBar.rating = review.author_details?.rating?.toFloat() ?: 0F
                 tvReview.text = review.content
             }

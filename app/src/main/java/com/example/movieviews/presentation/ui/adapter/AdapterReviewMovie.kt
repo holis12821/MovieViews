@@ -66,13 +66,12 @@ class AdapterReviewMovie :
                 } else {
                     itemView.context.getString(R.string.review_by_name, review.author_details?.name )
                 }
-                tvWritingDate.text = "Written by ${review.author_details?.name} on : ${
-                    review.created_at?.let {
-                        DateFormatter.getDateFormatting(
+                tvWritingDate.text =
+                    itemView.context.getString(R.string.review_date, review.created_at?.let {
+                        DateFormatter.getFormatted(
                             it
                         )
-                    }
-                }"
+                    })
                 ratingBar.rating = review.author_details?.rating?.toFloat() ?: 0F
                 tvReview.text = review.content
             }

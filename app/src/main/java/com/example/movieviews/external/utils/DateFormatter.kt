@@ -12,7 +12,7 @@ object DateFormatter {
     private const val strandartFullyFormat = "yyyy-MM-dd HH:mm:ss"
     private const val format_ddMMMyyyy = "dd MMM yyyy"
 
-    fun getDateFormatting(timestamp: String): String? {
+    fun getFormatted(timestamp: String): String? {
         val inputFormat = SimpleDateFormat(formattedInput, Locale.ENGLISH)
         val outputFormat = SimpleDateFormat(formattedOutput, Locale.ENGLISH)
         val parsedDate = inputFormat.parse(timestamp)
