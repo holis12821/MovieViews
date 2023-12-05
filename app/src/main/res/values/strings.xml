@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">MovieViews</string>
+    <string name="home">Home</string>
+    <string name="movie">Movie</string>
+    <string name="tvShow">Tv Show</string>
+    <string name="detailMovie">Detail Movie</string>
+    <string name="detailTvShow">Detail Tv Show</string>
+    <string name="welcome">Welcome</string>
+    <string name="description_title">Millions of movies, TV shows and people to discover.</string>
+    <string name="popular">Whats a Popular</string>
+    <string name="see_all">See All</string>
+    <string name="top_rated_movie">Top Rated Movies</string>
+    <string name="trending_movie">Trending</string>
+    <string name="up_coming_movies">Upcoming Movies</string>
+    <string name="message_error">Error Fetch data</string>
+    <string name="contentDescriptionImage">Image</string>
+    <string name="overview">OverView</string>
+    <string name="top_billed_cast">Top Billed cast</string>
+    <string name="user_score">User Score : %s</string>
+    <string name="overview_movie">Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="genres">Genres</string>
+    <string name="reset_filter">Reset Filter</string>
+    <string name="review_page">Review Movie</string>
+
+    <string name="title_nav_bar_filter">Filter Movie</string>
+    <string name="title_review">Review</string>
+    <string name="see_all_review">See More</string>
+
+    <string name="timeout">Request Timeout</string>
+    <string name="retry">Retry</string>
+    <string name="not_connection">Tidak ada koneksi jaringan</string>
+    <string name="back_pressed_again">Tekan sekali lagi untuk keluar</string>
+    <string name="btn_filter">Filter</string>
+    <string name="btn_sort">Sort</string>
+
+    <string name="review_by_name">A review by %s</string>
+    <string name="review_date">Written on %s</string>
+
+    <!--Size image from API-->
+    <string name="original">original</string>
+    <string name="w500">w500</string>
+    <string name="w780">w780</string>
 </resources>

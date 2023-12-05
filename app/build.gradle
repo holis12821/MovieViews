@@ -1,24 +1,57 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.movieviews"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
     }
 
     buildFeatures {
         dataBinding = true
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        master {
+            dimension "default"
+            resValue "string", "app_name", "The Movie DB"
+            applicationIdSuffix ".main"
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+            buildConfigField("String", "API_KEY", "\"5fd3179013023f879d5716d44c65c9a6\"")
+            buildConfigField("String", "MOVIE_IMAGE_URL", "\"https://image.tmdb.org/t/p/\"")
+
+        }
+
+        premaster {
+            dimension "default"
+            resValue "string", "app_name", "The Movie DB"
+            applicationIdSuffix ".staging"
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+            buildConfigField("String", "API_KEY", "\"5fd3179013023f879d5716d44c65c9a6\"")
+            buildConfigField("String", "MOVIE_IMAGE_URL", "\"https://image.tmdb.org/t/p/\"")
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     buildTypes {
@@ -40,6 +73,7 @@ dependencies {
 
     //core
     implementation "androidx.core:core-ktx:$coreVersion"
+    implementation "androidx.legacy:legacy-support-v4:$lagacySuportyversion"
     implementation "com.android.support:multidex:$multidexVersion"
 
     //Ui
@@ -47,13 +81,33 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    kapt "com.github.bumptech.glide:compiler:$glideCompiler"
-    implementation "com.airbnb.android:lottie:$lottieVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation "de.hdodenhof:circleimageview:$circleImageView"
 
-    //Unit test
+    //Unit Test and Instrumentation Test
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "app.cash.turbine:turbine:$turbinVersion"
+
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation "androidx.test:rules:$testRule"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+    androidTestImplementation "androidx.test:core-ktx:$testCore"
+    androidTestImplementation "com.google.truth:truth:$truthVersion"
+
+
+    //espresso idling resource
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$idlingResourceVersion"
+
+
 
     //Network Retrofit and Okhttp
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -61,18 +115,22 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion"
 
+    //pagination
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationFragmentKtxVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationUiKtxVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationFragmentKtxVersion"
 
-    //Coroutines
+    //Coroutines and test
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCoreVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     //DI Koin
-    implementation "io.insert-koin:koin-core:$koinCoreVersion"
-    implementation "io.insert-koin:koin-android:$koinAndroidVersion"
-    testImplementation "io.insert-koin:koin-test:$koinTestVersion"
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
 
     //Extension activity and fragment, referring with by viewModel
     implementation "androidx.activity:activity-ktx:$activityktxVersion"

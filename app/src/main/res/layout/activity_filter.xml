@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.activity.filter.FilterActivity">
+
+        <RadioGroup
+            android:id="@+id/option_sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_large"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                style="@style/RadioButton"
+                android:checked="true"
+                android:layout_marginTop="@dimen/space_medium_large"
+                android:textSize="@dimen/space_text_large_medium"
+                tools:text="Paling Popular" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                style="@style/RadioButton"
+                android:checked="true"
+                android:layout_marginTop="@dimen/space_medium_large"
+                android:textSize="@dimen/space_text_large_medium"
+                tools:text="Paling Popular" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                style="@style/RadioButton"
+                android:checked="true"
+                android:layout_marginTop="@dimen/space_medium_large"
+                android:textSize="@dimen/space_text_large_medium"
+                tools:text="Paling Popular" />
+
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/filter_genre"
+            style="@style/TextViewMatchParentWrap"
+            android:drawableEnd="@drawable/ic_arrow_up"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_super_small"
+            android:text="@string/genres"
+            android:textSize="@dimen/space_text_super_small"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/option_sort_by" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_filter_genres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/space_super_small"
+            android:paddingEnd="@dimen/space_super_small"
+            app:layout_constraintTop_toBottomOf="@+id/filter_genre"
+            tools:listitem="@layout/item_view_select_filter"
+            tools:itemCount="5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="end|center"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_super_small"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_reset"
+                style="@style/TextViewMaxSize"
+                android:layout_margin="@dimen/space_small"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textSize="@dimen/space_text_large_medium"
+                android:fontFamily="@font/titillium_web_semi_bold"
+                android:text="@string/reset_filter" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_primary"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_margin="@dimen/space_medium_small"
+                android:layout_weight="1"
+                android:background="@drawable/btn_primary"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_text_large_medium"
+                android:fontFamily="@font/titillium_web_semi_bold"
+                tools:text="@string/btn_filter"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

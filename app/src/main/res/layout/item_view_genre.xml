@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layout_content"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="@dimen/space_medium_small"
+        android:paddingEnd="@dimen/space_medium_small">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_genre"
+            style="@style/TextViewBold_Dark"
+            android:lines="1"
+            android:textColor="@color/selector_item_genre"
+            android:textSize="@dimen/space_text_large"
+            tools:text="Action"/>
+
+    </LinearLayout>
+</layout>
